@@ -1,0 +1,49 @@
+
+h1{
+    color: white;
+}
+p{
+    color: white;
+    background-image: url("./images/Blank-black-folder.png");
+}
+a:link{
+    color: whitesmoke;
+}
+a:visited{
+    color: grey;
+}
+#timestamp{
+    color:whitesmoke;
+}
+
+body{
+    background-color: rgb(31, 50, 45);
+    margin: 30px;
+    border-width: 10px;
+    border-style:inherit;
+    border-color: whitesmoke;
+    padding: 5px;
+}
+
+button{
+    background-color: rgb(71, 0, 36);
+    border-width: 3px;
+    border-bottom: 0px;
+    border-radius: 5px;
+    border-style: outset;
+    border-color: rgb(247, 161, 196);
+    color: white;
+}
+
+.folderHeader{
+    color:whitesmoke;
+    font-size: large;
+}
+
+.borderedImage{
+    border-width: 3px;
+    border-style: outset;
+    border-radius: 5px;
+    border-color: rgb(247, 161, 196);
+    margin: 7px;
+}

@@ -8,7 +8,7 @@ fetch('https://smbc-rss-plus.mindflakes.com/rss.xml')
             throw new Error ("Problem fetching feed!");
         }
     })
-    .then(xmlData => {
-        const parser = new DOMParser();
-        const 
-    })
+    // .then(xmlData => {
+    //     const parser = new DOMParser();
+    //     const 
+    // })
