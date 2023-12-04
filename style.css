@@ -1,6 +1,7 @@
 
 h1{
     color: white;
+    font-size: 4vw;
 }
 p{
     color: white;
@@ -29,12 +30,20 @@ body{
 
 button{
     background-color: rgb(71, 0, 36);
-    border-width: 3px;
+    border-top: 3px;
+    border-left: 3px;
     border-bottom: 0px;
-    border-radius: 5px;
+    border-right: 0px;
+    border-radius: 8px;
     border-style: outset;
     border-color: rgb(247, 161, 196);
     color: white;
+    padding: 5px;
+    font-size: large;
+    transition-duration: 0.25s;
+}
+button:hover{
+    background-color: rgb(247, 161, 196);
 }
 
 .folderHeader{
@@ -54,4 +63,7 @@ button{
     background-image: url("./images/Blank-black-folder.png");
     background-repeat: no-repeat;
     background-size: 500px 100%;
+    float: left;
+    width: 50%;
+    padding: 8px;
 }
