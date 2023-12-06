@@ -39,6 +39,14 @@ button{
 button:hover{
     background-color: rgb(247, 161, 196);
 }
+button:active{
+    background-color: rgb(247, 161, 196);
+}
+.contentFeed{
+    padding: 8px;
+    display: none;
+    overflow: hidden;
+}
 
 .folderHeader{
     color:whitesmoke;
@@ -70,7 +78,6 @@ button:hover{
     border-radius: 5px;
     background-color: rgba(4, 32, 35, 0.782);
     padding-top: 0px;
-    
 }
 .row:after{
     content:"";
