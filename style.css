@@ -5,20 +5,7 @@ h1{
 }
 p{
     color: white;
-    background-image: url("./images/Blank-black-folder.png");
 }
-
-a:link{
-    color: whitesmoke;
-}
-a:visited{
-    color: grey
-}
-
-#timestamp{
-    color:whitesmoke;
-}
-
 body{
     background-color: rgb(31, 50, 45);
     margin: 30px;
@@ -26,6 +13,13 @@ body{
     border-style:inherit;
     border-color: whitesmoke;
     padding: 5px;
+}
+
+a:link{
+    color: whitesmoke;
+}
+a:visited{
+    color: grey
 }
 
 button{
@@ -53,17 +47,44 @@ button:hover{
 
 .borderedImage{
     border-width: 3px;
-    border-style: outset;
+    border-style: groove;
     border-radius: 5px;
-    border-color: rgb(247, 161, 196);
+    border-color: black;
     margin: 7px;
 }
 
-.contentFolder{
-    background-image: url("./images/Blank-black-folder.png");
-    background-repeat: no-repeat;
-    background-size: 500px 100%;
-    float: left;
-    width: 50%;
-    padding: 8px;
+/* two column reponsive layout */
+*{
+    box-sizing:content-box ;
 }
+.contentFolder{
+    /* background-image: url("./images/Blank-black-folder.png");
+    background-repeat: no-repeat;
+    background-size: 500px 100%; */
+    float: left;
+    width: 45%;
+    padding: 4px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    background-color: rgba(4, 32, 35, 0.782);
+    padding-top: 0px;
+    
+}
+.row:after{
+    content:"";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 600px) {
+    .contentFolder{
+        width: 100%;
+    }
+}
+
+#timestamp{
+    color:whitesmoke;
+    font-size: 2vw;
+}
+
