@@ -16,8 +16,7 @@ for (i = 0; i < coll.length; i++) {
         var contentFeedStyle = window.getComputedStyle(contentFeed);
         if (contentFeedStyle.display === "block" || contentFeedStyle.display === "") {
             contentFeed.style.display = "none";
-        }
-            else{
+        }   else{
                 contentFeed.display = "block";
             }
     });

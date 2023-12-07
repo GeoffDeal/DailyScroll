@@ -11,9 +11,11 @@ p{
 }
 body{
     background-color: rgb(31, 50, 45);
-    margin: 15px;
+    /* margin: 15px; */
 }
-
+ul{
+    list-style-type: none;
+}
 a:link{
     color: whitesmoke;
 }
@@ -22,7 +24,14 @@ a:visited{
 }
 
 
-
+.header{
+    background-color: rgba(4, 32, 35, 0.782);
+    padding: 10px;
+    border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
 .collapsible{
     background-color: rgb(71, 0, 36);
     border-top: 3px;
@@ -66,33 +75,38 @@ a:visited{
     margin: 7px;
 }
 
+
 /* two column reponsive layout with menu */
 
 
 .menu{
     position: fixed;
-    width: 150px;
-    height: 100%;
-    left: 0;
-    background-color: black;
-    padding-top: 20px;
+    height: 50px;
+    width: 100%;
+    bottom: 0;
+    background-color: rgb(41, 41, 41);
+    border-color: rgb(18, 18, 18);
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
 
 }
 .menuButton{
     background-color: rgba(4, 32, 35, 0.782);
-    border-top: 3px;
-    border-left: 3px;
-    border-bottom: 0px;
-    border-right: 0px;
     border-radius: 8px;
-    border-style: outset;
-    border-color: rgb(52, 84, 76);
     color: white;
-    padding: 5px;
+    padding: 6px;
     font-size: large;
     transition-duration: 0.25s;
+    left: 0;
+}
+.butt-group{
+    margin: 0;
+    position: relative;
+    left:38vw;
 }
 .menuButton:hover{
     background-color: rgb(247, 161, 196);
@@ -101,15 +115,19 @@ a:visited{
     background-color: rgb(247, 161, 196);
 }
 .contentFolder{
-    float: right;
-    width: 42%;
+    float: left;
+    width: 49%;
     padding: 4px;
-    border-width: 3px;
+    border-width: 2px;
     border-style: solid;
     border-color: black;
     border-radius: 5px;
     background-color: rgba(4, 32, 35, 0.782);
     padding-top: 0px;
+}
+.row{
+    margin-top: 7px;
+    margin-bottom: 50px;
 }
 .row:after{
     content:"";
