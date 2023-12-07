@@ -1,4 +1,7 @@
-
+*{
+    box-sizing: content-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 h1{
     color: white;
     font-size: 4vw;
@@ -8,11 +11,7 @@ p{
 }
 body{
     background-color: rgb(31, 50, 45);
-    margin: 30px;
-    border-width: 10px;
-    border-style:inherit;
-    border-color: whitesmoke;
-    padding: 5px;
+    margin: 15px;
 }
 
 a:link{
@@ -22,7 +21,9 @@ a:visited{
     color: grey
 }
 
-button{
+
+
+.collapsible{
     background-color: rgb(71, 0, 36);
     border-top: 3px;
     border-left: 3px;
@@ -36,16 +37,20 @@ button{
     font-size: large;
     transition-duration: 0.25s;
 }
-button:hover{
+.collapsible:hover{
     background-color: rgb(247, 161, 196);
 }
-button:active{
+.collapsible:active{
     background-color: rgb(247, 161, 196);
 }
 .contentFeed{
     padding: 8px;
     display: none;
     overflow: hidden;
+}
+.contentFeed.active{
+    padding: 8px;
+    display: block;
 }
 
 .folderHeader{
@@ -61,16 +66,43 @@ button:active{
     margin: 7px;
 }
 
-/* two column reponsive layout */
-*{
-    box-sizing:content-box ;
+/* two column reponsive layout with menu */
+
+
+.menu{
+    position: fixed;
+    width: 150px;
+    height: 100%;
+    left: 0;
+    background-color: black;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+.menuButton{
+    background-color: rgba(4, 32, 35, 0.782);
+    border-top: 3px;
+    border-left: 3px;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-radius: 8px;
+    border-style: outset;
+    border-color: rgb(52, 84, 76);
+    color: white;
+    padding: 5px;
+    font-size: large;
+    transition-duration: 0.25s;
+}
+.menuButton:hover{
+    background-color: rgb(247, 161, 196);
+}
+.menuButton:active{
+    background-color: rgb(247, 161, 196);
 }
 .contentFolder{
-    /* background-image: url("./images/Blank-black-folder.png");
-    background-repeat: no-repeat;
-    background-size: 500px 100%; */
-    float: left;
-    width: 45%;
+    float: right;
+    width: 42%;
     padding: 4px;
     border-width: 3px;
     border-style: solid;
@@ -89,6 +121,7 @@ button:active{
         width: 100%;
     }
 }
+
 
 #timestamp{
     color:whitesmoke;
