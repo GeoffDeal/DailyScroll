@@ -54,7 +54,7 @@ a:visited{
 }
 .contentFeed{
     padding: 8px;
-    display: none;
+    display: block;
     overflow: hidden;
 }
 .contentFeed.active{

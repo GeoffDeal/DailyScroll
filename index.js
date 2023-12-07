@@ -4,7 +4,7 @@ const date =  unformatedDate.toLocaleString();
 document.getElementById('timestamp').innerHTML = date;
 
 
-// Collapsilbe buttons
+// Collapsible buttons
 
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -17,7 +17,8 @@ for (i = 0; i < coll.length; i++) {
         if (contentFeedStyle.display === "block" || contentFeedStyle.display === "") {
             contentFeed.style.display = "none";
         }   else{
-                contentFeed.display = "block";
+                contentFeed.style.display = "block";
             }
+        
     });
 };
