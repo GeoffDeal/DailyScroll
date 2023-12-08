@@ -23,7 +23,6 @@ a:visited{
     color: grey
 }
 
-
 .header{
     background-color: rgba(4, 32, 35, 0.782);
     padding: 10px;
@@ -32,6 +31,15 @@ a:visited{
     border-style: solid;
     border-width: 2px;
 }
+.borderedImage{
+    border-width: 3px;
+    border-style: groove;
+    border-radius: 5px;
+    border-color: black;
+    margin: 7px;
+}
+
+/* Collapsible styling */
 .collapsible{
     background-color: rgb(71, 0, 36);
     border-top: 3px;
@@ -66,19 +74,12 @@ a:visited{
     color:whitesmoke;
     font-size: large;
 }
-
-.borderedImage{
-    border-width: 3px;
-    border-style: groove;
-    border-radius: 5px;
-    border-color: black;
-    margin: 7px;
+#timestamp{
+    color:whitesmoke;
+    font-size: 2vw;
 }
 
-
 /* two column reponsive layout with menu */
-
-
 .menu{
     position: fixed;
     height: 50px;
@@ -116,7 +117,7 @@ a:visited{
 }
 .contentFolder{
     float: left;
-    width: 49%;
+    width: 99%;
     padding: 4px;
     border-width: 2px;
     border-style: solid;
@@ -125,6 +126,10 @@ a:visited{
     background-color: rgba(4, 32, 35, 0.782);
     padding-top: 0px;
 }
+.contentFolder.active{
+    width: 49%;
+}
+
 .row{
     margin-top: 7px;
     margin-bottom: 50px;
@@ -140,9 +145,44 @@ a:visited{
     }
 }
 
+/* Menu forms */
 
-#timestamp{
-    color:whitesmoke;
-    font-size: 2vw;
+.popupForm {
+    display: none;
+    position: fixed;
+    bottom: 60px;
+    left: 40vw;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(41, 41, 41);
+    border-radius: 8px;
+    z-index: 5;
+    padding: 8px;
+    background-color: rgb(41, 41, 41);
 }
-
+.formContainter{
+    max-width: 300px;
+    padding: 50px;
+    background-color: rgb(41, 41, 41);
+}
+.formButton{
+    background-color: rgba(4, 32, 35, 0.782);
+    border-radius: 8px;
+    color: white;
+    padding: 6px;
+    font-size: large;
+    transition-duration: 0.25s;
+}
+.formButton:hover{
+    background-color: rgb(247, 161, 196);
+}
+.formButton:active{
+    background-color: rgb(247, 161, 196);
+}
+.formContainter input[type=text] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px;
+    border: none;
+    background: white;
+}

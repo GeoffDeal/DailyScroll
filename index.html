@@ -16,9 +16,19 @@
 
     <div class="menu">
         <div class="butt-group">
-            <button type="button" class="menuButton">Add Folder</button>
+            <button type="button" class="menuButton" onclick="openForm(folderForm)">Add Folder</button>
             <button type="button" class="menuButton">Add Feed</button>
             <button type="button" class="menuButton">Favourites</button>
+        </div>
+        <div class="popupForm" id="folderForm">
+            <form class="formContainer">
+                <label for="nfolder">Folder name:</label><br>
+                <input type="text" id="nfolder" name="nfolder"><br>
+                <button type="submit" class="formButton">Create</button>
+                <button type="button" class="formButton" onclick="closeForm(folderForm)">Cancel</button>
+            </form>
+        </div>
+        <div class="popupForm" id="feedForm">
         </div>
     </div>
     <div class="row">
@@ -80,7 +90,6 @@
 
 <script src="./index.js"></script>
 </body>
-
 
 
 </html>

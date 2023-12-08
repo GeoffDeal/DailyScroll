@@ -20,5 +20,16 @@ for (i = 0; i < coll.length; i++) {
                 contentFeed.style.display = "block";
             }
         
+        this.parentNode.classList.toggle("active");
     });
+};
+
+//Popup Forms
+
+function openForm () {
+    document.getElementById("folderForm").style.display = "block";
+};
+
+function closeForm () {
+    document.getElementById("folderForm").style.display = "none";
 };
