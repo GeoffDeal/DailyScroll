@@ -62,7 +62,7 @@ a:visited{
 }
 .contentFeed{
     padding: 8px;
-    display: block;
+    display: none;
     overflow: hidden;
 }
 .contentFeed.active{
@@ -117,7 +117,7 @@ a:visited{
 }
 .contentFolder{
     float: left;
-    width: 99%;
+    width: 49%;
     padding: 4px;
     border-width: 2px;
     border-style: solid;
@@ -125,9 +125,10 @@ a:visited{
     border-radius: 5px;
     background-color: rgba(4, 32, 35, 0.782);
     padding-top: 0px;
+    transition: width 0.3s;
 }
 .contentFolder.active{
-    width: 49%;
+    width: 99%;
 }
 
 .row{
@@ -149,21 +150,33 @@ a:visited{
 
 .popupForm {
     display: none;
-    position: fixed;
+    /* position: fixed;
     bottom: 60px;
-    left: 40vw;
+    left: 30vw; */
     border-width: 2px;
     border-style: solid;
-    border-color: rgb(41, 41, 41);
+    border-color: black;
     border-radius: 8px;
     z-index: 5;
     padding: 8px;
     background-color: rgb(41, 41, 41);
+    color: white;
+}
+#folderForm {
+    position: fixed;
+    bottom: 60px;
+    left: 30vw;
+}
+#feedForm {
+    position: fixed;
+    bottom: 60px;
+    left: 45vw;
 }
 .formContainter{
     max-width: 300px;
     padding: 50px;
     background-color: rgb(41, 41, 41);
+
 }
 .formButton{
     background-color: rgba(4, 32, 35, 0.782);
@@ -172,6 +185,7 @@ a:visited{
     padding: 6px;
     font-size: large;
     transition-duration: 0.25s;
+    margin-top: 5px;
 }
 .formButton:hover{
     background-color: rgb(247, 161, 196);

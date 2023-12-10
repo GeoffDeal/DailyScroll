@@ -26,10 +26,23 @@ for (i = 0; i < coll.length; i++) {
 
 //Popup Forms
 
-function openForm () {
-    document.getElementById("folderForm").style.display = "block";
+function openForm (x) {
+    document.getElementById(x).style.display = "block";
 };
 
-function closeForm () {
-    document.getElementById("folderForm").style.display = "none";
+function closeForm (x) {
+    document.getElementById(x).style.display = "none";
 };
+
+// Creating new folders
+
+function createFolder(){
+    var folderName = document.getElementById('nfolder').value;
+
+    var newFolder = document.createElement('div');
+    newFolder.className = 'contentFolder';
+    newFolder.id = folderName;
+
+    document.getElementById('folderHolder').appendChild(newFolder);
+
+}
