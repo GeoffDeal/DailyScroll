@@ -1,4 +1,5 @@
 // Get current date and time
+
 const unformatedDate = Date();
 const date =  unformatedDate.toLocaleString();
 document.getElementById('timestamp').innerHTML = date;
