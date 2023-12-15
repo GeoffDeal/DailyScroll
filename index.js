@@ -25,6 +25,19 @@ for (i = 0; i < coll.length; i++) {
     });
 };
 
+// Collapsible sidebar
+
+function openSidebar() {
+    var sidebar = document.getElementsByClassName("sidebar");
+
+    if (sidebar.style.display ==="block"||sidebar.style.display ===""){
+        sidebar.style.display = "none";
+    }   else{
+            sidebar.style.display = "block";
+    }
+}
+
+
 //Popup Forms
 
 function openForm (x) {

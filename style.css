@@ -2,18 +2,24 @@ body{
     background-color: rgb(31, 50, 45);
     margin: 0;
 }
+a:link{
+    color: whitesmoke;
+}
+a:visited{
+    color: grey
+}
 
 .header{
     position: fixed;
     top: 0;
-    height:90px;
+    height:auto;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     color: white;
-    font-size: calc(20px+4vw);
+    font-size: 18px;
     background-color: rgb(4, 32, 35);
     border-bottom: 2px;
     border-color: black;
@@ -22,9 +28,10 @@ body{
 }
 .buttGroup{
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 .buttGroup button{
-    background-color: rgba(4, 32, 35, 0.782);
+    background-color: rgb(4, 32, 35);
     border-radius: 8px;
     color: white;
     padding: 6px;
@@ -36,6 +43,66 @@ body{
 }
 .buttGroup button:active{
     background-color: rgb(247, 161, 196);
+}
+.tooltip{
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltipText {
+    opacity: 0;
+    transition: 0.2s;
+    width: auto;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    z-index: 3;
+    position: absolute;
+    top: 100%;
+    right: 50%;
+}
+.tooltip:hover .tooltipText {
+    opacity: 1;
+}
+
+/* Main body styling */
+
+.main{
+    margin-top: 120px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+/* Content folder styling */
+
+.contentFolder {
+    background-color: rgb(4, 32, 35);
+    color: white;
+    padding: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+.tabGroup{
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+.tabGroup button {
+    background-color: rgb(58, 0, 27);
+    padding: 5px;
+    color: white;
+    border: 2px solid black;
+    border-bottom: none;
+    font-size: 20px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+.tabGroup button:active {
+    background-color: rgb(4, 32, 35);
+}
+.tabGroup button:hover {
+    background-color: rgb(4, 32, 35);
 }
 
 /* Form Styling */
@@ -53,13 +120,13 @@ body{
 }
 #folderForm {
     position: fixed;
-    top: 65px;
-    right: 20vw;
+    top: 25px;
+    right: 0;
 }
 #feedForm {
     position: fixed;
-    top: 60px;
-    right: 15vw;
+    top: 25px;
+    right: 0;
 }
 .formContainter{
     max-width: 300px;
@@ -95,10 +162,10 @@ body{
 .sidebar{
     position: fixed;
     height: calc(100% - 110px);
-    width: 180px;
+    width: 200px;
     right: 0;
     bottom: 0;
-    background-color: rgb(41, 41, 41);
+    background-color: rgba(41, 41, 41, 0.75);
     border-color: black;
     border-width: 0 2px 0 2px;
     border-style: solid;
@@ -107,6 +174,7 @@ body{
     padding-bottom: 10px;
     color: white;
     z-index: 1;
+    display: block;
 }
 
 /* *{
@@ -122,12 +190,7 @@ p{
 ul{
     list-style-type: none;
 }
-a:link{
-    color: whitesmoke;
-}
-a:visited{
-    color: grey
-}
+
 
 .header{
     background-color: rgba(4, 32, 35, 0.782);

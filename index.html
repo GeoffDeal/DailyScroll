@@ -6,6 +6,7 @@
     <title>Content Feed +</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <script src="https://kit.fontawesome.com/fb5991556d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
@@ -13,10 +14,10 @@
             
         <div class="menu">
             <div class="buttGroup" id="settingsMenu">
-                <button type="button" class="menuButton" onclick="openForm('folderForm')">Add Folder</button>
-                <button type="button" class="menuButton" onclick="openForm('feedForm')">Add Feed</button>
-                <button type="button" class="menuButton">Favourites</button>
-                <button type="button" class="menuButton">Sidebar</button>
+                <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('folderForm')"><i class="fa-solid fa-folder-plus"></i></button><span class="tooltipText">Add Folder</span></div>
+                <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('feedForm')"><i class="fa-solid fa-file-circle-plus"></i></button><span class="tooltipText">Add Feed</span></div>
+                <div class="tooltip"><button type="button" class="menuButton"><i class="fa-solid fa-star"></i></button><span class="tooltipText">Favourites</span></div>
+                <div class="tooltip"><button type="button" class="menuButton" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
             </div>
             <div class="popupForm" id="folderForm">
                 <form class="formContainer" onsubmit="createFolder()">
@@ -41,68 +42,38 @@
     <div class="sidebar">
         <p>content</p>
     </div>
-    <div class="row">
-        <div class="main flexContainer" id="folderHolder">
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">Weather</button>
-                <div id="weatherTab" class="contentFeed">
-                    <a href="https://github.com/GeoffDeal/RSSfeed-" target="_blank">Content will go here</a>
-                    <br>
-                    <img class="borderedImage" src="./images/sun.jpeg" alt="An image of the sun" width="228" height="221">
-                </div>
+    <div class="main flexContainer" id="folderHolder">
+        <div class="tabGroup" id="folderTabs">
+            <button class="folderTab">All</button>
+            <button class="folderTab">Weather</button>
+            <button class="folderTab">News</button>
+            <button class="folderTab">Comics</button>
+            <button class="folderTab">Test</button>
+            <button class="folderTab">Test</button>
+            <button class="folderTab">Test</button>
+            <button class="folderTab">Test</button>
+            <button class="folderTab">Test</button>
+        </div>
+        <div class="contentFolder">
+            <div id="Weather" class="contentFeed">
+                <a href="https://github.com/GeoffDeal/RSSfeed-" target="_blank">Content will go here</a>
+                <br>
+                <img class="borderedImage" src="./images/sun.jpeg" alt="An image of the sun" width="228" height="221">
             </div>
-    
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">News</button>
-                <div class="contentFeed">    
-                    <p>Content will go here<br> More content</p>
-                </div>
+       
+            <div id="News" class="contentFeed">    
+                <p>Content will go here<br> More content</p>
             </div>
-    
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">Comics</button>
-                <div class="contentFeed">    
-                    <p>Content will go here<br> More content</p>
-                </div>
-            </div>
-    
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">Blogs</button>
-                
-                <div class="contentFeed">    
-                    <p>Content will go here<br> More content</p>
-                </div>
-            </div>
-            
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">Forums</button>
-                <div class="contentFeed">    
-                    <p>Content will go here<br> More content</p>
-                </div>
-            </div>
-    
-            <div class="contentFolder">
-                
-                <button type="button" class="collapsible">Art</button>
-                <div class="contentFeed">    
+
+            <div id="Comics" class="contentFeed">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec dictum neque. Curabitur sem felis, laoreet vitae orci et, sollicitudin elementum sapien. Proin eu suscipit purus, sit amet tempus nunc. Aliquam lobortis eu mi id rhoncus. Curabitur sollicitudin, eros eget malesuada vulputate, sem nunc fringilla diam, eget euismod orci massa ac elit. Etiam non ex vitae nisi pretium condimentum. Donec ac magna enim. Donec iaculis accumsan odio feugiat ultrices. Donec vestibulum, mi vitae tristique tincidunt, nisl orci ullamcorper orci, sed ultricies sapien turpis vel tortor. Sed tincidunt, dolor et vestibulum porta, dolor quam gravida nisi, id ultrices mauris metus sed diam. Proin et quam magna.
+
+                    Cras varius enim non mauris posuere faucibus. Pellentesque vehicula volutpat finibus. Suspendisse fringilla justo id rutrum pretium. In id cursus nibh. Quisque in dolor dictum, pharetra ligula at, viverra nunc. Sed varius, velit id vulputate facilisis, velit purus rutrum nisl, a feugiat dui ligula vel tellus. Suspendisse fermentum ullamcorper turpis sed auctor. Sed semper magna vitae euismod volutpat. Aliquam fringilla, risus quis luctus tincidunt, urna est ullamcorper arcu, non suscipit urna erat nec orci. Aenean vulputate velit ac sem auctor, vel efficitur eros tincidunt. Integer vehicula vulputate justo. Proin finibus eros massa, a venenatis erat posuere eu. Cras at ante ut tortor finibus fermentum eu ut ex. Cras tortor urna, pharetra at varius eget, rutrum sit amet ex. Pellentesque rhoncus lorem nulla, a interdum nibh pharetra vitae. Quisque vel ante lorem.
                     
-                    <p>Content will go here<br>
-                    More content<br>
-                    Test Content<br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique.
-                    Adding enough to text to test scrolling.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget felis aliquam, laoreet arcu vel, fringilla risus. Donec luctus quis turpis eu pulvinar. Aliquam eros diam, bibendum eu elit a, blandit interdum urna. Quisque sed libero aliquam, fringilla velit ut, dictum dui. Nullam tempor commodo nisl, sed lobortis purus fringilla nec. Cras iaculis ligula nec sem vestibulum, eget tempus ex efficitur. Donec ex ex, finibus sit amet venenatis a, dignissim sed quam. Suspendisse dapibus dui et leo finibus rhoncus. Aliquam aliquet tortor vitae diam efficitur rutrum. Pellentesque rhoncus ex sed egestas consectetur. Praesent non lectus interdum, commodo diam quis, iaculis orci.
-    
-                        Phasellus sodales leo vitae dapibus placerat. Donec eget sagittis tortor. Nunc convallis eros quam, non facilisis turpis molestie vitae. Nullam vestibulum tellus ac mollis sodales. Fusce volutpat tempus porttitor. Donec rutrum et nulla ac auctor. Fusce in risus risus. Phasellus hendrerit tellus vitae nibh sollicitudin, sagittis fermentum justo blandit. Ut molestie tincidunt odio, non porta mauris iaculis viverra. Nullam nec porta libero. Duis ut porta mauris. Morbi ultricies viverra est quis tempus. Aliquam ut tortor vel nisi vestibulum eleifend. Cras a purus consectetur, cursus orci vel, auctor dolor. Maecenas pharetra, quam a cursus scelerisque, ipsum mauris feugiat tellus, id ultrices nibh felis in nunc.
-                        
-                        Mauris placerat turpis at purus sollicitudin aliquam. Mauris hendrerit lacus non turpis lobortis, eu bibendum massa sagittis. In eu ullamcorper nunc, eget egestas ipsum. Aenean tempus, enim vitae commodo consectetur, magna felis tempor lacus, eu ullamcorper ligula risus imperdiet enim. Nulla facilisi. Donec dolor purus, consequat nec consectetur quis, semper pretium enim. Suspendisse potenti. Morbi enim urna, lobortis vel magna vel, elementum facilisis ligula. Nulla facilisi. Sed rutrum faucibus mi, ac malesuada odio malesuada eget. </p>
-                </div>
+                    Nunc rutrum lorem ac nisi molestie molestie. Duis ante ligula, convallis ac turpis at, tempor commodo mi. Ut ultrices commodo ante, ac facilisis ex commodo sed. In hac habitasse platea dictumst. Nullam augue mi, consectetur sed porta venenatis, tincidunt nec ex. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur rhoncus mauris ex, ut pharetra orci pharetra ac. Aliquam ut turpis vel ex sodales malesuada vitae non sapien. </p>
             </div>
         </div>
+    
     </div>
 
 <script src="./index.js"></script>
