@@ -1,23 +1,11 @@
-// Get current date and time
-
-const unformatedDate = Date();
-const date =  unformatedDate.toLocaleString();
-document.getElementById('timestamp').innerHTML = date;
-
-
-
+console.log("Test");
 // Collapsible sidebar
 
-function openSidebar() {
-    var sidebar = document.getElementsByClassName("sidebar");
-
-    if (sidebar.style.display ==="block"||sidebar.style.display ===""){
-        sidebar.style.display = "none";
-    }   else{
-            sidebar.style.display = "block";
-    }
+function sideBar() {
+    document.getElementById("sidebar").classList.toggle("menuDisplay");
 }
 
+document.getElementById("sidebarButton").onclick = sideBar;
 
 //Popup Forms
 

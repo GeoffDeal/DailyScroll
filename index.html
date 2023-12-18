@@ -10,36 +10,38 @@
 </head>
 <body>
     <div class="header">
-        <h1>CF+</h1>
-            
-        <div class="menu">
-            <div class="buttGroup" id="settingsMenu">
-                <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('folderForm')"><i class="fa-solid fa-folder-plus"></i></button><span class="tooltipText">Add Folder</span></div>
-                <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('feedForm')"><i class="fa-solid fa-file-circle-plus"></i></button><span class="tooltipText">Add Feed</span></div>
-                <div class="tooltip"><button type="button" class="menuButton"><i class="fa-solid fa-star"></i></button><span class="tooltipText">Favourites</span></div>
-                <div class="tooltip"><button type="button" class="menuButton" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
-            </div>
-            <div class="popupForm" id="folderForm">
-                <form class="formContainer" onsubmit="createFolder()">
-                    <label for="nfolder">Folder name:</label><br>
-                    <input type="text" id="nfolder" name="nfolder"><br>
-                    <button type="submit" class="formButton">Create</button>
-                    <button type="button" class="formButton" onclick="closeForm('folderForm')">Cancel</button>
-                </form>
-            </div>
-            <div class="popupForm" id="feedForm">
-                <form class="formContainer">
-                    <label for="feedname">Feed name:</label><br>
-                    <input type="text" id="feedname" name="feedname"><br>
-                    <label for="feedlink">Feed link:</label><br>
-                    <input type="text" id="feedlink" name="feedlink"><br>
-                    <button type="submit" class="formButton">Add</button>
-                    <button type="button" class="formButton" onclick="closeForm('feedForm')">Cancel</button>
-                </form>
+        <div id="headMenu">
+            <h1>CF+</h1>
+                
+            <div class="menu">
+                <div class="buttGroup" id="settingsMenu">
+                    <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('folderForm')"><i class="fa-solid fa-folder-plus"></i></button><span class="tooltipText">Add Folder</span></div>
+                    <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('feedForm')"><i class="fa-solid fa-file-circle-plus"></i></button><span class="tooltipText">Add Feed</span></div>
+                    <div class="tooltip"><button type="button" class="menuButton"><i class="fa-solid fa-star"></i></button><span class="tooltipText">Favourites</span></div>
+                    <div class="tooltip"><button type="button" class="menuButton" id="sidebarButton"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
+                </div>
+                <div class="popupForm" id="folderForm">
+                    <form class="formContainer" onsubmit="createFolder()">
+                        <label for="nfolder">Folder name:</label><br>
+                        <input type="text" id="nfolder" name="nfolder"><br>
+                        <button type="submit" class="formButton">Create</button>
+                        <button type="button" class="formButton" onclick="closeForm('folderForm')">Cancel</button>
+                    </form>
+                </div>
+                <div class="popupForm" id="feedForm">
+                    <form class="formContainer">
+                        <label for="feedname">Feed name:</label><br>
+                        <input type="text" id="feedname" name="feedname"><br>
+                        <label for="feedlink">Feed link:</label><br>
+                        <input type="text" id="feedlink" name="feedlink"><br>
+                        <button type="submit" class="formButton">Add</button>
+                        <button type="button" class="formButton" onclick="closeForm('feedForm')">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <div class="sidebar">
+    <div id="sidebar">
         <p>content</p>
     </div>
     <div class="main flexContainer" id="folderHolder">
@@ -57,6 +59,7 @@
         <div class="contentFolder">
             <div id="Weather" class="contentFeed">
                 <div class="contentCard">
+                    <div class="cardMenu"><button type="button" class="cardButton" onclick="cardOptions()"><i class="fa-solid fa-bars"></i></button></div>
                     <a href="https://github.com/GeoffDeal/RSSfeed-" target="_blank">Content will go here</a>
                     <br>
                     <img class="borderedImage" src="./images/sun.jpeg" alt="An image of the sun" width="228" height="221">
@@ -65,12 +68,14 @@
        
             <div id="News" class="contentFeed"> 
                 <div class="contentCard">
+                    <div class="cardMenu"><button type="button" class="cardButton" onclick="cardOptions()"><i class="fa-solid fa-bars"></i></button></div>
                     <p>Content will go here<br> More content</p>
                 </div>   
             </div>
 
             <div id="Comics" class="contentFeed">
                 <div class="contentCard">
+                    <div class="cardMenu"><button type="button" class="cardButton" onclick="cardOptions()"><i class="fa-solid fa-bars"></i></button></div>
                     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec dictum neque. Curabitur sem felis, laoreet vitae orci et, sollicitudin elementum sapien. Proin eu suscipit purus, sit amet tempus nunc. Aliquam lobortis eu mi id rhoncus. Curabitur sollicitudin, eros eget malesuada vulputate, sem nunc fringilla diam, eget euismod orci massa ac elit. Etiam non ex vitae nisi pretium condimentum. Donec ac magna enim. Donec iaculis accumsan odio feugiat ultrices. Donec vestibulum, mi vitae tristique tincidunt, nisl orci ullamcorper orci, sed ultricies sapien turpis vel tortor. Sed tincidunt, dolor et vestibulum porta, dolor quam gravida nisi, id ultrices mauris metus sed diam. Proin et quam magna.
                         
                         Cras varius enim non mauris posuere faucibus. Pellentesque vehicula volutpat finibus. Suspendisse fringilla justo id rutrum pretium. In id cursus nibh. Quisque in dolor dictum, pharetra ligula at, viverra nunc. Sed varius, velit id vulputate facilisis, velit purus rutrum nisl, a feugiat dui ligula vel tellus. Suspendisse fermentum ullamcorper turpis sed auctor. Sed semper magna vitae euismod volutpat. Aliquam fringilla, risus quis luctus tincidunt, urna est ullamcorper arcu, non suscipit urna erat nec orci. Aenean vulputate velit ac sem auctor, vel efficitur eros tincidunt. Integer vehicula vulputate justo. Proin finibus eros massa, a venenatis erat posuere eu. Cras at ante ut tortor finibus fermentum eu ut ex. Cras tortor urna, pharetra at varius eget, rutrum sit amet ex. Pellentesque rhoncus lorem nulla, a interdum nibh pharetra vitae. Quisque vel ante lorem.

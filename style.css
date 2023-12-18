@@ -14,10 +14,6 @@ a:visited{
     top: 0;
     height:auto;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
     color: white;
     font-size: 18px;
     background-color: rgb(4, 32, 35);
@@ -25,6 +21,15 @@ a:visited{
     border-color: black;
     border-style: solid;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+#headMenu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 93%;
 }
 .buttGroup{
     margin-right: 10px;
@@ -97,6 +102,7 @@ a:visited{
     font-size: 20px;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
+    margin-right: 2px;
 }
 .tabGroup button:active {
     background-color: rgb(4, 32, 35);
@@ -111,6 +117,26 @@ a:visited{
     border-radius: 5px;
     padding: 5px;
     box-shadow: 2px 2px 10px rgba(1, 1, 1, 0.605);
+    margin-bottom: 5px;
+    position: relative;
+}
+.cardMenu button {
+    background-color: rgb(4, 32, 35);
+    border-radius: 8px;
+    color: white;
+    padding: 6px;
+    font-size: large;
+    transition-duration: 0.25s;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    
+}
+.cardMenu button:hover{
+    background-color: rgb(247, 161, 196);
+}
+.cardMenu button:active{
+    background-color: rgb(247, 161, 196);
 }
 
 /* Form Styling */
@@ -167,10 +193,10 @@ a:visited{
 
 /* Sidebar */
 
-.sidebar{
+#sidebar{
     position: fixed;
     height: calc(100% - 110px);
-    width: 200px;
+    width: 0px;
     right: 0;
     bottom: 0;
     background-color: rgba(41, 41, 41, 0.75);
@@ -183,5 +209,8 @@ a:visited{
     color: white;
     z-index: 1;
     display: block;
+}
+#sidebar.menuDisplay {
+    width: 200px;
 }
 
