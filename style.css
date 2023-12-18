@@ -104,6 +104,14 @@ a:visited{
 .tabGroup button:hover {
     background-color: rgb(4, 32, 35);
 }
+.contentCard {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(4, 32, 35);
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 2px 2px 10px rgba(1, 1, 1, 0.605);
+}
 
 /* Form Styling */
 
@@ -177,108 +185,3 @@ a:visited{
     display: block;
 }
 
-/* *{
-    box-sizing: content-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-
-p{
-    color: white;
-}
-
-ul{
-    list-style-type: none;
-}
-
-
-.header{
-    background-color: rgba(4, 32, 35, 0.782);
-    height: 70px;
-}
-.borderedImage{
-    border-width: 3px;
-    border-style: groove;
-    border-radius: 5px;
-    border-color: black;
-    margin: 7px;
-}
-
-
-
-.collapsible{
-    background-color: rgb(71, 0, 36);
-    border-top: 3px;
-    border-left: 3px;
-    border-bottom: 0px;
-    border-right: 0px;
-    border-radius: 8px;
-    border-style: outset;
-    border-color: rgb(247, 161, 196);
-    color: white;
-    padding: 5px;
-    font-size: large;
-    transition-duration: 0.25s;
-}
-.collapsible:hover{
-    background-color: rgb(247, 161, 196);
-}
-.collapsible:active{
-    background-color: rgb(247, 161, 196);
-}
-.contentFeed{
-    padding: 8px;
-    display: none;
-    overflow: hidden;
-}
-.contentFeed.active{
-    padding: 8px;
-    display: block;
-}
-
-.folderHeader{
-    color:whitesmoke;
-    font-size: large;
-}
-
-
-
- 
-.flexContainer{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: stretch;
-
-}
-.contentFolder{
-    
-    flex: calc(50%-8px);
-    padding: 4px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 5px;
-    background-color: rgba(4, 32, 35, 0.782);
-    padding-top: 0px;
-    transition: width 0.3s;
-    flex-basis: 80px;
-    order: 1;
-}
-.contentFolder.active{
-    flex: 99%;
-    order: 2;
-}
-
-
-@media screen and (max-width: 600px) {
-    .contentFolder{
-        width: 100%;
-    }
-}
-
-
-
-
-
- */
