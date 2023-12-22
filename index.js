@@ -20,12 +20,18 @@ function closeForm (x) {
 // Creating new folders
 
 function createFolder(){
-    var folderName = document.getElementById('nfolder').value;
+    let folderName = document.getElementById('nfolder').value;
 
-    var newFolder = document.createElement('div');
-    newFolder.className = 'contentFolder';
+    let newFolder = document.createElement('div');
+    newFolder.className = 'contentFeed';
     newFolder.id = folderName;
 
-    document.getElementById('folderHolder').appendChild(newFolder);
+    document.getElementById('contentFolder').appendChild(newFolder);
+
+    let newTab = document.createElement('button');
+    newTab.className = 'folderTab';
+    newTab.innerHTML = folderName;
+
+    document.getElementById('folderTabs').appendChild(newTab);
 
 }
