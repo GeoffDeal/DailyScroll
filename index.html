@@ -34,6 +34,7 @@
                         <input type="text" id="feedname" name="feedname"><br>
                         <label for="feedlink">Feed link:</label><br>
                         <input type="text" id="feedlink" name="feedlink"><br>
+                        <div id="folderRadios"></div>
                         <button type="submit" class="formButton">Add</button>
                         <button type="button" class="formButton" onclick="closeForm('feedForm')">Cancel</button>
                     </form>
@@ -46,10 +47,10 @@
     </div>
     <div class="main flexContainer" id="folderHolder">
         <div class="tabGroup" id="folderTabs">
-            <button class="folderTab">All</button>
-            <button class="folderTab">Weather</button>
-            <button class="folderTab">News</button>
-            <button class="folderTab">Comics</button>
+            <button class="folderTab" id="tabAll">All</button>
+            <button class="folderTab" id="tabWeather">Weather</button>
+            <button class="folderTab" id="tabNews">News</button>
+            <button class="folderTab" id="tabComics">Comics</button>
         </div>
         <div id="contentFolder">
             <div id="Weather" class="contentFeed">
