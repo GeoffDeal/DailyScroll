@@ -1,4 +1,3 @@
-console.log("Test");
 // Collapsible sidebar
 
 function sideBar() {
@@ -7,16 +6,16 @@ function sideBar() {
 
 document.getElementById("sidebarButton").onclick = sideBar;
 
-// Tab Switching Display
+// Tab Switching Display Function
 
 function tabDisplay(whichTab) {
 
     let feedContent = document.getElementsByClassName("contentFeed");
-    for (let i = 0; feedContent.length; i++) {
+    for (let i = 0; i < feedContent.length; i++) {
         feedContent[i].classList.remove("contentDisplay");
     }
     let tabList = document.getElementsByClassName("tabGroup");
-    for (let i = 0; tabList.length; i++) {
+    for (let i = 0; i < tabList.length; i++) {
         tabList[i].classList.remove("active");
     }
 
@@ -77,4 +76,12 @@ function createFolder(){
 
     document.getElementById('folderTabs').appendChild(newTab);
 
+}
+
+// Adding Display Function to Buttons
+
+let tabButtons = document.getElementsByClassName('folderTab');
+
+for (let i = 1; i < tabButtons.length; i++) {
+    tabButtons[i].addEventListener("click", tabDisplay());
 }
