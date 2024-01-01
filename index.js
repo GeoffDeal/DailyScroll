@@ -14,7 +14,7 @@ function tabDisplay(whichTab) {
     for (let i = 0; i < feedContent.length; i++) {
         feedContent[i].classList.remove("contentDisplay");
     }
-    let tabList = document.getElementsByClassName("tabGroup");
+    let tabList = document.getElementsByClassName("folderTab");
     for (let i = 0; i < tabList.length; i++) {
         tabList[i].classList.remove("active");
     }
@@ -22,6 +22,24 @@ function tabDisplay(whichTab) {
     document.getElementById(whichTab).classList.add("contentDisplay");
     document.getElementById("tab" + whichTab).classList.add("active");
 }
+
+//  All Tab Display
+
+function allTabDisplay() {
+
+    let feedContent = document.getElementsByClassName("contentFeed");
+    for (let i = 0; i < feedContent.length; i++) {
+        feedContent[i].classList.add("contentDisplay");
+    }
+    let tabList = document.getElementsByClassName("folderTab");
+    for (let i = 0; i < tabList.length; i++) {
+        tabList[i].classList.remove("active");
+    }
+
+    document.getElementById("tabAll").classList.add("active");
+}
+
+//  Favourites Display
 
 
 
@@ -83,5 +101,8 @@ function createFolder(){
 let tabButtons = document.getElementsByClassName('folderTab');
 
 for (let i = 1; i < tabButtons.length; i++) {
-    tabButtons[i].addEventListener("click", tabDisplay());
+    tabButtons[i].addEventListener("click", function() {
+        let tabID = folderList[i];
+        tabDisplay(tabID);
+    })
 }
