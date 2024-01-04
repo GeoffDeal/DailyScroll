@@ -39,9 +39,6 @@ function allTabDisplay() {
     document.getElementById("tabAll").classList.add("active");
 }
 
-//  Favourites Display
-
-
 
 // Popup Forms and Form Folder List
 
@@ -106,3 +103,17 @@ for (let i = 1; i < tabButtons.length; i++) {
         tabDisplay(tabID);
     })
 }
+
+//  Fetching/Parsing RSS Data
+
+async function getData(url) {
+    let data = await fetch(url);
+    let feedText = await data.text();
+    const xmlDoc = new DOMParser().parseFromString(feedText, "text/xml");
+    console.log(feedText);
+    console.log(xmlDoc);
+}
+
+getData('https://feeds.megaphone.fm/strike-force-five');
+
+getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
