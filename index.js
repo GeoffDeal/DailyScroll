@@ -110,10 +110,46 @@ async function getData(url) {
     let data = await fetch(url);
     let feedText = await data.text();
     const xmlDoc = new DOMParser().parseFromString(feedText, "text/xml");
-    console.log(feedText);
-    console.log(xmlDoc);
+    return xmlDoc;
 }
 
-getData('https://feeds.megaphone.fm/strike-force-five');
+// Construct Content Cards
 
-getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
+function cardConstruct(xml) {
+    let itemsList = xml.getElementsByTagName('item');
+    for (let i = 0; i < itemsList.length ; i++) {
+
+        let linkWrapper = document.createElement('a');
+        let parentFolder = document.getElementById('Comics');
+        parentFolder.appendChild(linkWrapper);
+
+        const itemLink = itemsList[i].getElementsByTagName('link')[0].textContent;
+        linkWrapper.href = itemLink;
+
+        let newCard = document.createElement('div');
+        linkWrapper.appendChild(newCard);
+        newCard.className = "contentCard";
+
+        const itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
+        let newTitle = document.createElement('h3');
+        newCard.appendChild(newTitle);
+        newTitle.innerHTML = itemTitle;
+    }
+
+}
+
+
+// Display test
+
+// async function displayContent (xmlDocument) {
+//     let articleTitles = xmlDocument.getElementsByTagName('title');
+//     for (i = 0; i < articleTitles.length; i++) {
+//         console.log(articleTitles[i].textContent)
+//     }
+// }
+
+// getData('https://feeds.megaphone.fm/strike-force-five');
+// getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
+getData("https://smbc-rss-plus.mindflakes.com/rss.xml")
+    .then(cardConstruct)
+    
