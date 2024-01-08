@@ -1,3 +1,36 @@
+// localStorage.clear();
+// Storing and Retrieving Folder Settings
+let storedFolders;
+let folderList = JSON.parse(localStorage.getItem("storedFolders"));
+
+if (folderList === null){
+    folderList = ["Comics"];
+ }
+ 
+
+function addFolder() {
+
+    if (typeof(Storage) !== undefined) {
+        
+        let folderName = document.getElementById('nfolder').value;
+        folderList.push(folderName);
+        let folderString = JSON.stringify(folderList);
+        localStorage.setItem("storedFolders",folderString);
+    
+     } else {
+        console.log("Local storage not supported")
+     }
+}
+
+// Clear Local Storage Button
+
+function clearSettings (){
+    if (confirm("Are you sure you wish to clear settings?")){
+        localStorage.clear();
+        location.reload();
+    }
+}
+
 // Collapsible sidebar
 
 function sideBar() {
@@ -50,9 +83,8 @@ function closeForm (x) {
     document.getElementById(x).style.display = "none";
 };
 
-const folderList = ["All", "Weather", "News", "Comics"];
 
-for (let i = 1; i < folderList.length; i++) {
+for (let i = 0; i < folderList.length; i++) {
     let radioContainer = document.getElementById("folderRadios");
 
     let radio = document.createElement("input");
@@ -71,23 +103,20 @@ for (let i = 1; i < folderList.length; i++) {
     radioContainer.appendChild(lineBreak);
 }
 
-// Creating new folders
+// Creating folders
 
-function createFolder(){
-    let folderName = document.getElementById('nfolder').value;
-
-    folderList.push(folderName);
+for ( i=0; i < folderList.length; i++) {
 
     let newFolder = document.createElement('div');
     newFolder.className = 'contentFeed';
-    newFolder.id = folderName;
+    newFolder.id = folderList[i];
 
     document.getElementById('contentFolder').appendChild(newFolder);
 
     let newTab = document.createElement('button');
     newTab.className = 'folderTab';
-    newTab.id = 'tab' + folderName;
-    newTab.innerHTML = folderName;
+    newTab.id = 'tab' + folderList[i];
+    newTab.innerHTML = folderList[i];
 
     document.getElementById('folderTabs').appendChild(newTab);
 
@@ -99,7 +128,7 @@ let tabButtons = document.getElementsByClassName('folderTab');
 
 for (let i = 1; i < tabButtons.length; i++) {
     tabButtons[i].addEventListener("click", function() {
-        let tabID = folderList[i];
+        let tabID = folderList[i-1];
         tabDisplay(tabID);
     })
 }
@@ -107,9 +136,14 @@ for (let i = 1; i < tabButtons.length; i++) {
 //  Fetching/Parsing RSS Data
 
 async function getData(url) {
+    console.log("Trying...");
     let data = await fetch(url);
+    if (!data.ok) {
+        throw new Error("Could Not Retrieve Data");
+    }
     let feedText = await data.text();
     const xmlDoc = new DOMParser().parseFromString(feedText, "text/xml");
+    console.log("Got Feed!");
     return xmlDoc;
 }
 
@@ -118,7 +152,7 @@ async function getData(url) {
 function cardConstruct(xml) {
     let itemsList = xml.getElementsByTagName('item');
     for (let i = 0; i < itemsList.length ; i++) {
-
+        console.log(itemsList[i])
         let linkWrapper = document.createElement('a');
         let parentFolder = document.getElementById('Comics');
         parentFolder.appendChild(linkWrapper);
@@ -130,10 +164,25 @@ function cardConstruct(xml) {
         linkWrapper.appendChild(newCard);
         newCard.className = "contentCard";
 
+        let newButton = document.createElement('button');
+        newButton.className = "cardButton";
+        newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
+        newCard.appendChild(newButton);
+
         const itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
         let newTitle = document.createElement('h3');
         newCard.appendChild(newTitle);
         newTitle.innerHTML = itemTitle;
+
+        const itemDesc = itemsList[i].getElementsByTagName('description')[0].textContent;
+        let newDesc = document.createElement('p');
+        newCard.appendChild(newDesc);
+        newDesc.innerHTML = itemDesc;
+
+        const itemDate = itemsList[i].getElementsByTagName('pubDate')[0].textContent;
+        let newDate = document.createElement('p');
+        newCard.appendChild(newDate);
+        newDate.innerHTML = itemDate;
     }
 
 }
@@ -148,8 +197,12 @@ function cardConstruct(xml) {
 //     }
 // }
 
-// getData('https://feeds.megaphone.fm/strike-force-five');
+// getData("https://feeds.megaphone.fm/strike-force-five")
+//     .then(cardConstruct)   
 // getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
+//     .then(cardConstruct)
 getData("https://smbc-rss-plus.mindflakes.com/rss.xml")
     .then(cardConstruct)
+// getData("https://xkcd.com/rss.xml")
+//     .then(cardConstruct)
     

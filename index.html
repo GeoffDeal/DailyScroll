@@ -21,7 +21,7 @@
                     <div class="tooltip"><button type="button" class="menuButton" id="sidebarButton"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
                 </div>
                 <div class="popupForm" id="folderForm">
-                    <form class="formContainer" onsubmit="createFolder()">
+                    <form class="formContainer" onsubmit="addFolder()">
                         <label for="nfolder">Folder name:</label><br>
                         <input type="text" id="nfolder" name="nfolder"><br>
                         <button type="submit" class="formButton">Create</button>
@@ -43,35 +43,19 @@
         </div>
     </div>
     <div id="sidebar">
-        <p>content</p>
+        <button onclick="clearSettings()">Clear Saved Inputs</button>
     </div>
     <div class="main flexContainer" id="folderHolder">
         <div class="tabGroup" id="folderTabs">
-            <button class="folderTab" id="tabAll" onclick="allTabDisplay()">All</button>
-            <button class="folderTab" id="tabWeather">Weather</button>
-            <button class="folderTab" id="tabNews">News</button>
-            <button class="folderTab" id="tabComics">Comics</button>
+            <button class="folderTab" id="tabAll" onclick="allTabDisplay()">All</button> 
+            
+            <!-- <button class="folderTab" id="tabComics">Comics</button>  -->
         </div>
         <div id="contentFolder">
-            <div id="Weather" class="contentFeed">
-                <div class="contentCard">
-                    <div class="cardMenu"><button type="button" class="cardButton" onclick="cardOptions()"><i class="fa-solid fa-bars"></i></button></div>
-                    <a href="https://github.com/GeoffDeal/RSSfeed-" target="_blank">Content will go here</a>
-                    <br>
-                    <img class="borderedImage" src="./images/sun.jpeg" alt="An image of the sun" width="228" height="221">
-                </div>
-            </div>
-       
-            <div id="News" class="contentFeed"> 
-                <div class="contentCard">
-                    <div class="cardMenu"><button type="button" class="cardButton" onclick="cardOptions()"><i class="fa-solid fa-bars"></i></button></div>
-                    <p>Content will go here<br> More content</p>
-                </div>   
-            </div>
-
+<!--             
             <div id="Comics" class="contentFeed">
-            
-            </div>
+                
+            </div> -->
         </div>
     
     </div>
