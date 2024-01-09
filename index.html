@@ -43,19 +43,27 @@
         </div>
     </div>
     <div id="sidebar">
+        <button onclick="openForm('weatherForm')">Setup Weather</button>
+        <div class="popupForm" id="weatherForm">
+            <form class="formContainer" onsubmit="createWeather()">
+                <label for="postalcode">Postal Code:</label><br>
+                <input type="text" id="postalcode" name="postalcode"><br>
+                <label for="countryinput">Country:</label><br>
+                <input type="text" id="countryinput" name="countryinput">
+                <button type="submit" class="formButton">Create</button>
+                <button type="button" class="formButton" onclick="closeForm('weatherForm')">Cancel</button>
+            </form>
+        </div>
+        <button>Export Settings</button>
         <button onclick="clearSettings()">Clear Saved Inputs</button>
     </div>
-    <div class="main flexContainer" id="folderHolder">
+    <div class="main" id="folderHolder">
         <div class="tabGroup" id="folderTabs">
             <button class="folderTab" id="tabAll" onclick="allTabDisplay()">All</button> 
-            
-            <!-- <button class="folderTab" id="tabComics">Comics</button>  -->
+        
         </div>
-        <div id="contentFolder">
-<!--             
-            <div id="Comics" class="contentFeed">
-                
-            </div> -->
+        <div class="flexContainer" id="contentFolder">
+
         </div>
     
     </div>

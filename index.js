@@ -1,4 +1,4 @@
-// localStorage.clear();
+
 // Storing and Retrieving Folder Settings
 let storedFolders;
 let folderList = JSON.parse(localStorage.getItem("storedFolders"));
@@ -13,14 +13,26 @@ function addFolder() {
     if (typeof(Storage) !== undefined) {
         
         let folderName = document.getElementById('nfolder').value;
-        folderList.push(folderName);
-        let folderString = JSON.stringify(folderList);
-        localStorage.setItem("storedFolders",folderString);
+        if (folderName !== ''){
+            folderList.push(folderName);
+            let folderString = JSON.stringify(folderList);
+            localStorage.setItem("storedFolders",folderString);
+        } else {
+            closeForm('folderForm');
+        }
     
      } else {
         console.log("Local storage not supported")
      }
 }
+
+// Collapsible sidebar
+
+function sideBar() {
+    document.getElementById("sidebar").classList.toggle("menuDisplay");
+}
+
+document.getElementById("sidebarButton").onclick = sideBar;
 
 // Clear Local Storage Button
 
@@ -31,13 +43,22 @@ function clearSettings (){
     }
 }
 
-// Collapsible sidebar
+// Setup Weather Widget
 
-function sideBar() {
-    document.getElementById("sidebar").classList.toggle("menuDisplay");
+function createWeather() {
+    let newFolder = document.createElement('div');
+    newFolder.className = 'contentFeed';
+    newFolder.id = "Weather";
+
+    document.getElementById('contentFolder').appendChild(newFolder);
+
+    let newTab = document.createElement('button');
+    newTab.className = 'folderTab';
+    newTab.id = 'tabWeather';
+    newTab.innerHTML = 'Weather';
+
+    document.getElementById('folderTabs').appendChild(newTab);
 }
-
-document.getElementById("sidebarButton").onclick = sideBar;
 
 // Tab Switching Display Function
 
@@ -157,8 +178,10 @@ function cardConstruct(xml) {
         let parentFolder = document.getElementById('Comics');
         parentFolder.appendChild(linkWrapper);
 
-        const itemLink = itemsList[i].getElementsByTagName('link')[0].textContent;
-        linkWrapper.href = itemLink;
+        if (itemsList[i].getElementsByTagName('link')[0] !== undefined){
+            const itemLink = itemsList[i].getElementsByTagName('link')[0].textContent;
+            linkWrapper.href = itemLink;
+        }
 
         let newCard = document.createElement('div');
         linkWrapper.appendChild(newCard);
@@ -169,36 +192,33 @@ function cardConstruct(xml) {
         newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
         newCard.appendChild(newButton);
 
-        const itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
+        let itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
         let newTitle = document.createElement('h3');
         newCard.appendChild(newTitle);
         newTitle.innerHTML = itemTitle;
 
-        const itemDesc = itemsList[i].getElementsByTagName('description')[0].textContent;
+        let itemDesc = itemsList[i].getElementsByTagName('description')[0].textContent;
         let newDesc = document.createElement('p');
         newCard.appendChild(newDesc);
         newDesc.innerHTML = itemDesc;
 
-        const itemDate = itemsList[i].getElementsByTagName('pubDate')[0].textContent;
+        let itemDate = itemsList[i].getElementsByTagName('pubDate')[0].textContent;
         let newDate = document.createElement('p');
         newCard.appendChild(newDate);
         newDate.innerHTML = itemDate;
+        
+        itemDate = itemDate.replace(/\w{3}, /,'');
+        timestamp = Date.parse(itemDate);
+        newCard.id = timestamp;
     }
 
 }
 
 
-// Display test
 
-// async function displayContent (xmlDocument) {
-//     let articleTitles = xmlDocument.getElementsByTagName('title');
-//     for (i = 0; i < articleTitles.length; i++) {
-//         console.log(articleTitles[i].textContent)
-//     }
-// }
 
-// getData("https://feeds.megaphone.fm/strike-force-five")
-//     .then(cardConstruct)   
+getData("https://feeds.megaphone.fm/strike-force-five")
+    .then(cardConstruct)   
 // getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
 //     .then(cardConstruct)
 getData("https://smbc-rss-plus.mindflakes.com/rss.xml")
