@@ -170,10 +170,11 @@ async function getData(url) {
 
 // Construct Content Cards
 
+const cardArray = [];
+
 function cardConstruct(xml) {
     let itemsList = xml.getElementsByTagName('item');
     for (let i = 0; i < itemsList.length ; i++) {
-        console.log(itemsList[i])
         let linkWrapper = document.createElement('a');
         let parentFolder = document.getElementById('Comics');
         parentFolder.appendChild(linkWrapper);
@@ -206,23 +207,34 @@ function cardConstruct(xml) {
         let newDate = document.createElement('p');
         newCard.appendChild(newDate);
         newDate.innerHTML = itemDate;
-        
+
         itemDate = itemDate.replace(/\w{3}, /,'');
         timestamp = Date.parse(itemDate);
         newCard.id = timestamp;
+        cardArray.push(timestamp);
     }
 
 }
+// Card Sorting and Display
+const rssList = ["https://www.comicsrss.com/rss/garfield.rss", "https://smbc-rss-plus.mindflakes.com/rss.xml"]
+
+function getAllFeeds (array) {
+    for (let i =0 ; i < array.length; i++) {
+        getData(array[i])
+            .then(cardConstruct)
+    }
+    console.log(cardArray);
+    cardArray.sort(function (a, b) {
+        return b - a
+    });
+    console.log(cardArray);
+}
+getAllFeeds(rssList);
 
 
+// Additional feeds:
+// https://xkcd.com/rss.xml
+// https://feeds.megaphone.fm/strike-force-five
+// https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland
 
 
-getData("https://feeds.megaphone.fm/strike-force-five")
-    .then(cardConstruct)   
-// getData("https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland")
-//     .then(cardConstruct)
-getData("https://smbc-rss-plus.mindflakes.com/rss.xml")
-    .then(cardConstruct)
-// getData("https://xkcd.com/rss.xml")
-//     .then(cardConstruct)
-    
