@@ -28,11 +28,36 @@ function addFolder() {
 
 // Feed object constructor
 
-function Feed(feedName, url, folder) {
-    this.feedName = feedName;
+function Feed(name, url, folder) {
+    this.name = name;
     this.url = url;
     this.folder = folder;
 } 
+
+function saveFeed() {
+
+    let feedName = document.getElementById('feedname');
+    let feedLink = document.getElementById('feedlink');
+    let radios = document.getElementsByName('folderChoice');
+    let selectedRadio;
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            selectedRadio = radios[i].value
+        }
+    }
+    try {
+        if (feedName === '' || feedLink === '' || selectedRadio === ''){
+            throw "Please fill in all fields.";
+        }
+        else {
+            const testObject = new Feed(feedName, feedLink, selectedRadio);
+            console.log(testObject.url);
+        }
+    }
+    catch (err) {
+        alert(err)
+    }
+}
 
 
 
