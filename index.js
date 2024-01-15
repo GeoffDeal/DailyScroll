@@ -26,6 +26,18 @@ function addFolder() {
      }
 }
 
+// Feed object constructor
+
+function Feed(feedName, url, folder) {
+    this.feedName = feedName;
+    this.url = url;
+    this.folder = folder;
+} 
+
+
+
+
+
 // Collapsible sidebar
 
 function sideBar() {
@@ -154,6 +166,8 @@ for (let i = 1; i < tabButtons.length; i++) {
     })
 }
 
+
+
 //  Fetching/Parsing RSS Data
 
 async function getData(url) {
@@ -171,6 +185,7 @@ async function getData(url) {
 // Construct Content Cards
 
 const cardArray = [];
+
 
 function cardConstruct(xml) {
     let itemsList = xml.getElementsByTagName('item');
@@ -221,15 +236,28 @@ const rssList = ["https://www.comicsrss.com/rss/garfield.rss", "https://smbc-rss
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
         getData(array[i])
-            .then(cardConstruct)
-    }
-    console.log(cardArray);
-    cardArray.sort(function (a, b) {
-        return b - a
-    });
-    console.log(cardArray);
+            .then(xml => cardConstruct(xml))
+        }
 }
+
+// Joshua's getAllFeeds
+
+// function getAllFeeds(array) {
+//     const promises = array.map(url => getData(url).then(xml => cardConstruct(xml)));
+//     return Promise.all(promises);
+// }
+
+
+
 getAllFeeds(rssList);
+// console.log(cardArray);
+// console.log(typeof cardArray[0]);
+// cardArray.sort(function(a, b){return a - b});
+// console.log(cardArray);
+
+
+
+
 
 
 // Additional feeds:
