@@ -36,22 +36,22 @@ function Feed(name, url, folder) {
 
 function saveFeed() {
 
-    let feedName = document.getElementById('feedname');
-    let feedLink = document.getElementById('feedlink');
+    let feedName = document.getElementById('feedname').value;
+    let feedLink = document.getElementById('feedlink').value;
     let radios = document.getElementsByName('folderChoice');
     let selectedRadio;
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
-            selectedRadio = radios[i].value
+            selectedRadio = radios[i].value;
         }
     }
     try {
-        if (feedName === '' || feedLink === '' || selectedRadio === ''){
+        if (feedName === '' || feedLink === '' || selectedRadio === undefined){
             throw "Please fill in all fields.";
         }
         else {
             const testObject = new Feed(feedName, feedLink, selectedRadio);
-            console.log(testObject.url);
+            console.log(testObject.folder);
         }
     }
     catch (err) {
