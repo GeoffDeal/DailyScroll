@@ -28,6 +28,8 @@ function addFolder() {
 
 // Feed object constructor
 
+const rssList = [];
+
 function Feed(name, url, folder) {
     this.name = name;
     this.url = url;
@@ -50,8 +52,9 @@ function saveFeed() {
             throw "Please fill in all fields.";
         }
         else {
-            const testObject = new Feed(feedName, feedLink, selectedRadio);
+            const newFeed = new Feed(feedName, feedLink, selectedRadio);
             console.log(testObject.folder);
+            rssList.push(newFeed);
         }
     }
     catch (err) {
@@ -212,11 +215,11 @@ async function getData(url) {
 const cardArray = [];
 
 
-function cardConstruct(xml) {
+function cardConstruct(xml, folder) {
     let itemsList = xml.getElementsByTagName('item');
     for (let i = 0; i < itemsList.length ; i++) {
         let linkWrapper = document.createElement('a');
-        let parentFolder = document.getElementById('Comics');
+        let parentFolder = document.getElementById(folder);
         parentFolder.appendChild(linkWrapper);
 
         if (itemsList[i].getElementsByTagName('link')[0] !== undefined){
@@ -256,12 +259,14 @@ function cardConstruct(xml) {
 
 }
 // Card Sorting and Display
-const rssList = ["https://www.comicsrss.com/rss/garfield.rss", "https://smbc-rss-plus.mindflakes.com/rss.xml"]
+
 
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
-        getData(array[i])
-            .then(xml => cardConstruct(xml))
+        let url = array[i].url;
+        let folder = array[i].folder;
+        getData(url)
+            .then((xml) => cardConstruct(xml, folder))
         }
 }
 
@@ -272,7 +277,9 @@ function getAllFeeds (array) {
 //     return Promise.all(promises);
 // }
 
-
+testObject = new Feed("SMBC", "https://smbc-rss-plus.mindflakes.com/rss.xml", "Comics");
+rssList.push(testObject);
+console.log(testObject.folder);
 
 getAllFeeds(rssList);
 // console.log(cardArray);
@@ -289,5 +296,6 @@ getAllFeeds(rssList);
 // https://xkcd.com/rss.xml
 // https://feeds.megaphone.fm/strike-force-five
 // https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland
-
+// https://www.comicsrss.com/rss/garfield.rss
+// https://smbc-rss-plus.mindflakes.com/rss.xml
 
