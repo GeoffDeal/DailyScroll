@@ -1,12 +1,21 @@
 
-// Storing and Retrieving Folder Settings
+// Retrieving folder and feed settings
+
 let storedFolders;
 let folderList = JSON.parse(localStorage.getItem("storedFolders"));
 
 if (folderList === null){
-    folderList = ["Comics"];
+    folderList = [];
+ }
+
+ let storedFeeds;
+ let rssList = JSON.parse(localStorage.getItem("storedFeeds"));
+
+ if (rssList === null) {
+    rssList = [];
  }
  
+// Adding new folder
 
 function addFolder() {
 
@@ -28,7 +37,7 @@ function addFolder() {
 
 // Feed object constructor
 
-const rssList = [];
+
 
 function Feed(name, url, folder) {
     this.name = name;
@@ -53,8 +62,9 @@ function saveFeed() {
         }
         else {
             const newFeed = new Feed(feedName, feedLink, selectedRadio);
-            console.log(testObject.folder);
             rssList.push(newFeed);
+            let feedString = JSON.stringify(rssList);
+            localStorage.setItem("storedFeeds", feedString);
         }
     }
     catch (err) {
@@ -277,9 +287,9 @@ function getAllFeeds (array) {
 //     return Promise.all(promises);
 // }
 
-testObject = new Feed("SMBC", "https://smbc-rss-plus.mindflakes.com/rss.xml", "Comics");
-rssList.push(testObject);
-console.log(testObject.folder);
+// testObject = new Feed("SMBC", "https://smbc-rss-plus.mindflakes.com/rss.xml", "Comics");
+// rssList.push(testObject);
+// console.log(testObject.folder);
 
 getAllFeeds(rssList);
 // console.log(cardArray);
