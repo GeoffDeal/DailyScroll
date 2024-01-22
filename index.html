@@ -54,6 +54,14 @@
                 <button type="button" class="formButton" onclick="closeForm('weatherForm')">Cancel</button>
             </form>
         </div>
+        <button onclick="openForm('editFeedForm')">Edit/Remove Feeds</button>
+        <div class="popupForm" id="editFeedForm">
+            <label for="feedRadios">Which feed would you like to edit?</label><br>
+            <div id="feedRadiosList"></div>
+            <button>Edit</button>
+            <button>Delete</button>
+            <button onclick="closeForm('editFeedForm')">Cancel</button>
+        </div>
         <button>Export Settings</button>
         <button onclick="clearSettings()">Clear Saved Inputs</button>
     </div>

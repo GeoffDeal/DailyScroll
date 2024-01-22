@@ -1,14 +1,14 @@
 
 // Retrieving folder and feed settings
 
-let storedFolders;
+// let storedFolders;
 let folderList = JSON.parse(localStorage.getItem("storedFolders"));
 
 if (folderList === null){
     folderList = [];
  }
 
- let storedFeeds;
+//  let storedFeeds;
  let rssList = JSON.parse(localStorage.getItem("storedFeeds"));
 
  if (rssList === null) {
@@ -36,8 +36,6 @@ function addFolder() {
 }
 
 // Feed object constructor
-
-
 
 function Feed(name, url, folder) {
     this.name = name;
@@ -72,7 +70,26 @@ function saveFeed() {
     }
 }
 
+// Edit/Remove Feeds
 
+for (let i = 0; i < rssList.length; i++) {
+    let radioContainer = document.getElementById("feedRadiosList");
+
+    let radio = document.createElement("input");
+    radio.type = "radio";
+    radio.id = "radio" + rssList[i].name;
+    radio.name = "feedRadios";
+    radio.value = rssList[i];
+    radioContainer.appendChild(radio);
+
+    let label = document.createElement("label");
+    label.htmlFor = "radio" + rssList[i].name;
+    label.innerHTML = rssList[i].name;
+    radioContainer.appendChild(label);
+
+    let lineBreak = document.createElement("br");
+    radioContainer.appendChild(lineBreak);
+}
 
 
 
@@ -292,6 +309,7 @@ function getAllFeeds (array) {
 // console.log(testObject.folder);
 
 getAllFeeds(rssList);
+console.log(rssList);
 // console.log(cardArray);
 // console.log(typeof cardArray[0]);
 // cardArray.sort(function(a, b){return a - b});
