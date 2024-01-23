@@ -70,7 +70,7 @@ function saveFeed() {
     }
 }
 
-// Edit/Remove Feeds
+// Edit/Remove Feeds Feed List
 
 for (let i = 0; i < rssList.length; i++) {
     let radioContainer = document.getElementById("feedRadiosList");
@@ -79,7 +79,7 @@ for (let i = 0; i < rssList.length; i++) {
     radio.type = "radio";
     radio.id = "radio" + rssList[i].name;
     radio.name = "feedRadios";
-    radio.value = rssList[i];
+    radio.value = i;
     radioContainer.appendChild(radio);
 
     let label = document.createElement("label");
@@ -91,6 +91,32 @@ for (let i = 0; i < rssList.length; i++) {
     radioContainer.appendChild(lineBreak);
 }
 
+// Delete Feed
+
+function deleteFeed() {
+    let radios = document.getElementsByName('feedRadios');
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            selectedRadio = radios[i].value;
+        }
+    }
+    try {
+        if (selectedRadio === undefined) {
+            throw "Please select a feed.";
+        }
+        else {
+            if (confirm("Are you sure you wish to delete this feed?")){
+                rssList.splice(selectedRadio, 1);
+                let feedString = JSON.stringify(rssList);
+                localStorage.setItem("storedFeeds", feedString);
+                closeForm('editFeedForm');
+            }
+        }
+    }
+    catch (err) {
+        alert(err);
+    }
+}
 
 
 // Collapsible sidebar
