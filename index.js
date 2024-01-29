@@ -1,14 +1,12 @@
-
 // Retrieving folder and feed settings
 
-// let storedFolders;
 let folderList = JSON.parse(localStorage.getItem("storedFolders"));
 
 if (folderList === null){
     folderList = [];
  }
 
-//  let storedFeeds;
+
  let rssList = JSON.parse(localStorage.getItem("storedFeeds"));
 
  if (rssList === null) {
@@ -91,17 +89,24 @@ for (let i = 0; i < rssList.length; i++) {
     radioContainer.appendChild(lineBreak);
 }
 
+// Edit Feed
+
+function editFeed() {
+
+}
+
 // Delete Feed
 
 function deleteFeed() {
     let radios = document.getElementsByName('feedRadios');
+    let selectedRadio = -1;
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
             selectedRadio = radios[i].value;
         }
     }
     try {
-        if (selectedRadio === undefined) {
+        if (selectedRadio === -1) {
             throw "Please select a feed.";
         }
         else {
@@ -197,25 +202,28 @@ function closeForm (x) {
     document.getElementById(x).style.display = "none";
 };
 
-
-for (let i = 0; i < folderList.length; i++) {
-    let radioContainer = document.getElementById("folderRadios");
-
-    let radio = document.createElement("input");
-    radio.type = "radio";
-    radio.id = "radio" + folderList[i];
-    radio.name = "folderChoice";
-    radio.value = folderList[i];
-    radioContainer.appendChild(radio);
-
-    let label = document.createElement("label");
-    label.htmlFor = "radio" + folderList[i];
-    label.innerHTML = folderList[i];
-    radioContainer.appendChild(label);
-
-    let lineBreak = document.createElement("br");
-    radioContainer.appendChild(lineBreak);
+function folderListCreate (container) {
+    for (let i = 0; i < folderList.length; i++) {
+        let radioContainer = document.getElementById(container);
+    
+        let radio = document.createElement("input");
+        radio.type = "radio";
+        radio.id = "radio" + folderList[i];
+        radio.name = "folderChoice";
+        radio.value = folderList[i];
+        radioContainer.appendChild(radio);
+    
+        let label = document.createElement("label");
+        label.htmlFor = "radio" + folderList[i];
+        label.innerHTML = folderList[i];
+        radioContainer.appendChild(label);
+    
+        let lineBreak = document.createElement("br");
+        radioContainer.appendChild(lineBreak);
+    }
 }
+folderListCreate("folderRadios");
+folderListCreate("feedFolderChange");
 
 // Creating folders
 
@@ -273,32 +281,32 @@ function cardConstruct(xml, folder) {
     for (let i = 0; i < itemsList.length ; i++) {
         let linkWrapper = document.createElement('a');
         let parentFolder = document.getElementById(folder);
-        parentFolder.appendChild(linkWrapper);
+        parentFolder.appendChild(linkWrapper);    
 
         if (itemsList[i].getElementsByTagName('link')[0] !== undefined){
             const itemLink = itemsList[i].getElementsByTagName('link')[0].textContent;
             linkWrapper.href = itemLink;
-        }
-
+            }
+    
         let newCard = document.createElement('div');
         linkWrapper.appendChild(newCard);
         newCard.className = "contentCard";
-
+    
         let newButton = document.createElement('button');
         newButton.className = "cardButton";
         newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
         newCard.appendChild(newButton);
-
+    
         let itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
         let newTitle = document.createElement('h3');
         newCard.appendChild(newTitle);
         newTitle.innerHTML = itemTitle;
-
+    
         let itemDesc = itemsList[i].getElementsByTagName('description')[0].textContent;
         let newDesc = document.createElement('p');
         newCard.appendChild(newDesc);
         newDesc.innerHTML = itemDesc;
-
+    
         let itemDate = itemsList[i].getElementsByTagName('pubDate')[0].textContent;
         let newDate = document.createElement('p');
         newCard.appendChild(newDate);
@@ -323,6 +331,8 @@ function getAllFeeds (array) {
         }
 }
 
+getAllFeeds(rssList);
+
 // Joshua's getAllFeeds
 
 // function getAllFeeds(array) {
@@ -330,12 +340,7 @@ function getAllFeeds (array) {
 //     return Promise.all(promises);
 // }
 
-// testObject = new Feed("SMBC", "https://smbc-rss-plus.mindflakes.com/rss.xml", "Comics");
-// rssList.push(testObject);
-// console.log(testObject.folder);
 
-getAllFeeds(rssList);
-console.log(rssList);
 // console.log(cardArray);
 // console.log(typeof cardArray[0]);
 // cardArray.sort(function(a, b){return a - b});
