@@ -58,13 +58,12 @@
         <div class="popupForm" id="editFeedForm">
             <label for="feedRadios">Which feed would you like to edit?</label><br>
             <div id="feedRadiosList"></div>
-            <button onclick="openForm('feedChangesForm')">Edit</button>
+            <button onclick="editFeed(); closeForm('editFeedForm')">Edit</button>
             <button onclick="deleteFeed()">Delete</button>
             <button onclick="closeForm('editFeedForm')">Cancel</button>
         </div>
         <div class="popupForm" id="feedChangesForm">
             <p id="feedChangeHeader"></p><br>
-            <p>Fields left blank will retain previous input</p>
             <label for="feedNameChange">New name for feed:</label>
             <input type="text" id="feedNameChange" name="feedNameChange"><br>
             <label for="feedUrlChange">What is the new url:</label>

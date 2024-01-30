@@ -85,41 +85,52 @@ for (let i = 0; i < rssList.length; i++) {
     label.innerHTML = rssList[i].name;
     radioContainer.appendChild(label);
 
-    let lineBreak = document.createElement("br");
-    radioContainer.appendChild(lineBreak);
+    // let lineBreak = document.createElement("br");
+    // radioContainer.appendChild(lineBreak);
 }
 
 // Edit Feed
 
-function editFeed() {
-
-}
-
-// Delete Feed
-
-function deleteFeed() {
+function radioCheck() {
     let radios = document.getElementsByName('feedRadios');
     let selectedRadio = -1;
-    for (let i = 0; i < radios.length; i++) {
+    for (let i=0; i < radios.length; i++) {
         if (radios[i].checked) {
             selectedRadio = radios[i].value;
         }
     }
     try {
         if (selectedRadio === -1) {
-            throw "Please select a feed.";
+            throw "Please select a feed";
         }
         else {
-            if (confirm("Are you sure you wish to delete this feed?")){
-                rssList.splice(selectedRadio, 1);
-                let feedString = JSON.stringify(rssList);
-                localStorage.setItem("storedFeeds", feedString);
-                closeForm('editFeedForm');
-            }
+            return selectedRadio;
         }
     }
-    catch (err) {
+    catch(err) {
         alert(err);
+    }
+}
+
+function editFeed() {
+    openForm('feedChangesForm');
+    const feedObject = rssList[radioCheck()];
+    document.getElementById('feedChangeHeader').innerHTML = "Editing "+feedObject.name;
+    document.getElementById('feedNameChange').value = feedObject.name;
+    document.getElementById('feedUrlChange').value = feedObject.url;
+    document.getElementById('feedFolderChange').value = feedObject.folder;
+
+}
+
+// Delete Feed
+
+function deleteFeed() {
+    const feedDeleted = radioCheck();
+    if (confirm("Are you sure you wish to delete this feed?")){
+        rssList.splice(feedDeleted, 1);
+        let feedString = JSON.stringify(rssList);
+        localStorage.setItem("storedFeeds", feedString);
+        closeForm('editFeedForm');
     }
 }
 
