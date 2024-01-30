@@ -113,24 +113,29 @@ function radioCheck() {
 }
 
 function editFeed() {
-    openForm('feedChangesForm');
     const feedObject = rssList[radioCheck()];
-    document.getElementById('feedChangeHeader').innerHTML = "Editing "+feedObject.name;
-    document.getElementById('feedNameChange').value = feedObject.name;
-    document.getElementById('feedUrlChange').value = feedObject.url;
-    document.getElementById('feedFolderChange').value = feedObject.folder;
+    if (feedObject !== undefined) {
+        openForm('feedChangesForm');
+        document.getElementById('feedChangeHeader').innerHTML = "Editing "+feedObject.name;
+        document.getElementById('feedNameChange').value = feedObject.name;
+        document.getElementById('feedUrlChange').value = feedObject.url;
+        document.getElementById('feedFolderChange').value = feedObject.folder;
+        closeForm('editFeedForm');
 
+    }
 }
 
 // Delete Feed
 
 function deleteFeed() {
     const feedDeleted = radioCheck();
-    if (confirm("Are you sure you wish to delete this feed?")){
-        rssList.splice(feedDeleted, 1);
-        let feedString = JSON.stringify(rssList);
-        localStorage.setItem("storedFeeds", feedString);
-        closeForm('editFeedForm');
+    if (feedDeleted !== undefined) {
+        if (confirm("Are you sure you wish to delete this feed?")){
+            rssList.splice(feedDeleted, 1);
+            let feedString = JSON.stringify(rssList);
+            localStorage.setItem("storedFeeds", feedString);
+            closeForm('editFeedForm');
+        }
     }
 }
 
