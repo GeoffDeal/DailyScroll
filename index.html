@@ -63,15 +63,15 @@
             <button onclick="closeForm('editFeedForm')">Cancel</button>
         </div>
         <div class="popupForm" id="feedChangesForm">
-            <p id="feedChangeHeader"></p><br>
+            <h3 id="feedChangeHeader"></h3><br>
             <label for="feedNameChange">New name for feed:</label>
             <input type="text" id="feedNameChange" name="feedNameChange"><br>
             <label for="feedUrlChange">What is the new url:</label>
             <input type="text" id="feedUrlChange" name="feedUrlChange"><br>
             <label for="feedFolderChange">What folder would you like to place this feed in?</label><br>
             <div id="feedFolderChange"></div>
-            <button>Confirm</button>
-            <button onclick="closeForm('feedChangesForm')">Cancel</button>
+            <button onclick="editFeedConfirm()">Confirm</button>
+            <button onclick="cancelEdit()">Cancel</button>
         </div>
         <button>Export Settings</button>
         <button onclick="clearSettings()">Clear Saved Inputs</button>

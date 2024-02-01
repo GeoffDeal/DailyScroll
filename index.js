@@ -91,8 +91,8 @@ for (let i = 0; i < rssList.length; i++) {
 
 // Edit Feed
 
-function radioCheck() {
-    let radios = document.getElementsByName('feedRadios');
+function radioCheck(radioList) {
+    let radios = document.getElementsByName(radioList);
     let selectedRadio = -1;
     for (let i=0; i < radios.length; i++) {
         if (radios[i].checked) {
@@ -111,18 +111,37 @@ function radioCheck() {
         alert(err);
     }
 }
+let changingFeed = "";
+console.log(changingFeed);
 
 function editFeed() {
-    const feedObject = rssList[radioCheck()];
+    const feedObject = rssList[radioCheck('feedRadios')];
+    changingFeed = rssList[radioCheck('feedRadios')];
     if (feedObject !== undefined) {
         openForm('feedChangesForm');
         document.getElementById('feedChangeHeader').innerHTML = "Editing "+feedObject.name;
         document.getElementById('feedNameChange').value = feedObject.name;
         document.getElementById('feedUrlChange').value = feedObject.url;
-        document.getElementById('feedFolderChange').value = feedObject.folder;
+        document.getElementById("radio" + feedObject.folder + "2").checked = true;
         closeForm('editFeedForm');
-
+        console.log(changingFeed);
     }
+} 
+
+function editFeedConfirm() {
+    console.log(changingFeed);
+    if (confirm("Make these changes?")) {
+        changingFeed.name = document.getElementById('feedNameChange').value;
+        changingFeed.url = document.getElementById('feedUrlChange').value;
+        changingFeed.folder = radioCheck("folderChoiceEdit");
+        console.log(changingFeed);
+        changingFeed = "";
+        closeForm('feedChangesForm');
+    }
+}
+function cancelEdit() {
+    closeForm('feedChangesForm');
+    changingFeed = "";
 }
 
 // Delete Feed
@@ -218,14 +237,14 @@ function closeForm (x) {
     document.getElementById(x).style.display = "none";
 };
 
-function folderListCreate (container) {
+function folderListCreate (container, idNum, uniqueName) {
     for (let i = 0; i < folderList.length; i++) {
         let radioContainer = document.getElementById(container);
     
         let radio = document.createElement("input");
         radio.type = "radio";
-        radio.id = "radio" + folderList[i];
-        radio.name = "folderChoice";
+        radio.id = "radio" + folderList[i] + idNum;
+        radio.name = "folderChoice" + uniqueName;
         radio.value = folderList[i];
         radioContainer.appendChild(radio);
     
@@ -238,8 +257,8 @@ function folderListCreate (container) {
         radioContainer.appendChild(lineBreak);
     }
 }
-folderListCreate("folderRadios");
-folderListCreate("feedFolderChange");
+folderListCreate("folderRadios", 1, "New");
+folderListCreate("feedFolderChange", 2, "Edit");
 
 // Creating folders
 

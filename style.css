@@ -163,6 +163,9 @@ a:visited{
     background-color: rgb(35, 35, 35);
     color: white;
 }
+.popupForm * {
+    margin-bottom: 5px;
+}
 #folderForm {
     position: fixed;
     top: 25px;
