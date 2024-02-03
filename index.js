@@ -129,12 +129,13 @@ function editFeed() {
 } 
 
 function editFeedConfirm() {
-    console.log(changingFeed);
     if (confirm("Make these changes?")) {
-        changingFeed.name = document.getElementById('feedNameChange').value;
-        changingFeed.url = document.getElementById('feedUrlChange').value;
-        changingFeed.folder = radioCheck("folderChoiceEdit");
-        console.log(changingFeed);
+        let ind = rssList.findIndex(feedIndex);
+        rssList[ind].name = document.getElementById('feedNameChange').value;
+        rssList[ind].url = document.getElementById('feedUrlChange').value;
+        rssList[ind].folder = radioCheck("folderChoiceEdit");
+        let feedString = JSON.stringify(rssList);
+        localStorage.setItem("storedFeeds", feedString);
         changingFeed = "";
         closeForm('feedChangesForm');
     }
@@ -144,6 +145,9 @@ function cancelEdit() {
     changingFeed = "";
 }
 
+function feedIndex(obj) {
+    return obj === changingFeed;
+}
 // Delete Feed
 
 function deleteFeed() {
