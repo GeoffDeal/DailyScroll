@@ -18,6 +18,7 @@ if (folderList === null){
 
 document.getElementById('folderButton').addEventListener("click", function() {openForm('folderForm')});
 document.getElementById('addFolderForm').addEventListener("submit", addFolder);
+document.getElementById('cancelFolderButton').addEventListener("click", function() {closeForm('folderForm')});
 
 function addFolder() {
 
@@ -41,6 +42,7 @@ function addFolder() {
 
 document.getElementById('feedButton').addEventListener("click", function() {openForm('feedForm')});
 document.getElementById('addFeedForm').addEventListener("submit", saveFeed);
+document.getElementById('cancelFeedButton').addEventListener("click", function() {closeForm('feedForm')});
 
 function Feed(name, url, folder) {
     this.name = name;
@@ -98,6 +100,8 @@ for (let i = 0; i < rssList.length; i++) {
 }
 
 // Edit Feed
+
+document.getElementById('editRemoveButton').addEventListener("click", function() {openForm('editFeedForm')});
 
 function radioCheck(radioList) {
     let radios = document.getElementsByName(radioList);
@@ -187,6 +191,10 @@ function clearSettings (){
 }
 
 // Setup Weather Widget
+
+document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
+document.getElementById('addWeatherForm').addEventListener("submit", createWeather);
+document.getElementById('cancelWeatherButton').addEventListener("click", function() {closeForm('weatherForm')});
 
 function createWeather() {
     let newFolder = document.createElement('div');

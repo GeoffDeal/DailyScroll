@@ -25,7 +25,7 @@
                         <label for="nfolder">Folder name:</label><br>
                         <input type="text" id="nfolder" name="nfolder"><br>
                         <button type="submit" class="formButton">Create</button>
-                        <button type="button" class="formButton" onclick="closeForm('folderForm')">Cancel</button>
+                        <button type="button" id="cancelFolderButton" class="formButton">Cancel</button>
                     </form>
                 </div>
                 <div class="popupForm" id="feedForm">
@@ -36,31 +36,30 @@
                         <input type="text" id="feedlink" name="feedlink"><br>
                         <div id="folderRadios"></div>
                         <button type="submit" class="formButton">Add</button>
-                        <button type="button" class="formButton" onclick="closeForm('feedForm')">Cancel</button>
+                        <button type="button" id="cancelFeedButton" class="formButton">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <div id="sidebar">
-        <button onclick="openForm('weatherForm')">Setup Weather</button>
+        <button id="weatherFormButton">Setup Weather</button>
         <div class="popupForm" id="weatherForm">
-            <form class="formContainer" onsubmit="createWeather()">
+            <form id="addWeatherForm" class="formContainer">
                 <label for="postalcode">Postal Code:</label><br>
                 <input type="text" id="postalcode" name="postalcode"><br>
                 <label for="countryinput">Country:</label><br>
                 <input type="text" id="countryinput" name="countryinput">
                 <button type="submit" class="formButton">Create</button>
-                <button type="button" class="formButton" onclick="closeForm('weatherForm')">Cancel</button>
+                <button type="button" id="cancelWeatherButton" class="formButton">Cancel</button>
             </form>
         </div>
-        <button onclick="openForm('editFeedForm')">Edit/Remove Feeds</button>
+        <button id="editRemoveButton">Edit/Remove Feeds</button>
         <div class="popupForm" id="editFeedForm">
-            <label for="feedRadios">Which feed would you like to edit?</label><br>
             <div id="feedRadiosList"></div>
-            <button onclick="editFeed()">Edit</button>
-            <button onclick="deleteFeed()">Delete</button>
-            <button onclick="closeForm('editFeedForm')">Cancel</button>
+            <button id="editFeedButton" onclick="editFeed()">Edit</button>
+            <button id="deleteFeedButton" onclick="deleteFeed()">Delete</button>
+            <button id="cancelEditButton" onclick="closeForm('editFeedForm')">Cancel</button>
         </div>
         <div class="popupForm" id="feedChangesForm">
             <h3 id="feedChangeHeader"></h3><br>
