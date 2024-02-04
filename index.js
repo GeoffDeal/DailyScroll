@@ -12,8 +12,12 @@ if (folderList === null){
  if (rssList === null) {
     rssList = [];
  }
+ console.log(rssList);
  
 // Adding new folder
+
+document.getElementById('folderButton').addEventListener("click", function() {openForm('folderForm')});
+document.getElementById('addFolderForm').addEventListener("submit", addFolder);
 
 function addFolder() {
 
@@ -35,6 +39,9 @@ function addFolder() {
 
 // Feed object constructor
 
+document.getElementById('feedButton').addEventListener("click", function() {openForm('feedForm')});
+document.getElementById('addFeedForm').addEventListener("submit", saveFeed);
+
 function Feed(name, url, folder) {
     this.name = name;
     this.url = url;
@@ -45,7 +52,7 @@ function saveFeed() {
 
     let feedName = document.getElementById('feedname').value;
     let feedLink = document.getElementById('feedlink').value;
-    let radios = document.getElementsByName('folderChoice');
+    let radios = document.getElementsByName('folderChoiceNew');
     let selectedRadio;
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
@@ -66,6 +73,7 @@ function saveFeed() {
     catch (err) {
         alert(err)
     }
+    console.log(rssList);
 }
 
 // Edit/Remove Feeds Feed List
@@ -112,7 +120,6 @@ function radioCheck(radioList) {
     }
 }
 let changingFeed = "";
-console.log(changingFeed);
 
 function editFeed() {
     const feedObject = rssList[radioCheck('feedRadios')];
@@ -130,7 +137,7 @@ function editFeed() {
 
 function editFeedConfirm() {
     if (confirm("Make these changes?")) {
-        let ind = rssList.findIndex(feedIndex);
+        let ind = rssList.findIndex(obj => obj === changingFeed);
         rssList[ind].name = document.getElementById('feedNameChange').value;
         rssList[ind].url = document.getElementById('feedUrlChange').value;
         rssList[ind].folder = radioCheck("folderChoiceEdit");
@@ -140,18 +147,17 @@ function editFeedConfirm() {
         closeForm('feedChangesForm');
     }
 }
+
 function cancelEdit() {
     closeForm('feedChangesForm');
     changingFeed = "";
 }
 
-function feedIndex(obj) {
-    return obj === changingFeed;
-}
+
 // Delete Feed
 
 function deleteFeed() {
-    const feedDeleted = radioCheck();
+    const feedDeleted = radioCheck('feedRadios');
     if (feedDeleted !== undefined) {
         if (confirm("Are you sure you wish to delete this feed?")){
             rssList.splice(feedDeleted, 1);

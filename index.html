@@ -15,13 +15,13 @@
                 
             <div class="menu">
                 <div class="buttGroup" id="settingsMenu">
-                    <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('folderForm')"><i class="fa-solid fa-folder-plus"></i></button><span class="tooltipText">Add Folder</span></div>
-                    <div class="tooltip"><button type="button" class="menuButton" onclick="openForm('feedForm')"><i class="fa-solid fa-file-circle-plus"></i></button><span class="tooltipText">Add Feed</span></div>
-                    <div class="tooltip"><button type="button" class="menuButton"><i class="fa-solid fa-star"></i></button><span class="tooltipText">Favourites</span></div>
-                    <div class="tooltip"><button type="button" class="menuButton" id="sidebarButton"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
+                    <div class="tooltip"><button type="button" id="folderButton" class="menuButton"><i class="fa-solid fa-folder-plus"></i></button><span class="tooltipText">Add Folder</span></div>
+                    <div class="tooltip"><button type="button" id="feedButton" class="menuButton"><i class="fa-solid fa-file-circle-plus"></i></button><span class="tooltipText">Add Feed</span></div>
+                    <div class="tooltip"><button type="button" id="faveButton" class="menuButton"><i class="fa-solid fa-star"></i></button><span class="tooltipText">Favourites</span></div>
+                    <div class="tooltip"><button type="button" id="sidebarButton" class="menuButton"><i class="fa-solid fa-bars"></i></button><span class="tooltipText">Menu</span></div>
                 </div>
                 <div class="popupForm" id="folderForm">
-                    <form class="formContainer" onsubmit="addFolder()">
+                    <form id="addFolderForm" class="formContainer">
                         <label for="nfolder">Folder name:</label><br>
                         <input type="text" id="nfolder" name="nfolder"><br>
                         <button type="submit" class="formButton">Create</button>
@@ -29,7 +29,7 @@
                     </form>
                 </div>
                 <div class="popupForm" id="feedForm">
-                    <form class="formContainer" onsubmit="saveFeed()">
+                    <form id="addFeedForm" class="formContainer">
                         <label for="feedname">Feed name:</label><br>
                         <input type="text" id="feedname" name="feedname"><br>
                         <label for="feedlink">Feed link:</label><br>
