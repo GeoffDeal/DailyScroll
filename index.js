@@ -12,7 +12,6 @@ if (folderList === null){
  if (rssList === null) {
     rssList = [];
  }
- console.log(rssList);
  
 // Adding new folder
 
@@ -102,6 +101,9 @@ for (let i = 0; i < rssList.length; i++) {
 // Edit Feed
 
 document.getElementById('editRemoveButton').addEventListener("click", function() {openForm('editFeedForm')});
+document.getElementById('editFeedButton').addEventListener("click", editFeed);
+document.getElementById('cancelEditButton').addEventListener("click", function() {closeForm('editFeedForm')});
+
 
 function radioCheck(radioList) {
     let radios = document.getElementsByName(radioList);
@@ -139,6 +141,8 @@ function editFeed() {
     }
 } 
 
+document.getElementById("editConfirmButton").addEventListener("click", editFeedConfirm);
+
 function editFeedConfirm() {
     if (confirm("Make these changes?")) {
         let ind = rssList.findIndex(obj => obj === changingFeed);
@@ -152,6 +156,8 @@ function editFeedConfirm() {
     }
 }
 
+document.getElementById("cancelEditButton").addEventListener("click", cancelEdit);
+
 function cancelEdit() {
     closeForm('feedChangesForm');
     changingFeed = "";
@@ -159,6 +165,8 @@ function cancelEdit() {
 
 
 // Delete Feed
+
+document.getElementById('deleteFeedButton').addEventListener("click", deleteFeed);
 
 function deleteFeed() {
     const feedDeleted = radioCheck('feedRadios');
@@ -175,13 +183,15 @@ function deleteFeed() {
 
 // Collapsible sidebar
 
+document.getElementById("sidebarButton").onclick = sideBar;
+
 function sideBar() {
     document.getElementById("sidebar").classList.toggle("menuDisplay");
 }
 
-document.getElementById("sidebarButton").onclick = sideBar;
-
 // Clear Local Storage Button
+
+document.getElementById('clearSettingsButton').addEventListener("click", clearSettings);
 
 function clearSettings (){
     if (confirm("Are you sure you wish to clear settings?")){
@@ -230,7 +240,12 @@ function tabDisplay(whichTab) {
 
 //  All Tab Display
 
+document.getElementById("tabAll").addEventListener("click", allTabDisplay);
+
 function allTabDisplay() {
+
+    cardArray.sort(function(a, b){return b - a});
+    console.log(cardArray);
 
     let feedContent = document.getElementsByClassName("contentFeed");
     for (let i = 0; i < feedContent.length; i++) {
@@ -369,6 +384,8 @@ function cardConstruct(xml, folder) {
         timestamp = Date.parse(itemDate);
         newCard.id = timestamp;
         cardArray.push(timestamp);
+
+
     }
 
 }

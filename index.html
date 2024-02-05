@@ -57,9 +57,9 @@
         <button id="editRemoveButton">Edit/Remove Feeds</button>
         <div class="popupForm" id="editFeedForm">
             <div id="feedRadiosList"></div>
-            <button id="editFeedButton" onclick="editFeed()">Edit</button>
-            <button id="deleteFeedButton" onclick="deleteFeed()">Delete</button>
-            <button id="cancelEditButton" onclick="closeForm('editFeedForm')">Cancel</button>
+            <button id="editFeedButton">Edit</button>
+            <button id="deleteFeedButton">Delete</button>
+            <button id="cancelEditButton">Cancel</button>
         </div>
         <div class="popupForm" id="feedChangesForm">
             <h3 id="feedChangeHeader"></h3><br>
@@ -69,15 +69,15 @@
             <input type="text" id="feedUrlChange" name="feedUrlChange"><br>
             <label for="feedFolderChange">What folder would you like to place this feed in?</label><br>
             <div id="feedFolderChange"></div>
-            <button onclick="editFeedConfirm()">Confirm</button>
-            <button onclick="cancelEdit()">Cancel</button>
+            <button id="editConfirmButton">Confirm</button>
+            <button id="cancelEditButton">Cancel</button>
         </div>
         <button>Export Settings</button>
-        <button onclick="clearSettings()">Clear Saved Inputs</button>
+        <button id="clearSettingsButton">Clear Saved Inputs</button>
     </div>
     <div class="main" id="folderHolder">
         <div class="tabGroup" id="folderTabs">
-            <button class="folderTab" id="tabAll" onclick="allTabDisplay()">All</button> 
+            <button class="folderTab" id="tabAll">All</button> 
         
         </div>
         <div class="flexContainer" id="contentFolder">
