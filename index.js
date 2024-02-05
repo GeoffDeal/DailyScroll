@@ -156,7 +156,7 @@ function editFeedConfirm() {
     }
 }
 
-document.getElementById("cancelEditButton").addEventListener("click", cancelEdit);
+document.getElementById("cancelEditFeedButton").addEventListener("click", cancelEdit);
 
 function cancelEdit() {
     closeForm('feedChangesForm');
@@ -334,9 +334,8 @@ async function getData(url) {
         throw new Error("Could Not Retrieve Data");
     }
     let feedText = await data.text();
-    const xmlDoc = new DOMParser().parseFromString(feedText, "text/xml");
     console.log("Got Feed!");
-    return xmlDoc;
+    return feedText;
 }
 
 // Construct Content Cards
@@ -391,17 +390,36 @@ function cardConstruct(xml, folder) {
 }
 // Card Sorting and Display
 
+let xmlMaster;
+console.log(xmlMaster);
+const serializer = new XMLSerializer();
+
+
+function masterConstruct(feedText) {
+    if (xmlMaster === undefined) {
+        masterString = "<masterroot>" + feedText + "</masterroot>"
+        xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
+    }
+    else {
+        masterString = serializer.serializeToString(xmlMaster);
+        masterString = masterString.replace(/<\/masterroot>$/, '');
+        masterString += feedText;
+        masterString += "</masterroot>";
+        document.getElementById("textDiv").innerHTML = masterString;
+        xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
+    }
+}
 
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
         let url = array[i].url;
         let folder = array[i].folder;
         getData(url)
-            .then((xml) => cardConstruct(xml, folder))
+            .then((feedText) => masterConstruct(feedText))
         }
 }
 
-getAllFeeds(rssList);
+// getAllFeeds(rssList);
 
 // Joshua's getAllFeeds
 
