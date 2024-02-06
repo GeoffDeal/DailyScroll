@@ -334,7 +334,8 @@ async function getData(url) {
         throw new Error("Could Not Retrieve Data");
     }
     let feedText = await data.text();
-    console.log("Got Feed!");
+    console.log("Got Feed!" + url);
+    feedText = feedText.replace('<?xml version="1.0" encoding="utf-8"?>', '');
     return feedText;
 }
 
@@ -397,7 +398,7 @@ const serializer = new XMLSerializer();
 
 function masterConstruct(feedText) {
     if (xmlMaster === undefined) {
-        masterString = "<masterroot>" + feedText + "</masterroot>"
+        masterString = '<?xml version="1.0" encoding="utf-8"?><masterroot>' + feedText + "</masterroot>"
         xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
     }
     else {
@@ -419,7 +420,7 @@ function getAllFeeds (array) {
         }
 }
 
-// getAllFeeds(rssList);
+getAllFeeds(rssList);
 
 // Joshua's getAllFeeds
 
