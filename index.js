@@ -334,10 +334,11 @@ async function getData(url) {
         throw new Error("Could Not Retrieve Data");
     }
     let feedText = await data.text();
-    console.log("Got Feed!" + url);
     feedText = feedText.replace('<?xml version="1.0" encoding="utf-8"?>', '');
+    console.log("Got Feed!" + url);
     return feedText;
 }
+
 
 // Construct Content Cards
 
@@ -395,7 +396,6 @@ let xmlMaster;
 console.log(xmlMaster);
 const serializer = new XMLSerializer();
 
-
 function masterConstruct(feedText) {
     if (xmlMaster === undefined) {
         masterString = '<?xml version="1.0" encoding="utf-8"?><masterroot>' + feedText + "</masterroot>"
@@ -409,6 +409,13 @@ function masterConstruct(feedText) {
         document.getElementById("textDiv").innerHTML = masterString;
         xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
     }
+    const dateList = xmlMaster.getElementsByTagName('pubDate');
+    for (let i = 0; i < dateList.length; i++) {
+        let pubDate = dateList[i].textContent;
+        pubDate = pubDate.replace(/\w{3}, /,'');
+        timestamp = Date.parse(pubDate);
+        if (cardArray.indexOf(timestamp) === -1){cardArray.push(timestamp)};
+    }
 }
 
 function getAllFeeds (array) {
@@ -418,6 +425,7 @@ function getAllFeeds (array) {
         getData(url)
             .then((feedText) => masterConstruct(feedText))
         }
+    console.log(cardArray);
 }
 
 getAllFeeds(rssList);
