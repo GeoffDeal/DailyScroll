@@ -243,21 +243,34 @@ function tabDisplay(whichTab) {
 document.getElementById("tabAll").addEventListener("click", allTabDisplay);
 
 function allTabDisplay() {
-
-    cardArray.sort(function(a, b){return b - a});
+    cardArray.sort((a, b) => {b - a
+        x = a.replace(/\w{3}, /,'');
+        timestampA = Date.parse(x);
+        y = b.replace(/\w{3}, /,'');
+        timestampB = Date.parse(y);
+        return timestampB - timestampA;
+    });
     console.log(cardArray);
-
-    let feedContent = document.getElementsByClassName("contentFeed");
-    for (let i = 0; i < feedContent.length; i++) {
-        feedContent[i].classList.add("contentDisplay");
-    }
-    let tabList = document.getElementsByClassName("folderTab");
-    for (let i = 0; i < tabList.length; i++) {
-        tabList[i].classList.remove("active");
-    }
-
-    document.getElementById("tabAll").classList.add("active");
+    // for (let i = 0; i < 10; i++) {
+        
+    // }
 }
+// function allTabDisplay() {
+
+//     cardArray.sort(function(a, b){return b - a});
+//     console.log(cardArray);
+
+//     let feedContent = document.getElementsByClassName("contentFeed");
+//     for (let i = 0; i < feedContent.length; i++) {
+//         feedContent[i].classList.add("contentDisplay");
+//     }
+//     let tabList = document.getElementsByClassName("folderTab");
+//     for (let i = 0; i < tabList.length; i++) {
+//         tabList[i].classList.remove("active");
+//     }
+
+//     document.getElementById("tabAll").classList.add("active");
+// }
 
 
 // Popup Forms and Form Folder List
@@ -406,15 +419,13 @@ function masterConstruct(feedText) {
         masterString = masterString.replace(/<\/masterroot>$/, '');
         masterString += feedText;
         masterString += "</masterroot>";
-        document.getElementById("textDiv").innerHTML = masterString;
         xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
     }
+
     const dateList = xmlMaster.getElementsByTagName('pubDate');
     for (let i = 0; i < dateList.length; i++) {
         let pubDate = dateList[i].textContent;
-        pubDate = pubDate.replace(/\w{3}, /,'');
-        timestamp = Date.parse(pubDate);
-        if (cardArray.indexOf(timestamp) === -1){cardArray.push(timestamp)};
+        if (cardArray.indexOf(pubDate) === -1){cardArray.push(pubDate)};
     }
 }
 
@@ -425,7 +436,6 @@ function getAllFeeds (array) {
         getData(url)
             .then((feedText) => masterConstruct(feedText))
         }
-    console.log(cardArray);
 }
 
 getAllFeeds(rssList);
