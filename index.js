@@ -251,9 +251,19 @@ function allTabDisplay() {
         return timestampB - timestampA;
     });
     console.log(cardArray);
-    // for (let i = 0; i < 10; i++) {
+    let itemList = xmlMaster.getElementsByTagName('item');
+    console.log(itemList);
+    for (let i = 0; i < 10; i++) {
+        const currentPubDate = cardArray[i];
+        for(let j = 0; j < itemList.length; j++) {
+            const itemNode = itemList[j];
+            const nodePubDate = itemNode.querySelector('pubDate').textContent;
+            if (nodePubDate === currentPubDate) {
+                console.log(itemNode);
+            }
+        }
         
-    // }
+    }
 }
 // function allTabDisplay() {
 
