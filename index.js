@@ -251,15 +251,15 @@ function allTabDisplay() {
         return timestampB - timestampA;
     });
     console.log(cardArray);
-    let itemList = xmlMaster.getElementsByTagName('item');
-    console.log(itemList);
+    let itemsList = xmlMaster.getElementsByTagName('item');
+    console.log(itemsList);
     for (let i = 0; i < 10; i++) {
         const currentPubDate = cardArray[i];
-        for(let j = 0; j < itemList.length; j++) {
-            const itemNode = itemList[j];
+        for(let j = 0; j < itemsList.length; j++) {
+            const itemNode = itemsList[j];
             const nodePubDate = itemNode.querySelector('pubDate').textContent;
             if (nodePubDate === currentPubDate) {
-                console.log(itemNode);
+                cardConstruct(itemNode);
             }
         }
         
@@ -368,15 +368,14 @@ async function getData(url) {
 const cardArray = [];
 
 
-function cardConstruct(xml, folder) {
-    let itemsList = xml.getElementsByTagName('item');
-    for (let i = 0; i < itemsList.length ; i++) {
+function cardConstruct(node) {
+
         let linkWrapper = document.createElement('a');
-        let parentFolder = document.getElementById(folder);
+        let parentFolder = document.getElementById('textDiv');
         parentFolder.appendChild(linkWrapper);    
 
-        if (itemsList[i].getElementsByTagName('link')[0] !== undefined){
-            const itemLink = itemsList[i].getElementsByTagName('link')[0].textContent;
+        if (node.getElementsByTagName('link')[0] !== undefined){
+            const itemLink = node.getElementsByTagName('link')[0].textContent;
             linkWrapper.href = itemLink;
             }
     
@@ -389,28 +388,20 @@ function cardConstruct(xml, folder) {
         newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
         newCard.appendChild(newButton);
     
-        let itemTitle = itemsList[i].getElementsByTagName('title')[0].textContent;
+        let itemTitle = node.getElementsByTagName('title')[0].textContent;
         let newTitle = document.createElement('h3');
         newCard.appendChild(newTitle);
         newTitle.innerHTML = itemTitle;
     
-        let itemDesc = itemsList[i].getElementsByTagName('description')[0].textContent;
+        let itemDesc = node.getElementsByTagName('description')[0].textContent;
         let newDesc = document.createElement('p');
         newCard.appendChild(newDesc);
         newDesc.innerHTML = itemDesc;
     
-        let itemDate = itemsList[i].getElementsByTagName('pubDate')[0].textContent;
+        let itemDate = node.getElementsByTagName('pubDate')[0].textContent;
         let newDate = document.createElement('p');
         newCard.appendChild(newDate);
         newDate.innerHTML = itemDate;
-
-        itemDate = itemDate.replace(/\w{3}, /,'');
-        timestamp = Date.parse(itemDate);
-        newCard.id = timestamp;
-        cardArray.push(timestamp);
-
-
-    }
 
 }
 // Card Sorting and Display
