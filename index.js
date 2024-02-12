@@ -250,20 +250,8 @@ function allTabDisplay() {
         timestampB = Date.parse(y);
         return timestampB - timestampA;
     });
-    console.log(cardArray);
-    let itemsList = xmlMaster.getElementsByTagName('item');
-    console.log(itemsList);
-    for (let i = 0; i < 10; i++) {
-        const currentPubDate = cardArray[i];
-        for(let j = 0; j < itemsList.length; j++) {
-            const itemNode = itemsList[j];
-            const nodePubDate = itemNode.querySelector('pubDate').textContent;
-            if (nodePubDate === currentPubDate) {
-                cardConstruct(itemNode);
-            }
-        }
-        
-    }
+    displayTen();
+
 }
 // function allTabDisplay() {
 
@@ -282,6 +270,43 @@ function allTabDisplay() {
 //     document.getElementById("tabAll").classList.add("active");
 // }
 
+// Display content function
+
+let n = 0;
+
+function displayTen () {
+    let count = 0
+    displayContent(count);
+}
+function displayContent (count) {
+    let itemsList = xmlMaster.getElementsByTagName('item');
+    let feedLength = itemsList.length;
+    if (n < feedLength && count < 10) {
+        const currentPubDate = cardArray[n];
+        for(let j = 0; j < itemsList.length; j++) {
+            const itemNode = itemsList[j];
+            const nodePubDate = itemNode.querySelector('pubDate').textContent;
+            if (nodePubDate === currentPubDate) {
+                cardConstruct(itemNode);
+            }
+        }
+        count++;
+        n++;
+        displayContent(count);
+}
+}
+
+// Load more on scroll
+
+window.addEventListener('scroll', loadMore);
+
+function loadMore() {
+   
+    if (document.documentElement.scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 10) {
+        console.log("Loading more");
+        displayTen();
+    }
+}
 
 // Popup Forms and Form Folder List
 
@@ -407,7 +432,6 @@ function cardConstruct(node) {
 // Card Sorting and Display
 
 let xmlMaster;
-console.log(xmlMaster);
 const serializer = new XMLSerializer();
 
 function masterConstruct(feedText) {
