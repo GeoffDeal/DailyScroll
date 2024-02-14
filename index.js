@@ -243,15 +243,15 @@ function tabDisplay(whichTab) {
 document.getElementById("tabAll").addEventListener("click", allTabDisplay);
 
 function allTabDisplay() {
-    cardArray.sort((a, b) => {b - a
-        x = a.replace(/\w{3}, /,'');
+    articleArray.sort((a, b) => {b - a
+        x = a.pubDate.replace(/\w{3}, /,'');
         timestampA = Date.parse(x);
-        y = b.replace(/\w{3}, /,'');
+        y = b.pubDate.replace(/\w{3}, /,'');
         timestampB = Date.parse(y);
         return timestampB - timestampA;
     });
     displayTen();
-
+    console.log(articleArray);
 }
 
 // Display content function
@@ -263,17 +263,9 @@ function displayTen () {
     displayContent(count);
 }
 function displayContent (count) {
-    let itemsList = xmlMaster.getElementsByTagName('item');
-    let feedLength = itemsList.length;
+    let feedLength = articleArray.length;
     if (n < feedLength && count < 10) {
-        const currentPubDate = cardArray[n];
-        for(let j = 0; j < itemsList.length; j++) {
-            const itemNode = itemsList[j];
-            const nodePubDate = itemNode.querySelector('pubDate').textContent;
-            if (nodePubDate === currentPubDate) {
-                cardConstruct(itemNode);
-            }
-        }
+        cardConstruct(articleArray[n]);
         count++;
         n++;
         displayContent(count);
@@ -377,15 +369,16 @@ async function getData(url) {
 
 const articleArray = [];
 
-function Article(link, title, desc, pubDate, folder){
+function Article(link, title, desc, pubDate, folder, feedName){
     this.link = link;
     this.title = title;
     this.desc = desc;
     this.pubDate = pubDate;
-    this.folder = folder
+    this.folder = folder;
+    this.feedName = feedName;
 }
 
-function createArticleObj(xmlDoc, folder) {
+function createArticleObj(xmlDoc, folder, name) {
     let itemList = xmlDoc.getElementsByTagName('item');
     for (let i = 0; i < itemList.length; i++) {
         let node = itemList[i];
@@ -393,10 +386,10 @@ function createArticleObj(xmlDoc, folder) {
         let title = node.getElementsByTagName('title')[0].textContent;
         let desc = node.getElementsByTagName('description')[0].textContent;
         let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
-        const articleObj = new Article(link, title, desc, pubDate, folder);
+        let feedName = name;
+        const articleObj = new Article(link, title, desc, pubDate, folder, feedName);
         articleArray.push(articleObj);
     }
-    console.log(articleArray);
 }
 
 
@@ -406,14 +399,14 @@ function createArticleObj(xmlDoc, folder) {
 const cardArray = [];
 
 
-function cardConstruct(node) {
+function cardConstruct(obj) {
 
         let linkWrapper = document.createElement('a');
         let parentFolder = document.getElementById('textDiv');
         parentFolder.appendChild(linkWrapper);    
 
-        if (node.getElementsByTagName('link')[0] !== undefined){
-            const itemLink = node.getElementsByTagName('link')[0].textContent;
+        if (obj.link !== undefined){
+            const itemLink = obj.link;
             linkWrapper.href = itemLink;
             }
     
@@ -426,21 +419,24 @@ function cardConstruct(node) {
         newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
         newCard.appendChild(newButton);
     
-        let itemTitle = node.getElementsByTagName('title')[0].textContent;
+        let itemTitle = obj.title;
         let newTitle = document.createElement('h3');
         newCard.appendChild(newTitle);
         newTitle.innerHTML = itemTitle;
     
-        let itemDesc = node.getElementsByTagName('description')[0].textContent;
+        let itemDesc = obj.desc;
         let newDesc = document.createElement('p');
         newCard.appendChild(newDesc);
         newDesc.innerHTML = itemDesc;
     
-        let itemDate = node.getElementsByTagName('pubDate')[0].textContent;
+        let itemDate = obj.pubDate;
         let newDate = document.createElement('p');
         newCard.appendChild(newDate);
         newDate.innerHTML = itemDate;
 
+        let x = itemDate.replace(/\w{3}, /,'');
+        timestamp = Date.parse(x);
+        newCard.id = obj.feedName + timestamp;
 }
 // Card Sorting and Display
 
@@ -471,8 +467,9 @@ function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
         let url = array[i].url;
         let folder = array[i].folder;
+        let name = array[i].name;
         getData(url)
-            .then((xmlDoc) => createArticleObj(xmlDoc, folder))
+            .then((xmlDoc) => createArticleObj(xmlDoc, folder, name))
         }
 }
 
