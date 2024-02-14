@@ -253,22 +253,6 @@ function allTabDisplay() {
     displayTen();
 
 }
-// function allTabDisplay() {
-
-//     cardArray.sort(function(a, b){return b - a});
-//     console.log(cardArray);
-
-//     let feedContent = document.getElementsByClassName("contentFeed");
-//     for (let i = 0; i < feedContent.length; i++) {
-//         feedContent[i].classList.add("contentDisplay");
-//     }
-//     let tabList = document.getElementsByClassName("folderTab");
-//     for (let i = 0; i < tabList.length; i++) {
-//         tabList[i].classList.remove("active");
-//     }
-
-//     document.getElementById("tabAll").classList.add("active");
-// }
 
 // Display content function
 
@@ -375,6 +359,8 @@ for (let i = 1; i < tabButtons.length; i++) {
 
 //  Fetching/Parsing RSS Data
 
+let parser = new DOMParser();
+
 async function getData(url) {
     console.log("Trying...");
     let data = await fetch(url);
@@ -382,10 +368,37 @@ async function getData(url) {
         throw new Error("Could Not Retrieve Data");
     }
     let feedText = await data.text();
-    feedText = feedText.replace('<?xml version="1.0" encoding="utf-8"?>', '');
+    let xmlDoc = parser.parseFromString(feedText, "text/xml");
     console.log("Got Feed!" + url);
-    return feedText;
+    return xmlDoc;
 }
+
+// Creating article objects from feed
+
+const articleArray = [];
+
+function Article(link, title, desc, pubDate, folder){
+    this.link = link;
+    this.title = title;
+    this.desc = desc;
+    this.pubDate = pubDate;
+    this.folder = folder
+}
+
+function createArticleObj(xmlDoc, folder) {
+    let itemList = xmlDoc.getElementsByTagName('item');
+    for (let i = 0; i < itemList.length; i++) {
+        let node = itemList[i];
+        let link = node.getElementsByTagName('link')[0].textContent;
+        let title = node.getElementsByTagName('title')[0].textContent;
+        let desc = node.getElementsByTagName('description')[0].textContent;
+        let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
+        const articleObj = new Article(link, title, desc, pubDate, folder);
+        articleArray.push(articleObj);
+    }
+    console.log(articleArray);
+}
+
 
 
 // Construct Content Cards
@@ -459,7 +472,7 @@ function getAllFeeds (array) {
         let url = array[i].url;
         let folder = array[i].folder;
         getData(url)
-            .then((feedText) => masterConstruct(feedText))
+            .then((xmlDoc) => createArticleObj(xmlDoc, folder))
         }
 }
 
@@ -471,22 +484,3 @@ getAllFeeds(rssList);
 //     const promises = array.map(url => getData(url).then(xml => cardConstruct(xml)));
 //     return Promise.all(promises);
 // }
-
-
-// console.log(cardArray);
-// console.log(typeof cardArray[0]);
-// cardArray.sort(function(a, b){return a - b});
-// console.log(cardArray);
-
-
-
-
-
-
-// Additional feeds:
-// https://xkcd.com/rss.xml
-// https://feeds.megaphone.fm/strike-force-five
-// https://www.cbc.ca/webfeed/rss/rss-canada-newfoundland
-// https://www.comicsrss.com/rss/garfield.rss
-// https://smbc-rss-plus.mindflakes.com/rss.xml
-
