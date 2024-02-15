@@ -221,21 +221,70 @@ function createWeather() {
     document.getElementById('folderTabs').appendChild(newTab);
 }
 
-// Tab Switching Display Function
+// Creating folders
 
-function tabDisplay(whichTab) {
+for ( i=0; i < folderList.length; i++) {
 
-    let feedContent = document.getElementsByClassName("contentFeed");
-    for (let i = 0; i < feedContent.length; i++) {
-        feedContent[i].classList.remove("contentDisplay");
-    }
+    let newFolder = document.createElement('div');
+    newFolder.className = 'contentFeed';
+    newFolder.id = folderList[i];
+
+    document.getElementById('contentFolder').appendChild(newFolder);
+
+    let newTab = document.createElement('button');
+    newTab.className = 'folderTab';
+    newTab.id = 'tab' + folderList[i];
+    newTab.innerHTML = folderList[i];
+
+    document.getElementById('folderTabs').appendChild(newTab);
+
+}
+
+// Switch tab active
+
+function activeTab(tab) {
     let tabList = document.getElementsByClassName("folderTab");
     for (let i = 0; i < tabList.length; i++) {
         tabList[i].classList.remove("active");
     }
+    document.getElementById("tab" + tab).classList.add("active");
+}
 
-    document.getElementById(whichTab).classList.add("contentDisplay");
-    document.getElementById("tab" + whichTab).classList.add("active");
+
+
+// Tab Switching Display Function
+
+function tabDisplay(whichTab) {
+
+    let chosenTab = document.getElementById('tab' + whichTab);
+    if (chosenTab.classList.contains("active") !== true) {
+        
+        const textDiv = document.getElementById('textDiv');
+        while (textDiv.firstChild){
+            textDiv.removeChild(textDiv.firstChild);
+        }
+        articleArray.sort((a, b) => {b - a
+            x = a.pubDate.replace(/\w{3}, /,'');
+            timestampA = Date.parse(x);
+            y = b.pubDate.replace(/\w{3}, /,'');
+            timestampB = Date.parse(y);
+            return timestampB - timestampA;
+        });
+        n = 0;
+        displayTen(whichTab);
+        activeTab(whichTab);
+    }
+}
+
+// Adding Display Function to Buttons
+
+let tabButtons = document.getElementsByClassName('folderTab');
+
+for (let i = 1; i < tabButtons.length; i++) {
+    tabButtons[i].addEventListener("click", function() {
+        let tabID = folderList[i-1];
+        tabDisplay(tabID);
+    })
 }
 
 //  All Tab Display
@@ -243,32 +292,49 @@ function tabDisplay(whichTab) {
 document.getElementById("tabAll").addEventListener("click", allTabDisplay);
 
 function allTabDisplay() {
-    articleArray.sort((a, b) => {b - a
-        x = a.pubDate.replace(/\w{3}, /,'');
-        timestampA = Date.parse(x);
-        y = b.pubDate.replace(/\w{3}, /,'');
-        timestampB = Date.parse(y);
-        return timestampB - timestampA;
-    });
-    displayTen();
-    console.log(articleArray);
+
+    let chosenTab = document.getElementById('tabAll');
+    if (chosenTab.classList.contains("active") !== true){
+        const textDiv = document.getElementById('textDiv');
+        while (textDiv.firstChild){
+            textDiv.removeChild(textDiv.firstChild);
+        }
+        activeTab('All');
+        articleArray.sort((a, b) => {b - a
+            x = a.pubDate.replace(/\w{3}, /,'');
+            timestampA = Date.parse(x);
+            y = b.pubDate.replace(/\w{3}, /,'');
+            timestampB = Date.parse(y);
+            return timestampB - timestampA;
+        });
+        n = 0;
+        displayTen();
+    }
 }
 
 // Display content function
 
 let n = 0;
 
-function displayTen () {
+function displayTen (folderTab) {
     let count = 0
-    displayContent(count);
+    displayContent(count, folderTab);
 }
-function displayContent (count) {
+function displayContent (count, folderTab) {
     let feedLength = articleArray.length;
     if (n < feedLength && count < 10) {
-        cardConstruct(articleArray[n]);
-        count++;
+        if (folderTab === undefined){
+            cardConstruct(articleArray[n]);
+            count++;
+        }
+        else {
+            if(articleArray[n].folder === folderTab) {
+                cardConstruct(articleArray[n]);
+                count++;
+            }
+        }
         n++;
-        displayContent(count);
+        displayContent(count, folderTab);
 }
 }
 
@@ -316,38 +382,6 @@ function folderListCreate (container, idNum, uniqueName) {
 }
 folderListCreate("folderRadios", 1, "New");
 folderListCreate("feedFolderChange", 2, "Edit");
-
-// Creating folders
-
-for ( i=0; i < folderList.length; i++) {
-
-    let newFolder = document.createElement('div');
-    newFolder.className = 'contentFeed';
-    newFolder.id = folderList[i];
-
-    document.getElementById('contentFolder').appendChild(newFolder);
-
-    let newTab = document.createElement('button');
-    newTab.className = 'folderTab';
-    newTab.id = 'tab' + folderList[i];
-    newTab.innerHTML = folderList[i];
-
-    document.getElementById('folderTabs').appendChild(newTab);
-
-}
-
-// Adding Display Function to Buttons
-
-let tabButtons = document.getElementsByClassName('folderTab');
-
-for (let i = 1; i < tabButtons.length; i++) {
-    tabButtons[i].addEventListener("click", function() {
-        let tabID = folderList[i-1];
-        tabDisplay(tabID);
-    })
-}
-
-
 
 //  Fetching/Parsing RSS Data
 
