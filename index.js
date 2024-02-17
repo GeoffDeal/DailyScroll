@@ -225,12 +225,6 @@ function createWeather() {
 
 for ( i=0; i < folderList.length; i++) {
 
-    let newFolder = document.createElement('div');
-    newFolder.className = 'contentFeed';
-    newFolder.id = folderList[i];
-
-    document.getElementById('contentFolder').appendChild(newFolder);
-
     let newTab = document.createElement('button');
     newTab.className = 'folderTab';
     newTab.id = folderList[i];
@@ -391,6 +385,49 @@ function folderListCreate (container, idNum, uniqueName) {
 folderListCreate("folderRadios", 1, "New");
 folderListCreate("feedFolderChange", 2, "Edit");
 
+// Card Forms
+
+function createCardForm(cardId) {
+    
+    affectedCard = document.getElementById(cardId);
+    let menuForm = document.createElement('div');
+    menuForm.className = "cardMenu";
+    menuForm.id = cardId + "Menu";
+    affectedCard.appendChild(menuForm);
+
+    let newFaveButton = document.createElement('button');
+    newFaveButton.innerHTML = "Add to Favourites";
+    // newFaveButton.addEventListener('click', );
+    menuForm.appendChild(newFaveButton);
+    appendBreak(menuForm);
+
+    let newHideButton = document.createElement('button');
+    newHideButton.innerHTML = "Hide Article";
+    // newHideButton.addEventListener('click', );
+    menuForm.appendChild(newHideButton);
+    appendBreak(menuForm);
+
+    let newCancelButton = document.createElement('button');
+    newCancelButton.innerHTML = "Cancel";
+    newCancelButton.addEventListener('click', function() {
+        cancelCardForm(menuForm.id);
+    });
+    menuForm.appendChild(newCancelButton);
+}
+
+function cancelCardForm(formId) {
+    let form = document.getElementById(formId);
+    while (form.firstChild){
+        form.removeChild(form.firstChild);
+    }
+    form.remove();
+}
+
+function appendBreak(parent) {
+    let br = document.createElement('br');
+    parent.appendChild(br);
+}
+
 //  Fetching/Parsing RSS Data
 
 let parser = new DOMParser();
@@ -411,13 +448,14 @@ async function getData(url) {
 
 const articleArray = [];
 
-function Article(link, title, desc, pubDate, folder, feedName){
+function Article(link, title, desc, pubDate, folder, feedName, cardId){
     this.link = link;
     this.title = title;
     this.desc = desc;
     this.pubDate = pubDate;
     this.folder = folder;
     this.feedName = feedName;
+    this.cardId = cardId;
 }
 
 function createArticleObj(xmlDoc, folder, name) {
@@ -429,7 +467,10 @@ function createArticleObj(xmlDoc, folder, name) {
         let desc = node.getElementsByTagName('description')[0].textContent;
         let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
         let feedName = name;
-        const articleObj = new Article(link, title, desc, pubDate, folder, feedName);
+        let x = pubDate.replace(/\w{3}, /,'');
+        timestamp = Date.parse(x);
+        let cardId = name + timestamp;
+        const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
         articleArray.push(articleObj);
     }
 }
@@ -440,45 +481,43 @@ function createArticleObj(xmlDoc, folder, name) {
 
 const cardArray = [];
 
-
 function cardConstruct(obj) {
 
-        let linkWrapper = document.createElement('a');
-        let parentFolder = document.getElementById('textDiv');
-        parentFolder.appendChild(linkWrapper);    
+    let parentFolder = document.getElementById('textDiv');
 
-        if (obj.link !== undefined){
-            const itemLink = obj.link;
-            linkWrapper.href = itemLink;
-            }
+    let newCard = document.createElement('div');
+    parentFolder.appendChild(newCard);
+    newCard.className = "contentCard";
+    newCard.id = obj.cardId;
     
-        let newCard = document.createElement('div');
-        linkWrapper.appendChild(newCard);
-        newCard.className = "contentCard";
-    
-        let newButton = document.createElement('button');
-        newButton.className = "cardButton";
-        newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
-        newCard.appendChild(newButton);
-    
-        let itemTitle = obj.title;
-        let newTitle = document.createElement('h3');
-        newCard.appendChild(newTitle);
-        newTitle.innerHTML = itemTitle;
-    
-        let itemDesc = obj.desc;
-        let newDesc = document.createElement('p');
-        newCard.appendChild(newDesc);
-        newDesc.innerHTML = itemDesc;
-    
-        let itemDate = obj.pubDate;
-        let newDate = document.createElement('p');
-        newCard.appendChild(newDate);
-        newDate.innerHTML = itemDate;
+    let newButton = document.createElement('button');
+    newButton.className = "cardButton";
+    newButton.innerHTML = "<i class='fa-solid fa-bars'></i>"
+    newCard.appendChild(newButton);
+    newButton.addEventListener('click', function(){
+            createCardForm(obj.cardId);
+        })
 
-        let x = itemDate.replace(/\w{3}, /,'');
-        timestamp = Date.parse(x);
-        newCard.id = obj.feedName + timestamp;
+    let linkWrapper = document.createElement('a');
+    if (obj.link !== undefined){
+        const itemLink = obj.link;
+        linkWrapper.href = itemLink;
+    }
+    newCard.appendChild(linkWrapper);
+    let itemTitle = obj.title;
+    let newTitle = document.createElement('h3');
+    linkWrapper.appendChild(newTitle);
+    newTitle.innerHTML = itemTitle;
+    
+    let itemDesc = obj.desc;
+    let newDesc = document.createElement('p');
+    newCard.appendChild(newDesc);
+    newDesc.innerHTML = itemDesc;
+    
+    let itemDate = obj.pubDate;
+    let newDate = document.createElement('p');
+    newCard.appendChild(newDate);
+    newDate.innerHTML = itemDate;
 }
 // Card Sorting and Display
 

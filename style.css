@@ -150,12 +150,33 @@ a:visited{
     position: absolute;
     right: 5px;
     top: 5px;
-    
 }
 .cardButton:hover{
     background-color: #00bc8a;
 }
 .cardButton:active{
+    background-color: #00bc8a;
+}
+.cardMenu {
+    background-color: #1A0C18;
+    border-radius: 8px;
+    color: white;
+    padding: 6px;
+    font-size: large;
+    transition-duration: 0.25s;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.cardMenu button {
+    background-color: #1A0C18;
+    border-radius: 8px;
+    color: white;
+    padding: 6px;
+    font-size: large;
+    transition-duration: 0.25s;
+}
+.cardMenu button:hover {
     background-color: #00bc8a;
 }
 
