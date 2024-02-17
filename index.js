@@ -233,7 +233,7 @@ for ( i=0; i < folderList.length; i++) {
 
     let newTab = document.createElement('button');
     newTab.className = 'folderTab';
-    newTab.id = 'tab' + folderList[i];
+    newTab.id = folderList[i];
     newTab.innerHTML = folderList[i];
 
     document.getElementById('folderTabs').appendChild(newTab);
@@ -247,7 +247,7 @@ function activeTab(tab) {
     for (let i = 0; i < tabList.length; i++) {
         tabList[i].classList.remove("active");
     }
-    document.getElementById("tab" + tab).classList.add("active");
+    document.getElementById(tab).classList.add("active");
 }
 
 
@@ -256,7 +256,7 @@ function activeTab(tab) {
 
 function tabDisplay(whichTab) {
 
-    let chosenTab = document.getElementById('tab' + whichTab);
+    let chosenTab = document.getElementById(whichTab);
     if (chosenTab.classList.contains("active") !== true) {
         
         const textDiv = document.getElementById('textDiv');
@@ -289,11 +289,11 @@ for (let i = 1; i < tabButtons.length; i++) {
 
 //  All Tab Display
 
-document.getElementById("tabAll").addEventListener("click", allTabDisplay);
+document.getElementById("All").addEventListener("click", allTabDisplay);
 
 function allTabDisplay() {
 
-    let chosenTab = document.getElementById('tabAll');
+    let chosenTab = document.getElementById('All');
     if (chosenTab.classList.contains("active") !== true){
         const textDiv = document.getElementById('textDiv');
         while (textDiv.firstChild){
@@ -308,7 +308,7 @@ function allTabDisplay() {
             return timestampB - timestampA;
         });
         n = 0;
-        displayTen();
+        displayTen('All');
     }
 }
 
@@ -323,7 +323,7 @@ function displayTen (folderTab) {
 function displayContent (count, folderTab) {
     let feedLength = articleArray.length;
     if (n < feedLength && count < 10) {
-        if (folderTab === undefined){
+        if (folderTab === 'All'){
             cardConstruct(articleArray[n]);
             count++;
         }
@@ -341,12 +341,20 @@ function displayContent (count, folderTab) {
 // Load more on scroll
 
 window.addEventListener('scroll', loadMore);
+function tabChoice() {
+    const tabList = document.getElementsByClassName('folderTab');
+    for (let i = 0; i < tabList.length; i++) {
+        if (tabList[i].classList.contains('active')) {
+            return tabList[i].id;
+        }
+}}
 
 function loadMore() {
-   
+
     if (document.documentElement.scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 10) {
-        console.log("Loading more");
-        displayTen();
+        let selectedTab = tabChoice();
+        console.log(selectedTab);
+        displayTen(selectedTab);
     }
 }
 

@@ -1,5 +1,7 @@
+/* Logo colours: #2f352f, #00bc8a, #ffffff, #505050*/
+
 body{
-    background-color: rgb(31, 50, 45);
+    background-color: #1A1720;
     margin: 0;
 }
 a:link{
@@ -16,9 +18,11 @@ a:visited{
     width: 100%;
     color: white;
     font-size: 18px;
-    background-color: rgb(4, 20, 20);;
+    background-color: #36323E;
     border-bottom: 2px;
-    border-color: black;
+    border-top: 0;
+    border-left: 0;
+    border-bottom-color: black;
     border-style: solid;
     z-index: 2;
     display: flex;
@@ -36,7 +40,7 @@ a:visited{
     margin-bottom: 10px;
 }
 .buttGroup button{
-    background-color: rgb(4, 20, 20);;
+    background-color: #1A0C18;
     border-radius: 8px;
     color: white;
     padding: 6px;
@@ -44,10 +48,10 @@ a:visited{
     transition-duration: 0.25s;
 }
 .buttGroup button:hover{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 .buttGroup button:active{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 .tooltip{
     position: relative;
@@ -86,22 +90,25 @@ a:visited{
 }
 
 #contentFolder {
-    background-color: rgb(4, 20, 20);;
+    background-color: 2E2843;
     color: white;
     padding: 10px;
-    /* border-style: solid;
+    border-radius: 8px;
+    border-style: solid;
     border-width: 2px;
-    border-color: black; */
+    border-color: #1A0C18;
 }
 .tabGroup{
+
     display: flex;
     flex-wrap: wrap-reverse;
+    margin-left:20px;
 }
 .tabGroup button {
     background-color: rgb(60, 60, 60);
     padding: 5px;
     color: white;
-    border: 2px solid black;
+    border: 2px solid #1A0C18;
     border-bottom: none;
     font-size: 20px;
     border-top-right-radius: 8px;
@@ -109,20 +116,22 @@ a:visited{
     margin-right: 2px;
 }
 .tabGroup button.active {
-    background-color: rgb(4, 20, 20);
+    background-color: #462040;
 }
 .tabGroup button:hover {
-    background-color: rgb(4, 20, 20);
+    background-color: #462040;
 }
 .contentCard {
+    background-color: #221E2A;
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(4, 50, 50);
-    border-radius: 5px;
+    border-color: black;
+    border-radius: 8px;
     padding: 5px;
     box-shadow: 2px 2px 10px rgba(1, 1, 1, 0.605);
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     position: relative;
+    width: auto;
 }
 .contentFeed{
     display: none;
@@ -132,7 +141,7 @@ a:visited{
 }
 
 .cardButton {
-    background-color: rgb(4, 32, 35);
+    background-color: #1A0C18;
     border-radius: 8px;
     color: white;
     padding: 6px;
@@ -144,10 +153,10 @@ a:visited{
     
 }
 .cardButton:hover{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 .cardButton:active{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 
 /* Form Styling */
@@ -208,10 +217,10 @@ a:visited{
     margin-top: 5px;
 }
 .formButton:hover{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 .formButton:active{
-    background-color: rgb(247, 161, 196);
+    background-color: #00bc8a;
 }
 .formContainter input[type=text] {
     width: 100%;
@@ -241,7 +250,7 @@ a:visited{
     display: block;
 }
 #sidebar button{
-    background-color: rgb(4, 32, 35);
+    background-color: #1A0C18;
     border-radius: 5px;
     color: white;
     font-size: large;
