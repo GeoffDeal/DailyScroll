@@ -397,7 +397,9 @@ function createCardForm(cardId) {
 
     let newFaveButton = document.createElement('button');
     newFaveButton.innerHTML = "Add to Favourites";
-    // newFaveButton.addEventListener('click', );
+    newFaveButton.addEventListener('click', function() {
+        saveFave(cardId);
+    });
     menuForm.appendChild(newFaveButton);
     appendBreak(menuForm);
 
@@ -428,6 +430,29 @@ function appendBreak(parent) {
     parent.appendChild(br);
 }
 
+// Saved Favourites
+
+let faveArray = JSON.parse(localStorage.getItem("storedFaves"));
+
+if (faveArray === null) {
+    faveArray = [];
+}
+
+function saveFave(articleId) {
+
+    let articleObj;
+    for (let i = 0; i < articleArray.length; i++) {
+        if (articleArray[i].cardId === articleId) {
+            articleObj = articleArray[i];
+        }
+    }
+    if (articleObj !== undefined) {
+        faveArray.push(articleObj);
+        let faveString = JSON.stringify(faveArray);
+        localStorage.setItem("storedFaves", faveString);
+        console.log(faveString);
+    }
+}
 //  Fetching/Parsing RSS Data
 
 let parser = new DOMParser();
