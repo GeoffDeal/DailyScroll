@@ -53,6 +53,9 @@ a:visited{
 .buttGroup button:active{
     background-color: #00bc8a;
 }
+.buttGroup button.selected{
+    background-color: #00bc8a;
+}
 .tooltip{
     position: relative;
     display: inline-block;

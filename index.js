@@ -315,15 +315,21 @@ function displayTen (folderTab) {
     displayContent(count, folderTab);
 }
 function displayContent (count, folderTab) {
-    let feedLength = articleArray.length;
+    if (document.getElementById('faveButton').classList.contains('selected')){
+        selectedArray = faveArray;
+    }
+    else {
+        selectedArray = articleArray;
+    }
+    let feedLength = selectedArray.length;
     if (n < feedLength && count < 10) {
         if (folderTab === 'All'){
-            cardConstruct(articleArray[n]);
+            cardConstruct(selectedArray[n]);
             count++;
         }
         else {
-            if(articleArray[n].folder === folderTab) {
-                cardConstruct(articleArray[n]);
+            if(selectedArray[n].folder === folderTab) {
+                cardConstruct(selectedArray[n]);
                 count++;
             }
         }
@@ -347,7 +353,6 @@ function loadMore() {
 
     if (document.documentElement.scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 10) {
         let selectedTab = tabChoice();
-        console.log(selectedTab);
         displayTen(selectedTab);
     }
 }
@@ -428,6 +433,15 @@ function cancelCardForm(formId) {
 function appendBreak(parent) {
     let br = document.createElement('br');
     parent.appendChild(br);
+}
+
+// Fave toggle
+
+document.getElementById('faveButton').addEventListener('click', faveFunction);
+function faveFunction() {
+    document.getElementById('faveButton').classList.toggle('selected');
+    document.getElementById('All').classList.remove('active');
+    allTabDisplay();
 }
 
 // Saved Favourites
