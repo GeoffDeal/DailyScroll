@@ -370,6 +370,25 @@ function loadMore() {
     }
 }
 
+// Scroll to top button
+
+window.addEventListener('scroll', buttonAppears);
+
+function buttonAppears() {
+    if (document.documentElement.scrollTop >= 3000) {
+        document.getElementById('scrollTop').style.display = "block";
+    }
+    else {
+        document.getElementById('scrollTop').style.display = "none";
+    }
+}
+
+document.getElementById('scrollTop').addEventListener('click', scrollTop);
+
+function scrollTop() {
+    window.scrollTo(0, 0);
+}
+
 // Popup Forms and Form Folder List
 
 function openForm (x) {
