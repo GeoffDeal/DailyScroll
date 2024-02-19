@@ -93,9 +93,6 @@ for (let i = 0; i < rssList.length; i++) {
     label.htmlFor = "radio" + rssList[i].name;
     label.innerHTML = rssList[i].name;
     radioContainer.appendChild(label);
-
-    // let lineBreak = document.createElement("br");
-    // radioContainer.appendChild(lineBreak);
 }
 
 // Edit Feed
@@ -105,26 +102,6 @@ document.getElementById('editFeedButton').addEventListener("click", editFeed);
 document.getElementById('cancelEditButton').addEventListener("click", function() {closeForm('editFeedForm')});
 
 
-function radioCheck(radioList) {
-    let radios = document.getElementsByName(radioList);
-    let selectedRadio = -1;
-    for (let i=0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            selectedRadio = radios[i].value;
-        }
-    }
-    try {
-        if (selectedRadio === -1) {
-            throw "Please select a feed";
-        }
-        else {
-            return selectedRadio;
-        }
-    }
-    catch(err) {
-        alert(err);
-    }
-}
 let changingFeed = "";
 
 function editFeed() {
@@ -137,7 +114,6 @@ function editFeed() {
         document.getElementById('feedUrlChange').value = feedObject.url;
         document.getElementById("radio" + feedObject.folder + "2").checked = true;
         closeForm('editFeedForm');
-        console.log(changingFeed);
     }
 } 
 
@@ -163,6 +139,28 @@ function cancelEdit() {
     changingFeed = "";
 }
 
+// Radio Check
+
+function radioCheck(radioList) {
+    let radios = document.getElementsByName(radioList);
+    let selectedRadio = -1;
+    for (let i=0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            selectedRadio = radios[i].value;
+        }
+    }
+    try {
+        if (selectedRadio === -1) {
+            throw "Please select a feed";
+        }
+        else {
+            return selectedRadio;
+        }
+    }
+    catch(err) {
+        alert(err);
+    }
+}
 
 // Delete Feed
 
@@ -180,6 +178,21 @@ function deleteFeed() {
     }
 }
 
+// Delete Folder
+
+document.getElementById('removeFolderButton').addEventListener('click', function () {openForm('removeFolderForm')});
+document.getElementById('removeFolderCancel').addEventListener('click', function () {closeForm('removeFolderForm')});
+document.getElementById('removeFolderConfirm').addEventListener('click', deleteFolder);
+
+function deleteFolder() {
+    let folderChoice = radioCheck("folderChoiceRemove");
+    let folderIndex = folderList.indexOf(folderChoice);
+    folderList.splice(folderIndex, 1);
+    let folderString = JSON.stringify(folderList);
+    localStorage.setItem("storedFolders",folderString);
+    closeForm('removeFolderForm');
+    location.reload();
+}
 
 // Collapsible sidebar
 
@@ -389,6 +402,7 @@ function folderListCreate (container, idNum, uniqueName) {
 }
 folderListCreate("folderRadios", 1, "New");
 folderListCreate("feedFolderChange", 2, "Edit");
+folderListCreate("removeFolderRadios", 3, "Remove");
 
 // Card Forms
 

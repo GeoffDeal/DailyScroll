@@ -225,6 +225,11 @@ a:visited{
     right: 20px;
     width: 200px;
 }
+#removeFolderForm {
+    position: fixed;
+    top: 140px;
+    right: 20px;
+}
 .formContainter{
     max-width: 300px;
     padding: 50px;
