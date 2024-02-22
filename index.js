@@ -216,22 +216,33 @@ function clearSettings (){
 // Setup Weather Widget
 
 document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
-document.getElementById('addWeatherForm').addEventListener("submit", createWeather);
+document.getElementById('createWeatherButton').addEventListener("click", createWeather);
 document.getElementById('cancelWeatherButton').addEventListener("click", function() {closeForm('weatherForm')});
+let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
 
-function createWeather() {
-    let newFolder = document.createElement('div');
-    newFolder.className = 'contentFeed';
-    newFolder.id = "Weather";
+if (weatherInfo === null){
+    weatherInfo = {};
+ }
 
-    document.getElementById('contentFolder').appendChild(newFolder);
+async function createWeather(event) {
+    event.preventDefault();
+    const userCity = document.getElementById('cityInput').value;
+    const encodedCity = encodeURIComponent(userCity);
+    const userAPI = document.getElementById('apiInput').value;
+    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
 
-    let newTab = document.createElement('button');
-    newTab.className = 'folderTab';
-    newTab.id = 'tabWeather';
-    newTab.innerHTML = 'Weather';
+    closeForm('weatherForm');
 
-    document.getElementById('folderTabs').appendChild(newTab);
+    fetch(apiUrl)
+        .then(data => data.json())
+        .then(text => console.log(text, typeof(text)))
+}
+//http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+function cityConfirmation() {
+    let cityForm = document.createElement('div');
+    cityForm.id = 'cityForm';
+    cityForm.className = 'popupForm';
+    
 }
 
 // Creating folders
@@ -618,7 +629,7 @@ function masterConstruct(feedText) {
 
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
-        let url = array[i].url;
+        let url = 'https://corsproxy.io/?' + array[i].url;
         let folder = array[i].folder;
         let name = array[i].name;
         getData(url)
@@ -628,6 +639,11 @@ function getAllFeeds (array) {
 
 getAllFeeds(rssList);
 
+
+
+
+
+// 
 // Joshua's getAllFeeds
 
 // function getAllFeeds(array) {

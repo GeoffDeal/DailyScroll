@@ -48,11 +48,13 @@
         <button id="weatherFormButton">Setup Weather</button>
         <div class="popupForm" id="weatherForm">
             <form id="addWeatherForm" class="formContainer">
-                <label for="postalcode">Postal Code:</label><br>
-                <input type="text" id="postalcode" name="postalcode"><br>
-                <label for="countryinput">Country:</label><br>
-                <input type="text" id="countryinput" name="countryinput">
-                <button type="submit" class="formButton">Create</button>
+                <p>Enter the information below to set up your weather</p>
+                <label for="cityInput">City:</label><br>
+                <input type="text" id="cityInput" name="cityInput"><br>
+                <label for="apiKey">API Key:</label><br>
+                <input type="text" id="apiInput" name="apiInput">
+                <p>You will need a free account with <a href="https://openweathermap.org/">OpenWeather</a></p><br>
+                <button type="submit" id='createWeatherButton' class="formButton">Create</button>
                 <button type="button" id="cancelWeatherButton" class="formButton">Cancel</button>
             </form>
         </div>
