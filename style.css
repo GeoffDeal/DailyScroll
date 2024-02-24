@@ -245,6 +245,12 @@ a:visited{
     top: 140px;
     right: 20px;
 }
+#cityForm{
+    position: fixed;
+    top: 90px;
+    right: 0;
+    display: block;
+}
 .formContainter{
     max-width: 300px;
     padding: 50px;

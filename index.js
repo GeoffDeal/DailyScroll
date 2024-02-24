@@ -235,14 +235,64 @@ async function createWeather(event) {
 
     fetch(apiUrl)
         .then(data => data.json())
-        .then(text => console.log(text, typeof(text)))
+        .then(response => cityConfirmation(response))
 }
 //http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-function cityConfirmation() {
+function cityConfirmation(apiResponse) {
     let cityForm = document.createElement('div');
     cityForm.id = 'cityForm';
     cityForm.className = 'popupForm';
+    document.getElementById('sidebar').appendChild(cityForm);
+
+    let text = document.createElement('p');
+    text.innerHTML = 'Please confirm your location:';
+    cityForm.appendChild(text);
+
+    for (let i = 0; i < apiResponse.length; i++) {
+        let cityRadio = document.createElement('input');
+        cityRadio.type = "radio";
+        cityRadio.name = "cityRadio";
+        cityRadio.id = "radio" + apiResponse[i].name + Math.trunc(apiResponse[i].lat) + Math.trunc(apiResponse[i].lon);
+        cityRadio.value = i;
+        cityForm.appendChild(cityRadio);
+
+        let cityLabel = document.createElement('label');
+        cityLabel.setAttribute("for", cityRadio.id);
+        cityLabel.innerHTML = apiResponse[i].name + ", " + apiResponse[i].state + ", " + apiResponse[i].country + ", lat:" + apiResponse[i].lat + ", long:" + apiResponse[i].lon;
+        cityForm.appendChild(cityLabel)
+
+        document.createElement('br');
+        appendBreak(cityForm);
+    }
+
+    let confirmButton = document.createElement('button');
+    confirmButton.id = 'cityConfirmButton';
+    confirmButton.addEventListener('click', function() {
+        saveCity(apiResponse);
+    })
+    confirmButton.innerHTML = 'Confirm';
+    cityForm.appendChild(confirmButton);
     
+    let cancelButton = document.createElement('button');
+    cancelButton.id = 'cityCancelButton';
+    cancelButton.innerHTML = 'Cancel';
+    cancelButton.addEventListener('click', function(){
+        cancelForm('cityForm');
+    })
+    cityForm.appendChild(cancelButton);
+    console.log(apiResponse);
+    
+}
+
+function saveCity(apiResponse) {
+    let j = radioCheck('cityRadio');
+    let lat = apiResponse[j].lat;
+    let long = apiResponse[j].lon;
+    console.log(lat, long);
+    weatherInfo.lat = lat;
+    weatherInfo.long = long;
+    let weatherString = JSON.stringify(weatherInfo);
+    localStorage.setItem("storedWeather", weatherString);
 }
 
 // Creating folders
@@ -461,18 +511,22 @@ function createCardForm(cardId) {
     let newCancelButton = document.createElement('button');
     newCancelButton.innerHTML = "Cancel";
     newCancelButton.addEventListener('click', function() {
-        cancelCardForm(menuForm.id);
+        cancelForm(menuForm.id);
     });
     menuForm.appendChild(newCancelButton);
 }
 
-function cancelCardForm(formId) {
+// Destroy form function
+
+function cancelForm(formId) {
     let form = document.getElementById(formId);
     while (form.firstChild){
         form.removeChild(form.firstChild);
     }
     form.remove();
 }
+
+// Append Break function
 
 function appendBreak(parent) {
     let br = document.createElement('br');
@@ -638,8 +692,6 @@ function getAllFeeds (array) {
 }
 
 getAllFeeds(rssList);
-
-
 
 
 
