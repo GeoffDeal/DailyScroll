@@ -25,9 +25,7 @@ function addFolder() {
         
         let folderName = document.getElementById('nfolder').value;
         if (folderName !== ''){
-            folderList.push(folderName);
-            let folderString = JSON.stringify(folderList);
-            localStorage.setItem("storedFolders",folderString);
+            createFolder(folderName);
         } else {
             closeForm('folderForm');
         }
@@ -35,6 +33,14 @@ function addFolder() {
      } else {
         console.log("Local storage not supported")
      }
+}
+
+function createFolder(name) {
+    if (folderList.indexOf(name) === -1) {
+        folderList.push(name);
+        let folderString = JSON.stringify(folderList);
+        localStorage.setItem("storedFolders",folderString);
+    }
 }
 
 // Feed object constructor
@@ -151,7 +157,7 @@ function radioCheck(radioList) {
     }
     try {
         if (selectedRadio === -1) {
-            throw "Please select a feed";
+            throw "Please select an option";
         }
         else {
             return selectedRadio;
@@ -212,33 +218,54 @@ function clearSettings (){
         location.reload();
     }
 }
+// Weather Call
+
+let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
+if (weatherInfo === null){
+    weatherInfo = {};
+ } else {
+
+ }
 
 // Setup Weather Widget
 
 document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
 document.getElementById('createWeatherButton').addEventListener("click", createWeather);
 document.getElementById('cancelWeatherButton').addEventListener("click", function() {closeForm('weatherForm')});
-let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
-
-if (weatherInfo === null){
-    weatherInfo = {};
- }
 
 async function createWeather(event) {
+
     event.preventDefault();
     const userCity = document.getElementById('cityInput').value;
     const encodedCity = encodeURIComponent(userCity);
     const userAPI = document.getElementById('apiInput').value;
     const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
+    if (userAPI === null || userAPI === "") {
+        alert("Please enter an API key");
+    }
+    else {
+        closeForm('weatherForm');
 
-    closeForm('weatherForm');
-
-    fetch(apiUrl)
-        .then(data => data.json())
-        .then(response => cityConfirmation(response))
+        weatherInfo.key = userAPI;
+        let weatherString = JSON.stringify(weatherInfo);
+        localStorage.setItem("storedWeather", weatherString);
+    
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error('Failed to fetch data: ' + errorData.message);
+                    })
+                }
+                return response.json()})
+            .then(dataObj => cityConfirmation(dataObj))
+            .catch(error => {
+                alert(error.message)
+            })
+    }
 }
-//http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 function cityConfirmation(apiResponse) {
+    
     let cityForm = document.createElement('div');
     cityForm.id = 'cityForm';
     cityForm.className = 'popupForm';
@@ -269,6 +296,7 @@ function cityConfirmation(apiResponse) {
     confirmButton.id = 'cityConfirmButton';
     confirmButton.addEventListener('click', function() {
         saveCity(apiResponse);
+
     })
     confirmButton.innerHTML = 'Confirm';
     cityForm.appendChild(confirmButton);
@@ -280,19 +308,25 @@ function cityConfirmation(apiResponse) {
         cancelForm('cityForm');
     })
     cityForm.appendChild(cancelButton);
-    console.log(apiResponse);
     
 }
 
 function saveCity(apiResponse) {
     let j = radioCheck('cityRadio');
-    let lat = apiResponse[j].lat;
-    let long = apiResponse[j].lon;
-    console.log(lat, long);
-    weatherInfo.lat = lat;
-    weatherInfo.long = long;
-    let weatherString = JSON.stringify(weatherInfo);
-    localStorage.setItem("storedWeather", weatherString);
+    if (apiResponse[j] !== undefined) {
+
+        let lat = apiResponse[j].lat;
+        let long = apiResponse[j].lon;
+
+        console.log('test ');
+        weatherInfo.lat = lat;
+        weatherInfo.long = long;
+        let weatherString = JSON.stringify(weatherInfo);
+        localStorage.setItem("storedWeather", weatherString);
+        createFolder('Weather');
+        cancelForm('cityForm');
+        location.reload();
+    }
 }
 
 // Creating folders
