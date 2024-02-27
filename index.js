@@ -224,8 +224,58 @@ let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
 if (weatherInfo === null){
     weatherInfo = {};
  } else {
-
+    weatherCard();
+    // fetchWeather('weather');
+    // fetchWeather('forecast');
  }
+
+function weatherCard() {
+    let newCard = document.createElement('div');
+    document.getElementById('contentFolder').appendChild(newCard);
+    newCard.className = "contentCard";
+    newCard.id = 'weatherDisplay';
+    
+    let weatherDiv = document.createElement('div');
+    newCard.appendChild(weatherDiv);
+    let weatherDesc = document.createElement('p');
+    weatherDesc.id = 'weatherDesc';
+    weatherDesc.innerHTML = 'Awaiting weather data';
+    weatherDiv.appendChild(weatherDesc);
+
+    let forecastDiv = document.createElement('div');
+    newCard.appendChild(forecastDiv);
+    let forecastDesc = document.createElement('p');
+    forecastDesc.id = 'forecastDesc';
+    forecastDesc.innerHTML = 'Awaiting weather data';
+    forecastDiv.appendChild(forecastDesc);
+    
+}
+async function fetchWeather(request) {
+    // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+    let lat = weatherInfo.lat;
+    let long = weatherInfo.long;
+    let key = weatherInfo.key;
+    let weatherType = request;
+    let apiUrl = 'https://api.openweathermap.org/data/2.5/' + weatherType +'?lat=' + lat + '&lon=' + long + '&appid=' + key;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error('Failed to get weather: ' + errorData.message);
+                })
+            }
+            return response.json();
+        })
+        .then(dataObj => populateWeatherData(dataObj))
+        .catch(error => {
+            id = weatherCard + 'Desc';
+            document.getElementById(id).innerHTML = error
+        })
+}
+function populateWeatherData(dataObj) {
+    console.log(dataObj);
+}
 
 // Setup Weather Widget
 
@@ -361,9 +411,9 @@ function tabDisplay(whichTab) {
     let chosenTab = document.getElementById(whichTab);
     if (chosenTab.classList.contains("active") !== true) {
         
-        const textDiv = document.getElementById('textDiv');
-        while (textDiv.firstChild){
-            textDiv.removeChild(textDiv.firstChild);
+        const contentFolder = document.getElementById('contentFolder');
+        while (contentFolder.firstChild){
+            contentFolder.removeChild(contentFolder.firstChild);
         }
         articleArray.sort((a, b) => {b - a
             x = a.pubDate.replace(/\w{3}, /,'');
@@ -397,9 +447,9 @@ function allTabDisplay() {
 
     let chosenTab = document.getElementById('All');
     if (chosenTab.classList.contains("active") !== true){
-        const textDiv = document.getElementById('textDiv');
-        while (textDiv.firstChild){
-            textDiv.removeChild(textDiv.firstChild);
+        const contentFolder = document.getElementById('contentFolder');
+        while (contentFolder.firstChild){
+            contentFolder.removeChild(contentFolder.firstChild);
         }
         activeTab('All');
         articleArray.sort((a, b) => {b - a
@@ -654,7 +704,7 @@ const cardArray = [];
 
 function cardConstruct(obj) {
 
-    let parentFolder = document.getElementById('textDiv');
+    let parentFolder = document.getElementById('contentFolder');
 
     let newCard = document.createElement('div');
     parentFolder.appendChild(newCard);
@@ -690,6 +740,7 @@ function cardConstruct(obj) {
     newCard.appendChild(newDate);
     newDate.innerHTML = itemDate;
 }
+
 // Card Sorting and Display
 
 let xmlMaster;

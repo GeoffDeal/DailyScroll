@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>DailyScroll</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <script src="https://kit.fontawesome.com/fb5991556d.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="header">
         <div id="headMenu">
-            <img src="images/dailyscroll-high-resolution-logo-transparent.png" alt="DailyScroll logo" height="50">
+            <img src="images/dailyscroll-high-resolution-logo-transparent.png" alt="DailyScroll logo" height="35">
                 
             <div class="menu">
                 <div class="buttGroup" id="settingsMenu">
@@ -40,6 +44,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="tabGroup" id="folderTabs">
+            <button class="folderTab" id="All">All</button> 
         </div>
     </div>
 
@@ -86,11 +93,8 @@
         <button id="clearSettingsButton">Clear Saved Inputs</button>
     </div>
     <div class="main" id="folderHolder">
-        <div class="tabGroup" id="folderTabs">
-            <button class="folderTab" id="All">All</button> 
-        </div>
         <div class="flexContainer" id="contentFolder">
-            <div id="textDiv"></div>
+
         </div>
         <button id="scrollTop" class="menuButton"><i class="fa-solid fa-up-long"></i></button>
     </div>
