@@ -382,14 +382,11 @@ function saveCity(apiResponse) {
 // Creating folders
 
 for ( i=0; i < folderList.length; i++) {
-
     let newTab = document.createElement('button');
     newTab.className = 'folderTab';
     newTab.id = folderList[i];
     newTab.innerHTML = folderList[i];
-
     document.getElementById('folderTabs').appendChild(newTab);
-
 }
 
 // Switch tab active

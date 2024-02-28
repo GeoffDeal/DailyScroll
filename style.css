@@ -143,6 +143,20 @@ a:visited{
     background-color: #00bc8a;
 }
 
+/* Webkit scrollbar colour */
+
+::-webkit-scrollbar {
+    width: thin;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #00bc8a;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #1A1720;
+}
+
 /* Content folder styling */
 
 .flexContainer {
