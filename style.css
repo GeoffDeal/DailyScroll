@@ -16,7 +16,19 @@ a:link{
 a:visited{
     color: grey
 }
-
+@keyframes splash{
+    0% {opacity: 0;}
+    100% {opacity: 100;}
+}
+#splashImg {
+    margin: auto;
+    width: 80%;
+    height: auto;
+    max-width: 666px;
+    animation-name: splash;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
 .header{
     position: fixed;
     top: 0;
@@ -103,11 +115,12 @@ a:visited{
     background-color: 2E2843;
     color: white;
     padding: 10px;
-    border-radius: 8px;
+    /* border-radius: 8px;
     border-style: solid;
     border-width: 2px;
-    border-color: #1A0C18;
-    width:90vw ;
+    border-color: #1A0C18; */
+    width: 75vw ;
+    margin: auto;
     flex-wrap: wrap;
 }
 .tabGroup{
@@ -132,7 +145,7 @@ a:visited{
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-right: 2px;
-    min-width: 70px;
+    min-width: 75px;
 }
 .tabGroup button.active {
     background-color: #00bc8a;
@@ -316,7 +329,7 @@ h3 {
 
 #sidebar{
     position: fixed;
-    height: calc(100% - 100px);
+    height: calc(100% - 95px);
     width: 0px;
     right: 0;
     bottom: 0;
@@ -354,4 +367,5 @@ h3 {
 #weatherDisplay {
     width: 100%;
     padding: 8px;
+    display: none;
 }
