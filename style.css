@@ -105,6 +105,46 @@ a:visited{
     margin-left: 5%;
 }
 
+/* Tab styling */
+
+.tabGroup{
+    /* display: flex;
+    flex-wrap: wrap-reverse; */
+    /* margin-left:20px; */
+}
+#folderTabs {
+    position: fixed;
+    z-index: 2;
+    top: 76px;
+    left: 0;
+    margin-left: 6%;
+    margin-right: 6%;
+    max-height: 50px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    scrollbar-color: #00bc8a;
+    width: 95%;
+
+}
+.tabGroup button {
+    background-color: #36323E;
+    padding: 5px;
+    color: white;
+    border: 2px solid #1A0C18;
+    border-top: none;
+    font-size: 20px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    /* margin-right: 2px; */
+    min-width: 75px;
+}
+.tabGroup button.active {
+    background-color: #00bc8a;
+}
+.tabGroup button:hover {
+    background-color: #00bc8a;
+}
+
 /* Content folder styling */
 
 .flexContainer {
@@ -122,36 +162,6 @@ a:visited{
     width: 75vw ;
     margin: auto;
     flex-wrap: wrap;
-}
-.tabGroup{
-    display: flex;
-    flex-wrap: wrap-reverse;
-    margin-left:20px;
-}
-#folderTabs {
-    position: fixed;
-    z-index: 2;
-    top: 76px;
-    left: 0;
-    margin-left: 6%;
-}
-.tabGroup button {
-    background-color: #36323E;
-    padding: 5px;
-    color: white;
-    border: 2px solid #1A0C18;
-    border-top: none;
-    font-size: 20px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    margin-right: 2px;
-    min-width: 75px;
-}
-.tabGroup button.active {
-    background-color: #00bc8a;
-}
-.tabGroup button:hover {
-    background-color: #00bc8a;
 }
 .contentCard {
     background-color: #221E2A;
