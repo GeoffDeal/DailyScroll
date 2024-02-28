@@ -173,6 +173,8 @@ a:visited{
     border-style: solid;
     border-width: 2px;
     border-color: black;
+    max-width: 98%;
+    height: auto;
 }
 .contentCard h3 {
     text-align: center;
