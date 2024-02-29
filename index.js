@@ -218,17 +218,34 @@ function clearSettings (){
         location.reload();
     }
 }
+// Creating folders
+
+for ( i=0; i < folderList.length; i++) {
+    let newTab = document.createElement('button');
+    newTab.className = 'folderTab';
+    newTab.id = folderList[i];
+    newTab.innerHTML = folderList[i];
+    document.getElementById('folderTabs').appendChild(newTab);
+}
+
 // Weather Call
+let weatherData;
+let forecastData;
 
 let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
 if (weatherInfo === null){
     weatherInfo = {};
  } else {
-    weatherCard();
-    // fetchWeather('weather');
-    // fetchWeather('forecast');
+    fetchWeather('weather');
+    fetchWeather('forecast');
+    document.getElementById('Weather').addEventListener('click', displayWeather);
  }
-
+function displayWeather() {
+    console.log(weatherData, forecastData);
+    weatherCard();
+    populateWeather(weatherData);
+    populateWeather(forecastData);
+}
 function weatherCard() {
     let newCard = document.createElement('div');
     document.getElementById('contentFolder').appendChild(newCard);
@@ -248,7 +265,9 @@ function weatherCard() {
     forecastDesc.id = 'forecastDesc';
     forecastDesc.innerHTML = 'Awaiting weather data';
     forecastDiv.appendChild(forecastDesc);
-    
+}
+function populateWeather(dataObj) {
+
 }
 async function fetchWeather(request) {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
@@ -267,15 +286,19 @@ async function fetchWeather(request) {
             }
             return response.json();
         })
-        .then(dataObj => populateWeatherData(dataObj))
+        .then(dataObj => {
+            if (weatherType === 'weather') {
+                weatherData = dataObj;
+            } else {
+                forecastData = dataObj;
+            }
+        })
         .catch(error => {
-            id = weatherCard + 'Desc';
-            document.getElementById(id).innerHTML = error
+            // id = weatherCard + 'Desc';
+            // document.getElementById(id).innerHTML = error
         })
 }
-function populateWeatherData(dataObj) {
-    console.log(dataObj);
-}
+
 
 // Setup Weather Widget
 
@@ -379,15 +402,7 @@ function saveCity(apiResponse) {
     }
 }
 
-// Creating folders
 
-for ( i=0; i < folderList.length; i++) {
-    let newTab = document.createElement('button');
-    newTab.className = 'folderTab';
-    newTab.id = folderList[i];
-    newTab.innerHTML = folderList[i];
-    document.getElementById('folderTabs').appendChild(newTab);
-}
 
 // Switch tab active
 
