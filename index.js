@@ -228,181 +228,6 @@ for ( i=0; i < folderList.length; i++) {
     document.getElementById('folderTabs').appendChild(newTab);
 }
 
-// Weather Call
-let weatherData;
-let forecastData;
-
-let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
-if (weatherInfo === null){
-    weatherInfo = {};
- } else {
-    fetchWeather('weather');
-    fetchWeather('forecast');
-    document.getElementById('Weather').addEventListener('click', displayWeather);
- }
-function displayWeather() {
-    console.log(weatherData, forecastData);
-    weatherCard();
-    populateWeather(weatherData);
-    populateWeather(forecastData);
-}
-function weatherCard() {
-    let newCard = document.createElement('div');
-    document.getElementById('contentFolder').appendChild(newCard);
-    newCard.className = "contentCard";
-    newCard.id = 'weatherDisplay';
-    
-    let weatherDiv = document.createElement('div');
-    newCard.appendChild(weatherDiv);
-    let weatherDesc = document.createElement('p');
-    weatherDesc.id = 'weatherDesc';
-    weatherDesc.innerHTML = 'Awaiting weather data';
-    weatherDiv.appendChild(weatherDesc);
-
-    let forecastDiv = document.createElement('div');
-    newCard.appendChild(forecastDiv);
-    let forecastDesc = document.createElement('p');
-    forecastDesc.id = 'forecastDesc';
-    forecastDesc.innerHTML = 'Awaiting weather data';
-    forecastDiv.appendChild(forecastDesc);
-}
-function populateWeather(dataObj) {
-
-}
-async function fetchWeather(request) {
-    // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-    let lat = weatherInfo.lat;
-    let long = weatherInfo.long;
-    let key = weatherInfo.key;
-    let weatherType = request;
-    let apiUrl = 'https://api.openweathermap.org/data/2.5/' + weatherType +'?lat=' + lat + '&lon=' + long + '&appid=' + key;
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error('Failed to get weather: ' + errorData.message);
-                })
-            }
-            return response.json();
-        })
-        .then(dataObj => {
-            if (weatherType === 'weather') {
-                weatherData = dataObj;
-            } else {
-                forecastData = dataObj;
-            }
-        })
-        .catch(error => {
-            // id = weatherCard + 'Desc';
-            // document.getElementById(id).innerHTML = error
-        })
-}
-
-
-// Setup Weather Widget
-
-document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
-document.getElementById('createWeatherButton').addEventListener("click", createWeather);
-document.getElementById('cancelWeatherButton').addEventListener("click", function() {closeForm('weatherForm')});
-
-async function createWeather(event) {
-
-    event.preventDefault();
-    const userCity = document.getElementById('cityInput').value;
-    const encodedCity = encodeURIComponent(userCity);
-    const userAPI = document.getElementById('apiInput').value;
-    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
-    if (userAPI === null || userAPI === "") {
-        alert("Please enter an API key");
-    }
-    else {
-        closeForm('weatherForm');
-
-        weatherInfo.key = userAPI;
-        let weatherString = JSON.stringify(weatherInfo);
-        localStorage.setItem("storedWeather", weatherString);
-    
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error('Failed to fetch data: ' + errorData.message);
-                    })
-                }
-                return response.json()})
-            .then(dataObj => cityConfirmation(dataObj))
-            .catch(error => {
-                alert(error.message)
-            })
-    }
-}
-function cityConfirmation(apiResponse) {
-    
-    let cityForm = document.createElement('div');
-    cityForm.id = 'cityForm';
-    cityForm.className = 'popupForm';
-    document.getElementById('sidebar').appendChild(cityForm);
-
-    let text = document.createElement('p');
-    text.innerHTML = 'Please confirm your location:';
-    cityForm.appendChild(text);
-
-    for (let i = 0; i < apiResponse.length; i++) {
-        let cityRadio = document.createElement('input');
-        cityRadio.type = "radio";
-        cityRadio.name = "cityRadio";
-        cityRadio.id = "radio" + apiResponse[i].name + Math.trunc(apiResponse[i].lat) + Math.trunc(apiResponse[i].lon);
-        cityRadio.value = i;
-        cityForm.appendChild(cityRadio);
-
-        let cityLabel = document.createElement('label');
-        cityLabel.setAttribute("for", cityRadio.id);
-        cityLabel.innerHTML = apiResponse[i].name + ", " + apiResponse[i].state + ", " + apiResponse[i].country + ", lat:" + apiResponse[i].lat + ", long:" + apiResponse[i].lon;
-        cityForm.appendChild(cityLabel)
-
-        document.createElement('br');
-        appendBreak(cityForm);
-    }
-
-    let confirmButton = document.createElement('button');
-    confirmButton.id = 'cityConfirmButton';
-    confirmButton.addEventListener('click', function() {
-        saveCity(apiResponse);
-
-    })
-    confirmButton.innerHTML = 'Confirm';
-    cityForm.appendChild(confirmButton);
-    
-    let cancelButton = document.createElement('button');
-    cancelButton.id = 'cityCancelButton';
-    cancelButton.innerHTML = 'Cancel';
-    cancelButton.addEventListener('click', function(){
-        cancelForm('cityForm');
-    })
-    cityForm.appendChild(cancelButton);
-    
-}
-
-function saveCity(apiResponse) {
-    let j = radioCheck('cityRadio');
-    if (apiResponse[j] !== undefined) {
-
-        let lat = apiResponse[j].lat;
-        let long = apiResponse[j].lon;
-
-        console.log('test ');
-        weatherInfo.lat = lat;
-        weatherInfo.long = long;
-        let weatherString = JSON.stringify(weatherInfo);
-        localStorage.setItem("storedWeather", weatherString);
-        createFolder('Weather');
-        cancelForm('cityForm');
-        location.reload();
-    }
-}
-
-
 
 // Switch tab active
 
@@ -413,8 +238,6 @@ function activeTab(tab) {
     }
     document.getElementById(tab).classList.add("active");
 }
-
-
 
 // Tab Switching Display Function
 
@@ -789,6 +612,239 @@ function getAllFeeds (array) {
 }
 
 getAllFeeds(rssList);
+
+
+// Weather Call
+let weatherData;
+let forecastData;
+
+let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
+if (weatherInfo === null){
+    weatherInfo = {};
+ } else {
+    fetchWeather('weather');
+    fetchWeather('forecast');
+    document.getElementById('Weather').addEventListener('click', displayWeather);
+ }
+function displayWeather() {
+    console.log(weatherData, forecastData);
+    if (document.getElementById('weatherDisplay')=== null){
+        weatherCard();
+        populateWeather(weatherData);
+        // populateWeather(forecastData);
+    }
+}
+function weatherCard() {
+    console.log('Creating weather card');
+    let newCard = document.createElement('div');
+    let parentDiv = document.getElementById('contentFolder');
+    parentDiv.appendChild(newCard);
+    newCard.className = "contentCard";
+    newCard.id = 'weatherDisplay';
+    
+    let weatherDiv = document.createElement('div');
+    newCard.appendChild(weatherDiv);
+    weatherDiv.id = 'weatherDiv';
+
+    let forecastDiv = document.createElement('div');
+    newCard.appendChild(forecastDiv);
+    forecastDiv.id = 'forecastDiv';
+}
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+function populateWeather(dataObj) {
+    if (dataObj.cod === 200) {
+        let weatherMain = document.createElement('h3');
+        let date = new Date();
+        let weekday = weekdays[date.getDay()];
+        weatherMain.innerHTML = weekday + ' | ' + dataObj.weather[0].main;
+        parentDiv = document.getElementById('weatherDiv');
+        parentDiv.appendChild(weatherMain);
+
+        let weatherIcon = document.createElement('i');
+        parentDiv.appendChild(weatherIcon);
+        let iconCode = dataObj.weather[0].icon;
+        console.log(iconCode);
+        let codeNum = iconCode.substring(0, iconCode.length - 1);
+        switch (codeNum) {
+            case '01':
+                weatherIcon.className = "fa-regular fa-sun";
+                break;
+            case '02':
+                weatherIcon.className = "fa-solid fa-cloud-sun";
+                break;
+            case '03':
+                weatherIcon.className = "fa-solid fa-cloud-sun";
+                break;
+            case '04':
+                weatherIcon.className = "fa-solid fa-cloud";
+                break;
+            case '09':
+                weatherIcon.className = "fa-solid fa-cloud-rain";
+                break;
+            case '10':
+                weatherIcon.className = "fa-solid fa-cloud-showers-heavy";
+                break;
+            case '11':
+                weatherIcon.className = "fa-solid fa-cloud-bolt";
+                break;
+            case '13':
+                weatherIcon.className = "fa-regular fa-snowflake";
+                break;
+            case '50':
+                weatherIcon.className = "fa-solid fa-smog";
+        }
+
+        let weatherTemp = document.createElement('p');
+        parentDiv.appendChild(weatherTemp);
+        let temp = Math.round(dataObj.main.temp - 273.15);
+        let tempText = 'Temp: ' + temp + '&deg;C';
+        weatherTemp.innerHTML = tempText;
+
+        let weatherWind = document.createElement('p');
+        parentDiv.appendChild(weatherWind)
+        let wind = dataObj.wind.speed * 3.6;
+        let windText = 'Wind: ' + wind + ' k/h';
+        weatherWind.innerHTML = windText;
+
+        let weatherDesc = document.createElement('p');
+        parentDiv.appendChild(weatherDesc);
+        let desc = dataObj.weather[0].description;
+        weatherDesc.innerHTML = desc;
+    }else {
+        document.getElementById('weatherDiv').innerHTML = dataObj.message;
+    }
+}
+async function fetchWeather(request) {
+    // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+    let lat = weatherInfo.lat;
+    let long = weatherInfo.long;
+    let key = weatherInfo.key;
+    let weatherType = request;
+    let apiUrl = 'https://api.openweathermap.org/data/2.5/' + weatherType +'?lat=' + lat + '&lon=' + long + '&appid=' + key;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error('Failed to get weather: ' + errorData.message);
+                })
+            }
+            return response.json();
+        })
+        .then(dataObj => {
+            if (weatherType === 'weather') {
+                weatherData = dataObj;
+            } else {
+                forecastData = dataObj;
+            }
+        })
+        .catch(error => {
+            // id = weatherCard + 'Desc';
+            // document.getElementById(id).innerHTML = error
+        })
+}
+
+// Setup Weather Widget
+
+document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
+document.getElementById('createWeatherButton').addEventListener("click", createWeather);
+document.getElementById('cancelWeatherButton').addEventListener("click", function() {closeForm('weatherForm')});
+
+async function createWeather(event) {
+
+    event.preventDefault();
+    const userCity = document.getElementById('cityInput').value;
+    const encodedCity = encodeURIComponent(userCity);
+    const userAPI = document.getElementById('apiInput').value;
+    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
+    if (userAPI === null || userAPI === "") {
+        alert("Please enter an API key");
+    }
+    else {
+        closeForm('weatherForm');
+
+        weatherInfo.key = userAPI;
+        let weatherString = JSON.stringify(weatherInfo);
+        localStorage.setItem("storedWeather", weatherString);
+    
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error('Failed to fetch data: ' + errorData.message);
+                    })
+                }
+                return response.json()})
+            .then(dataObj => cityConfirmation(dataObj))
+            .catch(error => {
+                alert(error.message)
+            })
+    }
+}
+function cityConfirmation(apiResponse) {
+    
+    let cityForm = document.createElement('div');
+    cityForm.id = 'cityForm';
+    cityForm.className = 'popupForm';
+    document.getElementById('sidebar').appendChild(cityForm);
+
+    let text = document.createElement('p');
+    text.innerHTML = 'Please confirm your location:';
+    cityForm.appendChild(text);
+
+    for (let i = 0; i < apiResponse.length; i++) {
+        let cityRadio = document.createElement('input');
+        cityRadio.type = "radio";
+        cityRadio.name = "cityRadio";
+        cityRadio.id = "radio" + apiResponse[i].name + Math.trunc(apiResponse[i].lat) + Math.trunc(apiResponse[i].lon);
+        cityRadio.value = i;
+        cityForm.appendChild(cityRadio);
+
+        let cityLabel = document.createElement('label');
+        cityLabel.setAttribute("for", cityRadio.id);
+        cityLabel.innerHTML = apiResponse[i].name + ", " + apiResponse[i].state + ", " + apiResponse[i].country + ", lat:" + apiResponse[i].lat + ", long:" + apiResponse[i].lon;
+        cityForm.appendChild(cityLabel)
+
+        document.createElement('br');
+        appendBreak(cityForm);
+    }
+
+    let confirmButton = document.createElement('button');
+    confirmButton.id = 'cityConfirmButton';
+    confirmButton.addEventListener('click', function() {
+        saveCity(apiResponse);
+
+    })
+    confirmButton.innerHTML = 'Confirm';
+    cityForm.appendChild(confirmButton);
+    
+    let cancelButton = document.createElement('button');
+    cancelButton.id = 'cityCancelButton';
+    cancelButton.innerHTML = 'Cancel';
+    cancelButton.addEventListener('click', function(){
+        cancelForm('cityForm');
+    })
+    cityForm.appendChild(cancelButton);
+    
+}
+
+function saveCity(apiResponse) {
+    let j = radioCheck('cityRadio');
+    if (apiResponse[j] !== undefined) {
+
+        let lat = apiResponse[j].lat;
+        let long = apiResponse[j].lon;
+
+        console.log('test ');
+        weatherInfo.lat = lat;
+        weatherInfo.long = long;
+        let weatherString = JSON.stringify(weatherInfo);
+        localStorage.setItem("storedWeather", weatherString);
+        createFolder('Weather');
+        cancelForm('cityForm');
+        location.reload();
+    }
+}
 
 
 

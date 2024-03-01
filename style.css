@@ -384,12 +384,21 @@ h3 {
 
 /* Weather Components */
 #weatherDiv {
-    width: 100%;
-    display: none;
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    margin: 8px;
+    background-color: #1A0C18;
+    display: flexbox;
+    justify-content: center;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+#weatherDiv i{
+    font-size: xx-large;
+}
 
-}
-#weatherDisplay {
-    width: 100%;
-    padding: 8px;
-    display: none;
-}
+/* #weatherDisplay {
+
+} */
