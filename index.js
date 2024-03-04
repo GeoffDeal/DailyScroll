@@ -627,7 +627,7 @@ if (weatherInfo === null){
     document.getElementById('Weather').addEventListener('click', displayWeather);
  }
 function displayWeather() {
-    console.log(weatherData, forecastData);
+    console.log(forecastData);
     if (document.getElementById('weatherDisplay')=== null){
         weatherCard();
         populateWeather(weatherData);
@@ -635,7 +635,6 @@ function displayWeather() {
     }
 }
 function weatherCard() {
-    console.log('Creating weather card');
     let newCard = document.createElement('div');
     let parentDiv = document.getElementById('contentFolder');
     parentDiv.appendChild(newCard);
@@ -663,7 +662,6 @@ function populateWeather(dataObj) {
         let weatherIcon = document.createElement('i');
         parentDiv.appendChild(weatherIcon);
         let iconCode = dataObj.weather[0].icon;
-        console.log(iconCode);
         let codeNum = iconCode.substring(0, iconCode.length - 1);
         switch (codeNum) {
             case '01':
@@ -743,7 +741,9 @@ async function fetchWeather(request) {
             // document.getElementById(id).innerHTML = error
         })
 }
-
+function forecastHandling (dataObj) {
+    
+}
 // Setup Weather Widget
 
 document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});

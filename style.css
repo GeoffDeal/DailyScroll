@@ -1,4 +1,3 @@
-/* Logo colours: #2f352f, #00bc8a, #ffffff, #505050*/
 
 * {
   font-family: "Montserrat", sans-serif;
@@ -265,6 +264,25 @@ a:visited{
 h3 {
     font-size: 22px;
     font-weight: 600;
+}
+
+/* Small screens */
+
+@media screen and (max-width: 600px) {
+    #contentFolder {
+        width: 98vw;
+        margin: 0;
+        padding: 0;
+    }
+    .main {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .contentCard {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
 }
 
 /* Form Styling */
