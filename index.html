@@ -50,45 +50,47 @@
 
     
     <div id="sidebar">
-        <button id="weatherFormButton">Setup Weather</button>
-        <div class="popupForm" id="weatherForm">
-            <form id="addWeatherForm" class="formContainer">
-                <p>Enter the information below to set up your weather</p>
-                <label for="cityInput">City:</label><br>
-                <input type="text" id="cityInput" name="cityInput"><br>
-                <label for="apiKey">API Key:</label><br>
-                <input type="text" id="apiInput" name="apiInput">
-                <p>You will need a free account with <a href="https://openweathermap.org/">OpenWeather</a></p><br>
-                <button type="submit" id='createWeatherButton' class="formButton">Create</button>
-                <button type="button" id="cancelWeatherButton" class="formButton">Cancel</button>
-            </form>
+        <div id="sidebarButts">
+            <button id="weatherFormButton"><i class="fa-solid fa-cloud-sun-rain"></i>Setup Weather</button><br>
+            <div class="popupForm" id="weatherForm">
+                <form id="addWeatherForm" class="formContainer">
+                    <p>Enter the information below to set up your weather</p>
+                    <label for="cityInput">City:</label><br>
+                    <input type="text" id="cityInput" name="cityInput"><br>
+                    <label for="apiKey">API Key:</label><br>
+                    <input type="text" id="apiInput" name="apiInput">
+                    <p>You will need a free account with <a href="https://openweathermap.org/">OpenWeather</a></p><br>
+                    <button type="submit" id='createWeatherButton' class="formButton">Create</button>
+                    <button type="button" id="cancelWeatherButton" class="formButton">Cancel</button>
+                </form>
+            </div>
+            <button id="editRemoveButton"><i class="fa-solid fa-file-pen"></i>Edit/Remove Feeds</button><br>
+            <div class="popupForm" id="editFeedForm">
+                <div id="feedRadiosList"></div>
+                <button id="editFeedButton">Edit</button>
+                <button id="deleteFeedButton">Delete</button>
+                <button id="cancelEditButton">Cancel</button>
+            </div>
+            <div class="popupForm" id="feedChangesForm">
+                <h3 id="feedChangeHeader"></h3><br>
+                <label for="feedNameChange">New name for feed:</label>
+                <input type="text" id="feedNameChange" name="feedNameChange"><br>
+                <label for="feedUrlChange">What is the new url:</label>
+                <input type="text" id="feedUrlChange" name="feedUrlChange"><br>
+                <label for="feedFolderChange">What folder would you like to place this feed in?</label><br>
+                <div id="feedFolderChange"></div>
+                <button id="editConfirmButton">Confirm</button>
+                <button id="cancelEditFeedButton">Cancel</button>
+            </div>
+            <button id="removeFolderButton"><i class="fa-solid fa-folder-minus"></i>Remove Folder</button><br>
+            <div class="popupForm" id="removeFolderForm">
+                <div id="removeFolderRadios"></div>
+                <button id="removeFolderConfirm">Confirm</button>
+                <button id="removeFolderCancel">Cancel</button>
+            </div>
+            <!-- <button>Export Settings</button> -->
+            </i><button id="clearSettingsButton"><i class="fa-solid fa-circle-xmark"></i>Clear Saved Inputs</button><br>
         </div>
-        <button id="editRemoveButton">Edit/Remove Feeds</button>
-        <div class="popupForm" id="editFeedForm">
-            <div id="feedRadiosList"></div>
-            <button id="editFeedButton">Edit</button>
-            <button id="deleteFeedButton">Delete</button>
-            <button id="cancelEditButton">Cancel</button>
-        </div>
-        <div class="popupForm" id="feedChangesForm">
-            <h3 id="feedChangeHeader"></h3><br>
-            <label for="feedNameChange">New name for feed:</label>
-            <input type="text" id="feedNameChange" name="feedNameChange"><br>
-            <label for="feedUrlChange">What is the new url:</label>
-            <input type="text" id="feedUrlChange" name="feedUrlChange"><br>
-            <label for="feedFolderChange">What folder would you like to place this feed in?</label><br>
-            <div id="feedFolderChange"></div>
-            <button id="editConfirmButton">Confirm</button>
-            <button id="cancelEditFeedButton">Cancel</button>
-        </div>
-        <button id="removeFolderButton">Remove Folder</button>
-        <div class="popupForm" id="removeFolderForm">
-            <div id="removeFolderRadios"></div>
-            <button id="removeFolderConfirm">Confirm</button>
-            <button id="removeFolderCancel">Cancel</button>
-        </div>
-        <button>Export Settings</button>
-        <button id="clearSettingsButton">Clear Saved Inputs</button>
     </div>
     <div class="main" id="folderHolder">
         <div class="flexContainer" id="contentFolder">

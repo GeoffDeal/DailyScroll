@@ -68,6 +68,10 @@ a:visited{
 .buttGroup button:hover{
     color: #00bc8a;
 }
+.buttGroup button:hover ~ .tooltipText {
+    /* opacity: 1; */
+    display: inline;
+}
 .buttGroup button:active{
     color: #00bc8a;
 }
@@ -79,7 +83,7 @@ a:visited{
     display: inline-block;
 }
 .tooltip .tooltipText {
-    opacity: 0;
+    /* opacity: 0; */
     transition: 0.2s;
     width: auto;
     background-color: black;
@@ -91,10 +95,11 @@ a:visited{
     position: absolute;
     top: 100%;
     right: 50%;
+    display: none;
 }
-.tooltip:hover .tooltipText {
+/* .tooltip:hover .tooltipText {
     opacity: 1;
-}
+} */
 
 /* Main body styling */
 
@@ -166,10 +171,6 @@ a:visited{
     background-color: 2E2843;
     color: white;
     padding: 10px;
-    /* border-radius: 8px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #1A0C18; */
     width: 75vw ;
     margin: auto;
     flex-wrap: wrap;
@@ -282,7 +283,14 @@ h3 {
         margin-left: 0;
         margin-right: 0;
     }
-    
+    #folderTabs {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+    #sidebarButts {
+        margin-top: 30px;
+    }
 }
 
 /* Form Styling */
@@ -375,7 +383,7 @@ h3 {
     width: 0px;
     right: 0;
     bottom: 0;
-    background-color: rgba(41, 41, 41, 0.75);
+    background-color: rgba(41, 41, 41, 0.95);
     border-color: black;
     border-width: 0 2px 0 2px;
     border-style: solid;
@@ -391,13 +399,17 @@ h3 {
     border: none;
     color: white;
     font-size: large;
-    margin-top: 10px;
-    margin-left: 10px;
-    padding: 10px;
+    margin-top: 16px;
+    margin-left: 4pxpx;
+    padding: 8px;
     text-align: left;
 }
+#sidebar i{
+    margin-left: 8px;
+    margin-right: 8px;
+}
 #sidebar.menuDisplay {
-    width: 200px;
+    width: 250px;
 }
 
 /* Weather Components */
@@ -417,6 +429,3 @@ h3 {
     font-size: xx-large;
 }
 
-/* #weatherDisplay {
-
-} */
