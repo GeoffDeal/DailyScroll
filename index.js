@@ -515,19 +515,42 @@ function Article(link, title, desc, pubDate, folder, feedName, cardId){
 }
 
 function createArticleObj(xmlDoc, folder, name) {
-    let itemList = xmlDoc.getElementsByTagName('item');
-    for (let i = 0; i < itemList.length; i++) {
-        let node = itemList[i];
-        let link = node.getElementsByTagName('link')[0].textContent;
-        let title = node.getElementsByTagName('title')[0].textContent;
-        let desc = node.getElementsByTagName('description')[0].textContent;
-        let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
-        let feedName = name;
-        let x = pubDate.replace(/\w{3}, /,'');
-        timestamp = Date.parse(x);
-        let cardId = name + timestamp;
-        const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
-        articleArray.push(articleObj);
+    if (xmlDoc.getElementsByTagName('rss')) {
+        let itemList = xmlDoc.getElementsByTagName('item');
+        for (let i = 0; i < itemList.length; i++) {
+            let node = itemList[i];
+            let link = node.getElementsByTagName('link')[0].textContent;
+            let title = node.getElementsByTagName('title')[0].textContent;
+            let desc = node.getElementsByTagName('description')[0].textContent;
+            let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
+            let feedName = name;
+            let x = pubDate.replace(/\w{3}, /,'');
+            timestamp = Date.parse(x);
+            let cardId = name + timestamp;
+            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
+            articleArray.push(articleObj);
+        }
+    }
+    if (xmlDoc.getElementsByTagName('?xml')) {
+        let itemList = xmlDoc.getElementsByTagName('entry');
+        for (let i = 0; i < itemList.length; i++) {
+            let node = itemList[i];
+            let link = node.getElementsByTagName('link')[0].textContent;
+            let title = node.getElementsByTagName('title')[0].textContent;
+            let desc;
+            if (node.getElementsByTagName('content').length > 0) {
+                desc = node.getElementsByTagName('content')[0].textContent;
+            }if (node.getElementsByTagName('summary').length > 0){
+                desc = node.getElementsByTagName('summary')[0].textContent;
+            }
+            let pubDate = node.getElementsByTagName('updated')[0].textContent;
+            let feedName = name;
+            // let x = pubDate.replace(/\w{3}, /,'');summary
+            timestamp = Date.parse(pubDate);
+            let cardId = name + timestamp;
+            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
+            articleArray.push(articleObj);
+        }
     }
 }
 
@@ -560,7 +583,7 @@ function cardConstruct(obj) {
         linkWrapper.href = itemLink;
     }
     newCard.appendChild(linkWrapper);
-    let itemTitle = obj.title;
+    let itemTitle = obj.title + ' - ' +obj.feedName;
     let newTitle = document.createElement('h3');
     linkWrapper.appendChild(newTitle);
     newTitle.innerHTML = itemTitle;
@@ -637,7 +660,7 @@ function displayWeather() {
 function weatherCard() {
     let newCard = document.createElement('div');
     let parentDiv = document.getElementById('contentFolder');
-    parentDiv.appendChild(newCard);
+    parentDiv.prepend(newCard);
     newCard.className = "contentCard";
     newCard.id = 'weatherDisplay';
     
@@ -700,7 +723,7 @@ function populateWeather(dataObj) {
 
         let weatherWind = document.createElement('p');
         parentDiv.appendChild(weatherWind)
-        let wind = dataObj.wind.speed * 3.6;
+        let wind = Math.round(dataObj.wind.speed * 3.6);
         let windText = 'Wind: ' + wind + ' k/h';
         weatherWind.innerHTML = windText;
 
@@ -848,10 +871,3 @@ function saveCity(apiResponse) {
 
 
 
-// 
-// Joshua's getAllFeeds
-
-// function getAllFeeds(array) {
-//     const promises = array.map(url => getData(url).then(xml => cardConstruct(xml)));
-//     return Promise.all(promises);
-// }
