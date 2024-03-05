@@ -413,13 +413,25 @@ function createCardForm(cardId) {
     menuForm.id = cardId + "Menu";
     affectedCard.appendChild(menuForm);
 
-    let newFaveButton = document.createElement('button');
-    newFaveButton.innerHTML = "Add to Favourites";
-    newFaveButton.addEventListener('click', function() {
-        saveFave(cardId);
-    });
-    menuForm.appendChild(newFaveButton);
-    appendBreak(menuForm);
+    if (document.getElementById('faveButton').classList.contains('selected')) {
+        let newFaveButton = document.createElement('button');
+        newFaveButton.innerHTML = "Remove from Favourites";
+        newFaveButton.addEventListener('click', function() {
+            removeFave(cardId);
+            cancelForm(menuForm.id);
+        });
+        menuForm.appendChild(newFaveButton);
+        appendBreak(menuForm);
+    } else {
+        let newFaveButton = document.createElement('button');
+        newFaveButton.innerHTML = "Add to Favourites";
+        newFaveButton.addEventListener('click', function() {
+            saveFave(cardId);
+            cancelForm(menuForm.id);
+        });
+        menuForm.appendChild(newFaveButton);
+        appendBreak(menuForm);
+    }
 
     let newHideButton = document.createElement('button');
     newHideButton.innerHTML = "Hide Article";
@@ -481,9 +493,18 @@ function saveFave(articleId) {
         faveArray.push(articleObj);
         let faveString = JSON.stringify(faveArray);
         localStorage.setItem("storedFaves", faveString);
-        console.log(faveString);
     }
 }
+function removeFave(articleId) {
+    for (let i = 0; i < faveArray.length; i++) {
+        if (articleId === faveArray[i].cardId) {
+            faveArray.splice(i, 1);
+            let faveString = JSON.stringify(faveArray);
+            localStorage.setItem("storedFaves", faveString);
+        }
+    }
+}
+
 //  Fetching/Parsing RSS Data
 
 let parser = new DOMParser();
@@ -604,7 +625,7 @@ function cardConstruct(obj) {
 let xmlMaster;
 const serializer = new XMLSerializer();
 
-function masterConstruct(feedText) {
+function masterConstruct(feedText) { //Check this
     if (xmlMaster === undefined) {
         masterString = '<?xml version="1.0" encoding="utf-8"?><masterroot>' + feedText + "</masterroot>"
         xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");

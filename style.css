@@ -201,6 +201,10 @@ a:visited{
 .contentCard h3 {
     text-align: center;
 }
+.contentCard p {
+    margin-left: 8px;
+    margin-right: 8px;
+}
 .contentFeed{
     display: none;
 }
