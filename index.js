@@ -416,16 +416,16 @@ function createCardForm(cardId) {
     if (document.getElementById('faveButton').classList.contains('selected')) {
         let newFaveButton = document.createElement('button');
         newFaveButton.innerHTML = "Remove from Favourites";
-        newFaveButton.addEventListener('click', function() {
+        newFaveButton.addEventListener('click', function () {
             removeFave(cardId);
-            cancelForm(menuForm.id);
+            cancelForm(menuForm.id);;
         });
         menuForm.appendChild(newFaveButton);
         appendBreak(menuForm);
     } else {
         let newFaveButton = document.createElement('button');
         newFaveButton.innerHTML = "Add to Favourites";
-        newFaveButton.addEventListener('click', function() {
+        newFaveButton.addEventListener('click', function () {
             saveFave(cardId);
             cancelForm(menuForm.id);
         });
@@ -510,7 +510,6 @@ function removeFave(articleId) {
 let parser = new DOMParser();
 
 async function getData(url) {
-    console.log("Trying...");
     let data = await fetch(url);
     if (!data.ok) {
         throw new Error("Could Not Retrieve Data");
@@ -556,7 +555,7 @@ function createArticleObj(xmlDoc, folder, name) {
         let itemList = xmlDoc.getElementsByTagName('entry');
         for (let i = 0; i < itemList.length; i++) {
             let node = itemList[i];
-            let link = node.getElementsByTagName('link')[0].textContent;
+            let link = node.getElementsByTagName('link')[0].getAttribute('href');
             let title = node.getElementsByTagName('title')[0].textContent;
             let desc;
             if (node.getElementsByTagName('content').length > 0) {
