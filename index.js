@@ -99,6 +99,7 @@ for (let i = 0; i < rssList.length; i++) {
     label.htmlFor = "radio" + rssList[i].name;
     label.innerHTML = rssList[i].name;
     radioContainer.appendChild(label);
+    appendBreak(radioContainer)
 }
 
 // Edit Feed
@@ -184,11 +185,14 @@ function deleteFeed() {
     }
 }
 
-// Delete Folder
+// Edit/Delete Folder
 
-document.getElementById('removeFolderButton').addEventListener('click', function () {openForm('removeFolderForm')});
-document.getElementById('removeFolderCancel').addEventListener('click', function () {closeForm('removeFolderForm')});
-document.getElementById('removeFolderConfirm').addEventListener('click', deleteFolder);
+document.getElementById('editRemoveFolderButton').addEventListener('click', function () {openForm('removeFolderForm')});
+document.getElementById('editRemoveFolderCancel').addEventListener('click', function () {closeForm('removeFolderForm')});
+document.getElementById('removeFolderButton').addEventListener('click', deleteFolder);
+document.getElementById('editFolderButton').addEventListener('click', editFolder);
+document.getElementById('editConfirmButton').addEventListener('click', editFolderConfirm);
+document.getElementById('cancelEditFolderButton').addEventListener('click', function () {closeForm('folderChangesForm')});
 
 function deleteFolder() {
     let folderChoice = radioCheck("folderChoiceRemove");
@@ -198,6 +202,22 @@ function deleteFolder() {
     localStorage.setItem("storedFolders",folderString);
     closeForm('removeFolderForm');
     location.reload();
+}
+let folderChoiceIndex;
+function editFolder() {
+    closeForm('removeFolderForm');
+    let folderChoice = radioCheck("folderChoiceRemove");
+    folderChoiceIndex = folderList.indexOf(folderChoice);
+    openForm('folderChangesForm');
+    document.getElementById('folderNameChange').value = folderList[folderChoiceIndex];
+    document.getElementById('folderPositionChange').value = folderChoiceIndex + 1
+}
+function editFolderConfirm() {
+    folderList[folderChoiceIndex] = document.getElementById('folderNameChange').value;
+    let changingFolder = folderList[folderChoiceIndex];
+    folderList.splice(folderChoiceIndex, 1);
+    folderList.splice(document.getElementById('folderPositionChange').value, 0, changingFolder);
+    closeForm('folderChangesForm');
 }
 
 // Collapsible sidebar
@@ -756,7 +776,6 @@ function populateWeather(dataObj) {
     }
 }
 async function fetchWeather(request) {
-    // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
     let lat = weatherInfo.lat;
     let long = weatherInfo.long;
     let key = weatherInfo.key;

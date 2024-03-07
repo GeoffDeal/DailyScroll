@@ -64,7 +64,7 @@
                     <button type="button" id="cancelWeatherButton" class="formButton">Cancel</button>
                 </form>
             </div>
-            <button id="editRemoveButton"><i class="fa-solid fa-file-pen"></i>Edit/Remove Feeds</button><br>
+            <button id="editRemoveButton"><i class="fa-solid fa-file-pen"></i>Edit/Remove Feed</button><br>
             <div class="popupForm" id="editFeedForm">
                 <div id="feedRadiosList"></div>
                 <button id="editFeedButton">Edit</button>
@@ -82,11 +82,22 @@
                 <button id="editConfirmButton">Confirm</button>
                 <button id="cancelEditFeedButton">Cancel</button>
             </div>
-            <button id="removeFolderButton"><i class="fa-solid fa-folder-minus"></i>Remove Folder</button><br>
+            <button id="editRemoveFolderButton"><i class="fa-regular fa-folder-open"></i>Edit/Remove Folder</button><br>
             <div class="popupForm" id="removeFolderForm">
                 <div id="removeFolderRadios"></div>
-                <button id="removeFolderConfirm">Confirm</button>
-                <button id="removeFolderCancel">Cancel</button>
+                <button id="editFolderButton">Edit</button>
+                <button id="removeFolderButton">Remove</button>
+                <button id="editRemoveFolderCancel">Cancel</button>
+            </div>
+            <div class="popupForm" id="folderChangesForm">
+                <h3 id="folderNameChange"></h3><br>
+                <label for="feedNameChange">New name for folder:</label>
+                <input type="text" id="folderNameChange" name="folderNameChange"><br>
+                <label for="folderPositionChange">What position should this folder occupy:</label>
+                <input type="number" id="folderPositionChange" name="folderPositionChange"><br>
+                <div id="feedFolderChange"></div>
+                <button id="editConfirmButton">Confirm</button>
+                <button id="cancelEditFolderButton">Cancel</button>
             </div>
             <!-- <button>Export Settings</button> -->
             </i><button id="clearSettingsButton"><i class="fa-solid fa-circle-xmark"></i>Clear Saved Inputs</button><br>

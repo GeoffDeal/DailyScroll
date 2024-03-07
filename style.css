@@ -69,7 +69,6 @@ a:visited{
     color: #00bc8a;
 }
 .buttGroup button:hover ~ .tooltipText {
-    /* opacity: 1; */
     display: inline;
 }
 .buttGroup button:active{
@@ -97,11 +96,6 @@ a:visited{
     right: 50%;
     display: none;
 }
-/* .tooltip:hover .tooltipText {
-    opacity: 1;
-} */
-
-/* Main body styling */
 
 .main{
     margin-top: 120px;
@@ -295,6 +289,9 @@ h3 {
     #sidebarButts {
         margin-top: 30px;
     }
+    .buttGroup button:hover ~ .tooltipText {
+        display: inline;
+    }
 }
 
 /* Form Styling */
@@ -327,11 +324,14 @@ h3 {
     position: fixed;
     top: 100px;
     right: 0;
+    /* max-width: 150px;
+    max-height: 600px; */
 }
 #feedChangesForm {
     position: fixed;
     top: 100px;
     right: 0;
+
 }
 #weatherForm{
     position: fixed;
@@ -343,6 +343,14 @@ h3 {
     position: fixed;
     top: 140px;
     right: 20px;
+}
+#folderChangesForm{
+    position: fixed;
+    top: 140px;
+    right: 20px;
+}
+#folderPositionChange{
+    max-width: 32px;
 }
 #cityForm{
     position: fixed;
