@@ -690,11 +690,11 @@ if (weatherInfo === null){
     document.getElementById('Weather').addEventListener('click', displayWeather);
  }
 function displayWeather() {
-    console.log(forecastData);
+    // console.log(forecastData);
     if (document.getElementById('weatherDisplay')=== null){
         weatherCard();
         populateWeather(weatherData);
-        // populateWeather(forecastData);
+        generateForecast();
     }
 }
 function weatherCard() {
@@ -708,9 +708,6 @@ function weatherCard() {
     newCard.appendChild(weatherDiv);
     weatherDiv.id = 'weatherDiv';
 
-    let forecastDiv = document.createElement('div');
-    newCard.appendChild(forecastDiv);
-    forecastDiv.id = 'forecastDiv';
 }
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function populateWeather(dataObj) {
@@ -803,9 +800,135 @@ async function fetchWeather(request) {
             // document.getElementById(id).innerHTML = error
         })
 }
-function forecastHandling (dataObj) {
+
+// Forecast data handling
+
+document.getElementById('Weather').addEventListener('click', function () {
     
+})
+const forecastArrays = {
+    forecast0: [],
+    forecast1: [],
+    forecast2: [],
+    forecast3: [],
+    forecast4: [],
+    forecast5: [],
+    forecast6: [],
 }
+
+function dayFilter(timestamp) {
+    let dataDay = new Date(timestamp * 1000);
+    return dataDay.getDay();
+}
+
+function daySorting(forecastObj) {
+    let forecastArray = forecastObj.list;
+    for (let i = 0; i < forecastArray.length; i++) {
+        let timestamp = forecastArray[i].dt;
+        let weekday = dayFilter(timestamp);
+        let forecastArrayName = "forecast" + weekday;
+        forecastArrays[forecastArrayName].push(forecastArray[i]);
+    }
+}
+
+function populateForecast(dayArray) {
+    let forecastDiv = document.createElement('div');
+    document.getElementById('weatherDisplay').appendChild(forecastDiv);
+
+    
+    let forecastMain = document.createElement('h3');
+    let date = new Date(dayArray[0].dt * 1000);
+    let weekday = weekdays[date.getDay()];
+    forecastMain.innerHTML = weekday.slice(0, 3);
+    forecastDiv.appendChild(forecastMain);
+    
+    forecastDiv.id = 'forecastDiv' + weekday;
+    forecastDiv.className = 'forecastBlock';
+
+    let weatherIcon = document.createElement('i');
+    forecastDiv.appendChild(weatherIcon);
+    const iconArray = [];
+    for (let i = 0; i < dayArray.length; i++){
+        iconArray.push(dayArray[i].weather[0].icon);
+    }
+    let iconCode = findMode(iconArray);
+    let codeNum = iconCode.substring(0, iconCode.length - 1);
+    switch (codeNum) {
+        case '01':
+            weatherIcon.className = "fa-regular fa-sun";
+            break;
+        case '02':
+            weatherIcon.className = "fa-solid fa-cloud-sun";
+            break;
+        case '03':
+            weatherIcon.className = "fa-solid fa-cloud-sun";
+            break;
+        case '04':
+            weatherIcon.className = "fa-solid fa-cloud";
+            break;
+        case '09':
+            weatherIcon.className = "fa-solid fa-cloud-rain";
+            break;
+        case '10':
+            weatherIcon.className = "fa-solid fa-cloud-showers-heavy";
+            break;
+        case '11':
+            weatherIcon.className = "fa-solid fa-cloud-bolt";
+            break;
+        case '13':
+            weatherIcon.className = "fa-regular fa-snowflake";
+            break;
+        case '50':
+            weatherIcon.className = "fa-solid fa-smog";
+    }
+
+    const tempArray = [];
+    for (let i = 0; i < dayArray.length; i++){
+        tempArray.push(dayArray[i].main.temp);
+    }
+    let maxTempDisplay = document.createElement('p');
+    forecastDiv.appendChild(maxTempDisplay);
+    let maxTemp = Math.max(...tempArray);
+    let maxRounded = Math.round(maxTemp - 273.15);
+    let maxText = 'Max: ' + maxRounded + '&deg;C';
+    maxTempDisplay.innerHTML = maxText;
+
+    let minTempDisplay = document.createElement('p');
+    forecastDiv.appendChild(minTempDisplay);
+    let minTemp = Math.min(...tempArray);
+    let minRounded = Math.round(minTemp - 273.15);
+    let minText = 'Min: ' + minRounded + '&deg;C';
+    minTempDisplay.innerHTML = minText;
+
+}
+function findMode(array) {
+    let modeMap = {};
+    let maxCount = 0;
+    let modeElement;
+
+    array.forEach(element => {
+        modeMap[element] = (modeMap[element] || 0) + 1;
+        if (modeMap[element] > maxCount) {
+            maxCount = modeMap[element];
+            modeElement = element;
+        }
+    });
+    return modeElement;
+}
+function generateForecast() {
+    daySorting(forecastData);
+    currentDay = new Date();
+    currentWeekday = currentDay.getDay();
+    for (let i = 0; i < 5; i++) {
+        let forecastDay = currentWeekday + 1 + i;
+        if (forecastDay > 6) {
+            forecastDay = forecastDay - 7;
+        }
+        let forecastArrayName = "forecast" + forecastDay;
+        populateForecast(forecastArrays[forecastArrayName]);
+    }
+}
+
 // Setup Weather Widget
 
 document.getElementById('weatherFormButton').addEventListener("click", function() {openForm('weatherForm')});
