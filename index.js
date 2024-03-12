@@ -191,7 +191,7 @@ document.getElementById('editRemoveFolderButton').addEventListener('click', func
 document.getElementById('editRemoveFolderCancel').addEventListener('click', function () {closeForm('removeFolderForm')});
 document.getElementById('removeFolderButton').addEventListener('click', deleteFolder);
 document.getElementById('editFolderButton').addEventListener('click', editFolder);
-document.getElementById('editConfirmButton').addEventListener('click', editFolderConfirm);
+document.getElementById('editFolderConfirmButton').addEventListener('click', editFolderConfirm);
 document.getElementById('cancelEditFolderButton').addEventListener('click', function () {closeForm('folderChangesForm')});
 
 function deleteFolder() {
@@ -209,15 +209,21 @@ function editFolder() {
     let folderChoice = radioCheck("folderChoiceRemove");
     folderChoiceIndex = folderList.indexOf(folderChoice);
     openForm('folderChangesForm');
+    document.getElementById('folderPositionChange').setAttribute('max', folderList.length );
+    document.getElementById('folderChangeHeader').innerHTML = 'Editing ' + folderList[folderChoiceIndex];
     document.getElementById('folderNameChange').value = folderList[folderChoiceIndex];
-    document.getElementById('folderPositionChange').value = folderChoiceIndex + 1
+    document.getElementById('folderPositionChange').value = folderChoiceIndex + 1;
 }
 function editFolderConfirm() {
     folderList[folderChoiceIndex] = document.getElementById('folderNameChange').value;
     let changingFolder = folderList[folderChoiceIndex];
     folderList.splice(folderChoiceIndex, 1);
-    folderList.splice(document.getElementById('folderPositionChange').value, 0, changingFolder);
+    folderList.splice(document.getElementById('folderPositionChange').value - 1, 0, changingFolder);
     closeForm('folderChangesForm');
+    let folderString = JSON.stringify(folderList);
+    localStorage.setItem("storedFolders",folderString);
+    // location.reload();
+    console.log(folderList);
 }
 
 // Collapsible sidebar

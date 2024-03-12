@@ -90,13 +90,13 @@
                 <button id="editRemoveFolderCancel">Cancel</button>
             </div>
             <div class="popupForm" id="folderChangesForm">
-                <h3 id="folderNameChange"></h3><br>
-                <label for="feedNameChange">New name for folder:</label>
+                <h3 id="folderChangeHeader"></h3><br>
+                <label for="folderNameChange">New name for folder:</label>
                 <input type="text" id="folderNameChange" name="folderNameChange"><br>
                 <label for="folderPositionChange">What position should this folder occupy:</label>
-                <input type="number" id="folderPositionChange" name="folderPositionChange"><br>
-                <div id="feedFolderChange"></div>
-                <button id="editConfirmButton">Confirm</button>
+                <input type="number" id="folderPositionChange" name="folderPositionChange" min="1"><br>
+                <!-- <div id="feedFolderChange"></div> -->
+                <button id="editFolderConfirmButton">Confirm</button>
                 <button id="cancelEditFolderButton">Cancel</button>
             </div>
             <!-- <button>Export Settings</button> -->
