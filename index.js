@@ -809,9 +809,7 @@ async function fetchWeather(request) {
 
 // Forecast data handling
 
-document.getElementById('Weather').addEventListener('click', function () {
-    
-})
+
 const forecastArrays = {
     forecast0: [],
     forecast1: [],
