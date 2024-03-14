@@ -672,7 +672,8 @@ function masterConstruct(feedText) { //Check this
 
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
-        let url = 'https://corsproxy.io/?' + array[i].url;
+        let timestamp = Date.now();
+        let url = 'https://corsproxy.io/?' + array[i].url + '?timestamp=' + timestamp;
         let folder = array[i].folder;
         let name = array[i].name;
         getData(url)
