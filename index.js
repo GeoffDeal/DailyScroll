@@ -948,7 +948,7 @@ async function createWeather(event) {
     const userCity = document.getElementById('cityInput').value;
     const encodedCity = encodeURIComponent(userCity);
     const userAPI = document.getElementById('apiInput').value;
-    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
+    const apiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + encodedCity + '&limit=5&appid=' + userAPI;
     if (userAPI === null || userAPI === "") {
         alert("Please enter an API key");
     }
