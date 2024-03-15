@@ -431,12 +431,12 @@ h3 {
 /* Weather Components */
 #weatherDiv {
     width: 240px;
-    height: auto;
+    height: 240px;
     border-radius: 8px;
     margin: 8px;
     background-color: #1A0C18;
-    display: flexbox;
-    justify-content: center;
+    /* display: flexbox;
+    justify-content: center; */
     text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -447,12 +447,12 @@ h3 {
 }
 .forecastBlock{
     width: 120px;
-    height: auto;
+    height: 240px;
     border-radius: 8px;
     margin: 8px;
     background-color: #1A0C18;
-    display: flexbox;
-    justify-content: center;
+    /* display: flexbox;
+    justify-content: center; */
     text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;

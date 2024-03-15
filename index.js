@@ -689,12 +689,14 @@ let weatherData;
 let forecastData;
 
 let weatherInfo = JSON.parse(localStorage.getItem("storedWeather"));
-if (weatherInfo === null){
-    weatherInfo = {};
- } else {
+if (weatherInfo && weatherInfo.lat){
     fetchWeather('weather');
     fetchWeather('forecast');
     document.getElementById('Weather').addEventListener('click', displayWeather);
+    console.log("weather");
+ } else {
+    weatherInfo = {};
+    console.log("no weather");
  }
 function displayWeather() {
     // console.log(forecastData);
