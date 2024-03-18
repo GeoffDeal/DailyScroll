@@ -203,6 +203,12 @@ a:visited{
     margin-left: 8px;
     margin-right: 8px;
 }
+.contentCard iframe {
+    width: 60%;
+    /* height: auto; */
+    margin: auto;
+}
+
 .contentFeed{
     display: none;
 }
@@ -328,8 +334,6 @@ h3 {
     position: fixed;
     top: 100px;
     right: 0;
-    /* max-width: 150px;
-    max-height: 600px; */
 }
 #feedChangesForm {
     position: fixed;
@@ -456,14 +460,40 @@ h3 {
     text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;
-    float: left;
+    /* float: left; */
+}
+#forecastContainer {
+    width: auto;
+    margin: auto;
+    height: 240px;
 }
 @media screen and (max-width: 600px) {
     #weatherDiv {
-        width: calc(100% - 16px);
+        width: 240px;
+        margin-left: calc(50% - 120px);
+        margin-right: calc(50% - 120px);
     }
     .forecastBlock {
         width: 17%;
         margin-right: auto;
+    }
+    #forecastContainer {
+        margin:auto;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 992px) {
+    #weatherDiv {
+        width: 240px;
+        margin-left: calc(50% - 120px);
+        margin-right: calc(50% - 120px);
+    }
+    .forecastBlock {
+        width: 80px;
+        margin-left: auto;
+    }
+    #forecastContainer {
+        margin-left: auto;
+        margin-right: auto;
+        /* float: left; */
     }
 }

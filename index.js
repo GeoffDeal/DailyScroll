@@ -550,7 +550,7 @@ async function getData(url) {
 
 const articleArray = [];
 
-function Article(link, title, desc, pubDate, folder, feedName, cardId){
+function Article(link, title, desc, pubDate, folder, feedName, cardId, ytId){
     this.link = link;
     this.title = title;
     this.desc = desc;
@@ -558,6 +558,7 @@ function Article(link, title, desc, pubDate, folder, feedName, cardId){
     this.folder = folder;
     this.feedName = feedName;
     this.cardId = cardId;
+    this.ytId = ytId;
 }
 
 function createArticleObj(xmlDoc, folder, name) {
@@ -591,10 +592,10 @@ function createArticleObj(xmlDoc, folder, name) {
             }
             let pubDate = node.getElementsByTagName('updated')[0].textContent;
             let feedName = name;
-            // let x = pubDate.replace(/\w{3}, /,'');summary
+            let ytId = node.getElementsByTagName('yt:videoId')[0].textContent;
             timestamp = Date.parse(pubDate);
             let cardId = name + timestamp;
-            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
+            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId, ytId);
             articleArray.push(articleObj);
         }
     }
@@ -634,10 +635,22 @@ function cardConstruct(obj) {
     linkWrapper.appendChild(newTitle);
     newTitle.innerHTML = itemTitle;
     
-    let itemDesc = obj.desc;
-    let newDesc = document.createElement('p');
-    newCard.appendChild(newDesc);
-    newDesc.innerHTML = itemDesc;
+    if (obj.ytId !== undefined) {
+        let ytUrl = 'https://www.youtube.com/embed/' + obj.ytId;
+        let newVideo = document.createElement('iframe');
+        newCard.appendChild(newVideo);
+        newVideo.setAttribute('width', '600');
+        newVideo.setAttribute('height', '338');
+        newVideo.setAttribute('src', ytUrl);
+        newVideo.setAttribute('frameborder', '0')
+    }
+
+    if (obj.desc !== undefined) {
+        let itemDesc = obj.desc;
+        let newDesc = document.createElement('p');
+        newCard.appendChild(newDesc);
+        newDesc.innerHTML = itemDesc;
+    }
     
     let itemDate = obj.pubDate;
     let newDate = document.createElement('p');
@@ -722,7 +735,9 @@ function weatherCard() {
     let weatherDiv = document.createElement('div');
     newCard.appendChild(weatherDiv);
     weatherDiv.id = 'weatherDiv';
-
+    let forecastContainer = document.createElement('div');
+    newCard.appendChild(forecastContainer);
+    forecastContainer.id = 'forecastContainer';
 }
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function populateWeather(dataObj) {
@@ -846,7 +861,7 @@ function daySorting(forecastObj) {
 
 function populateForecast(dayArray) {
     let forecastDiv = document.createElement('div');
-    document.getElementById('weatherDisplay').appendChild(forecastDiv);
+    document.getElementById('forecastContainer').appendChild(forecastDiv);
 
     
     let forecastMain = document.createElement('h3');
@@ -1043,8 +1058,5 @@ function saveCity(apiResponse) {
         location.reload();
     }
 }
-
-//Youtube link conversion
-
 
 
