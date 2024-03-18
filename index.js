@@ -673,7 +673,13 @@ function masterConstruct(feedText) { //Check this
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
         let timestamp = Date.now();
-        let url = 'https://corsproxy.io/?' + array[i].url + '?timestamp=' + timestamp;
+        let url = array[i].url;
+        let queryCheck = url.split('?');
+        if (queryCheck[1]){
+            url = 'https://corsproxy.io/?' + url + '&timestamp=' + timestamp;
+        } else {
+            url = 'https://corsproxy.io/?' + url + '?timestamp=' + timestamp;
+        }
         let folder = array[i].folder;
         let name = array[i].name;
         getData(url)
@@ -1037,6 +1043,8 @@ function saveCity(apiResponse) {
         location.reload();
     }
 }
+
+//Youtube link conversion
 
 
 

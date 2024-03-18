@@ -458,4 +458,12 @@ h3 {
     padding-bottom: 4px;
     float: left;
 }
-
+@media screen and (max-width: 600px) {
+    #weatherDiv {
+        width: calc(100% - 16px);
+    }
+    .forecastBlock {
+        width: 17%;
+        margin-right: auto;
+    }
+}
