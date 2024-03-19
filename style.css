@@ -460,7 +460,7 @@ h3 {
     text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;
-    /* float: left; */
+    float: left;
 }
 #forecastContainer {
     width: auto;

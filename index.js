@@ -104,9 +104,18 @@ for (let i = 0; i < rssList.length; i++) {
 
 // Edit Feed
 
-document.getElementById('editRemoveButton').addEventListener("click", function() {openForm('editFeedForm')});
-document.getElementById('editFeedButton').addEventListener("click", editFeed);
-document.getElementById('cancelEditButton').addEventListener("click", function() {closeForm('editFeedForm')});
+document.getElementById('editRemoveButton').addEventListener("click", function(event) {
+    openForm('editFeedForm');
+    event.preventDefault();
+});
+document.getElementById('editFeedButton').addEventListener("click", function(event) {
+    editFeed();
+    event.preventDefault();
+});
+document.getElementById('cancelEditButton').addEventListener("click", function(event) {
+    closeForm('editFeedForm');
+    event.preventDefault();
+});
 
 
 let changingFeed = "";
@@ -139,7 +148,10 @@ function editFeedConfirm() {
     }
 }
 
-document.getElementById("cancelEditFeedButton").addEventListener("click", cancelEdit);
+document.getElementById("cancelEditFeedButton").addEventListener("click", function(event) {
+    cancelEdit();
+    event.preventDefault();
+});
 
 function cancelEdit() {
     closeForm('feedChangesForm');
@@ -187,12 +199,24 @@ function deleteFeed() {
 
 // Edit/Delete Folder
 
-document.getElementById('editRemoveFolderButton').addEventListener('click', function () {openForm('removeFolderForm')});
-document.getElementById('editRemoveFolderCancel').addEventListener('click', function () {closeForm('removeFolderForm')});
+document.getElementById('editRemoveFolderButton').addEventListener('click', function (event) {
+    openForm('removeFolderForm');
+    event.preventDefault();
+});
+document.getElementById('editRemoveFolderCancel').addEventListener('click', function (event) {
+    closeForm('removeFolderForm');
+    event.preventDefault();
+});
 document.getElementById('removeFolderButton').addEventListener('click', deleteFolder);
-document.getElementById('editFolderButton').addEventListener('click', editFolder);
+document.getElementById('editFolderButton').addEventListener('click', function (event){
+    editFolder();
+    event.preventDefault();
+});
 document.getElementById('editFolderConfirmButton').addEventListener('click', editFolderConfirm);
-document.getElementById('cancelEditFolderButton').addEventListener('click', function () {closeForm('folderChangesForm')});
+document.getElementById('cancelEditFolderButton').addEventListener('click', function (event) {
+    closeForm('folderChangesForm')
+    event.preventDefault();
+});
 
 function deleteFolder() {
     let folderChoice = radioCheck("folderChoiceRemove");
@@ -592,7 +616,12 @@ function createArticleObj(xmlDoc, folder, name) {
             }
             let pubDate = node.getElementsByTagName('updated')[0].textContent;
             let feedName = name;
-            let ytId = node.getElementsByTagName('yt:videoId')[0].textContent;
+            let ytId;
+            if (node.getElementsByTagName('yt:videoId').length > 0) {
+                ytId = node.getElementsByTagName('yt:videoId')[0].textContent;
+            } else {
+                ytId = undefined;
+            }
             timestamp = Date.parse(pubDate);
             let cardId = name + timestamp;
             const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId, ytId);
