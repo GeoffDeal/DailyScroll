@@ -79,7 +79,6 @@ function saveFeed() {
     catch (err) {
         alert(err)
     }
-    console.log(rssList);
 }
 
 // Edit/Remove Feeds Feed List
@@ -296,7 +295,7 @@ function tabDisplay(whichTab) {
         while (contentFolder.firstChild){
             contentFolder.removeChild(contentFolder.firstChild);
         }
-        articleArray.sort((a, b) => {b - a
+        articleArray.sort((a, b) => {
             x = a.pubDate.replace(/\w{3}, /,'');
             timestampA = Date.parse(x);
             y = b.pubDate.replace(/\w{3}, /,'');
@@ -437,7 +436,6 @@ function folderListCreate (container, idNum, uniqueName) {
         radioContainer.appendChild(radio);
     
         let label = document.createElement("label");
-        // label.htmlFor = "radio" + folderList[i];
         label.htmlFor = radio.id;
         label.innerHTML = folderList[i];
         radioContainer.appendChild(label);
@@ -482,7 +480,7 @@ function createCardForm(cardId) {
 
     let newHideButton = document.createElement('button');
     newHideButton.innerHTML = "Hide Article";
-    // newHideButton.addEventListener('click', );
+    // newHideButton.addEventListener('click', ); 
     menuForm.appendChild(newHideButton);
     appendBreak(menuForm);
 
@@ -563,7 +561,6 @@ async function getData(url) {
     }
     let feedText = await data.text();
     let xmlDoc = parser.parseFromString(feedText, "text/xml");
-    console.log("Got Feed!" + url);
     return xmlDoc;
 }
 
@@ -595,7 +592,8 @@ function createArticleObj(xmlDoc, folder, name) {
             let x = pubDate.replace(/\w{3}, /,'');
             timestamp = Date.parse(x);
             let cardId = name + timestamp;
-            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId);
+            ytId = undefined;
+            const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId, ytId);
             articleArray.push(articleObj);
         }
     }
@@ -689,7 +687,7 @@ function cardConstruct(obj) {
 let xmlMaster;
 const serializer = new XMLSerializer();
 
-function masterConstruct(feedText) { //Check this
+function masterConstruct(feedText) {
     if (xmlMaster === undefined) {
         masterString = '<?xml version="1.0" encoding="utf-8"?><masterroot>' + feedText + "</masterroot>"
         xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
@@ -728,8 +726,8 @@ function getAllFeeds (array) {
 
 getAllFeeds(rssList);
 
-
 // Weather Call
+
 let weatherData;
 let forecastData;
 
@@ -738,14 +736,11 @@ if (weatherInfo && weatherInfo.lat){
     fetchWeather('weather');
     fetchWeather('forecast');
     document.getElementById('Weather').addEventListener('click', displayWeather);
-    console.log("weather");
  } else {
     weatherInfo = {};
-    console.log("no weather");
  }
 function displayWeather() {
-    // console.log(forecastData);
-    if (document.getElementById('weatherDisplay')=== null){
+    if (document.getElementById('weatherDisplay') === null){
         weatherCard();
         populateWeather(weatherData);
         generateForecast();
@@ -852,7 +847,7 @@ async function fetchWeather(request) {
             }
         })
         .catch(error => {
-            // id = weatherCard + 'Desc';
+            console.log(error);
             // document.getElementById(id).innerHTML = error
         })
 }
@@ -1041,7 +1036,7 @@ function cityConfirmation(apiResponse) {
 
         let cityLabel = document.createElement('label');
         cityLabel.setAttribute("for", cityRadio.id);
-        cityLabel.innerHTML = apiResponse[i].name + ", " + apiResponse[i].state + ", " + apiResponse[i].country + ", lat:" + apiResponse[i].lat + ", long:" + apiResponse[i].lon;
+        cityLabel.innerHTML = apiResponse[i].name + ", " + apiResponse[i].state + ", " + apiResponse[i].country + ", lat: " + Math.trunc(apiResponse[i].lat) + ", long: " + Math.trunc(apiResponse[i].lon);
         cityForm.appendChild(cityLabel)
 
         document.createElement('br');
@@ -1052,7 +1047,6 @@ function cityConfirmation(apiResponse) {
     confirmButton.id = 'cityConfirmButton';
     confirmButton.addEventListener('click', function() {
         saveCity(apiResponse);
-
     })
     confirmButton.innerHTML = 'Confirm';
     cityForm.appendChild(confirmButton);
@@ -1074,7 +1068,6 @@ function saveCity(apiResponse) {
         let lat = apiResponse[j].lat;
         let long = apiResponse[j].lon;
 
-        console.log('test ');
         weatherInfo.lat = lat;
         weatherInfo.long = long;
         let weatherString = JSON.stringify(weatherInfo);

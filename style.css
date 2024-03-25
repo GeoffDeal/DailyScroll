@@ -58,7 +58,6 @@ a:visited{
 }
 .buttGroup button{
     background-color: transparent;
-    /* border-radius: 8px; */
     color: white;
     padding: 6px;
     font-size: large;
@@ -82,7 +81,6 @@ a:visited{
     display: inline-block;
 }
 .tooltip .tooltipText {
-    /* opacity: 0; */
     transition: 0.2s;
     width: auto;
     background-color: black;
@@ -226,10 +224,11 @@ a:visited{
     position: absolute;
     right: 5px;
     top: 5px;
+    text-align: center;
 }
 .cardMenu button {
-    background-color: #1A0C18;
-    border-radius: 8px;
+    background-color: transparent;
+    border: none;
     color: white;
     padding: 6px;
     font-size: large;
@@ -359,8 +358,8 @@ h3 {
 
 }
 .formButton{
-    background-color: rgba(4, 32, 35, 0.782);
-    border-radius: 8px;
+    background-color: transparent;
+    border: none;
     color: white;
     padding: 6px;
     font-size: large;
@@ -425,8 +424,6 @@ h3 {
     border-radius: 8px;
     margin: 8px;
     background-color: #1A0C18;
-    /* display: flexbox;
-    justify-content: center; */
     text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;
