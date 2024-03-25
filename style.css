@@ -115,11 +115,8 @@ a:visited{
     max-height: 50px;
     white-space: nowrap;
     overflow-x: scroll;
-    scrollbar-color: transparent #00bc8a;
     scrollbar-width: none;
     width: 95%;
-    rotate: 180deg;
-    direction: rtl;
 }
 #folderTabs:hover{
     scrollbar-width: thin;
@@ -134,9 +131,7 @@ a:visited{
     font-size: 20px;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    /* margin-right: 2px; */
     min-width: 75px;
-    rotate: 180deg;
 }
 .tabGroup button.active {
     background-color: #00bc8a;
@@ -145,19 +140,6 @@ a:visited{
     background-color: #00bc8a;
 }
 
-/* Webkit scrollbar colour */
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #00bc8a;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
 
 /* Content folder styling */
 

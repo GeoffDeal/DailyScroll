@@ -6,7 +6,6 @@ if (folderList === null){
     folderList = [];
  }
 
-
  let rssList = JSON.parse(localStorage.getItem("storedFeeds"));
 
  if (rssList === null) {
@@ -246,8 +245,6 @@ function editFolderConfirm() {
     closeForm('folderChangesForm');
     let folderString = JSON.stringify(folderList);
     localStorage.setItem("storedFolders",folderString);
-    // location.reload();
-    console.log(folderList);
 }
 
 // Collapsible sidebar
@@ -277,7 +274,6 @@ for ( i=0; i < folderList.length; i++) {
     newTab.innerHTML = folderList[i];
     document.getElementById('folderTabs').appendChild(newTab);
 }
-
 
 // Switch tab active
 
@@ -441,7 +437,8 @@ function folderListCreate (container, idNum, uniqueName) {
         radioContainer.appendChild(radio);
     
         let label = document.createElement("label");
-        label.htmlFor = "radio" + folderList[i];
+        // label.htmlFor = "radio" + folderList[i];
+        label.htmlFor = radio.id;
         label.innerHTML = folderList[i];
         radioContainer.appendChild(label);
     
@@ -1087,5 +1084,3 @@ function saveCity(apiResponse) {
         location.reload();
     }
 }
-
-
