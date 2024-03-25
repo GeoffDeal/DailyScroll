@@ -557,7 +557,7 @@ let parser = new DOMParser();
 async function getData(url) {
     let data = await fetch(url);
     if (!data.ok) {
-        throw new Error("Could Not Retrieve Data");
+        console.log("Could not retrieve data from: " + url);
     }
     let feedText = await data.text();
     let xmlDoc = parser.parseFromString(feedText, "text/xml");
@@ -682,30 +682,7 @@ function cardConstruct(obj) {
     newDate.innerHTML = itemDate;
 }
 
-// Card Sorting and Display
-
-let xmlMaster;
-const serializer = new XMLSerializer();
-
-function masterConstruct(feedText) {
-    if (xmlMaster === undefined) {
-        masterString = '<?xml version="1.0" encoding="utf-8"?><masterroot>' + feedText + "</masterroot>"
-        xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
-    }
-    else {
-        masterString = serializer.serializeToString(xmlMaster);
-        masterString = masterString.replace(/<\/masterroot>$/, '');
-        masterString += feedText;
-        masterString += "</masterroot>";
-        xmlMaster = new DOMParser().parseFromString(masterString, "text/xml");
-    }
-
-    const dateList = xmlMaster.getElementsByTagName('pubDate');
-    for (let i = 0; i < dateList.length; i++) {
-        let pubDate = dateList[i].textContent;
-        if (cardArray.indexOf(pubDate) === -1){cardArray.push(pubDate)};
-    }
-}
+// Fetching all feeds
 
 function getAllFeeds (array) {
     for (let i =0 ; i < array.length; i++) {
