@@ -1084,7 +1084,7 @@ function handleOpml (fileText) {
         let outlines = opmlDoc.getElementsByTagName('outline');
         let categoryOutlines = [];
         let feedOutlines = [];
-        for (i = 0; i < outlines.length; i++) {
+        for (let i = 0; i < outlines.length; i++) {
             if (outlines[i].parentNode.nodeName !== 'outline') {
                 categoryOutlines.push(outlines[i]);
             }else {
@@ -1099,19 +1099,66 @@ function handleOpml (fileText) {
                 feedOutlines.push(feedObj);
             }
         }
-        for (i = 0; i < categoryOutlines.length; i++) {
+        for (let i = 0; i < categoryOutlines.length; i++) {
             createFolder(categoryOutlines[i].getAttribute('text'));
         }
-        for (i = 0; i < feedOutlines.length; i++) {
+        for (let i = 0; i < feedOutlines.length; i++) {
             const newFeed = new Feed(feedOutlines[i].name, feedOutlines[i].link, feedOutlines[i].folder);
             rssList.push(newFeed);
             let feedString = JSON.stringify(rssList);
             localStorage.setItem("storedFeeds", feedString);
         }
-        console.log(rssList);
+        location.reload();
 
     } else {
         alert('Upload must be an OPML file');
     }
     closeForm('importForm');
+}
+
+//Export OPML
+
+document.getElementById('exportButton').addEventListener("click", downloadOpml);
+
+function buildOpmlString() {
+    let opmlString = '<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0">\n<head>\n<title>DailyScroll OPML Export File</title>\n</head>\n<body>';
+    let rssStrings = {};
+    for (let i = 0; i < rssList.length; i++) {
+        let text = rssList[i].name;
+        let xmlUrl = rssList[i].url;
+        let folder = rssList[i].folder;
+
+        let feedString = '<outline text="' + text + '" title="' + text + '" type="rss" xmlUrl="' + xmlUrl +'"/>';
+        
+        if (!rssStrings.hasOwnProperty(folder)) {
+            rssStrings[folder] = [];
+        }
+        rssStrings[folder].push(feedString);
+    }
+    let parentOutlines = [];
+    for (let key in rssStrings) {
+        let folderName = key;
+        let outlineString = '<outline text="' + folderName + '" title="' + folderName +'">\n';
+        let strings = rssStrings[key];
+        for (let i = 0; i < strings.length; i++) {
+            outlineString += strings[i] + '\n';
+        }
+        outlineString += '</outline>\n';
+        parentOutlines.push(outlineString);
+    }
+    for (let i = 0; i < parentOutlines.length; i++) {
+        opmlString += parentOutlines[i];
+    }
+    opmlString += "</body>\n</opml>";
+    return opmlString;
+}
+function downloadOpml () {
+    let string = buildOpmlString();
+    let blob = new Blob([string], {type: 'text/xml' });
+    let link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'dailyscrollexport.opml'
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
