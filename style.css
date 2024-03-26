@@ -351,6 +351,11 @@ h3 {
     right: 0;
     display: block;
 }
+#importForm{
+    position: fixed;
+    top: 110px;
+    right: 0;
+}
 .formContainter{
     max-width: 300px;
     padding: 50px;

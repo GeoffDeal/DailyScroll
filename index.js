@@ -1054,3 +1054,64 @@ function saveCity(apiResponse) {
         location.reload();
     }
 }
+
+// Import settings
+
+document.getElementById('importButton').addEventListener("click", function() {
+    openForm('importForm');
+});
+document.getElementById('importCancelButton').addEventListener("click", function() {
+    closeForm('importForm');
+});
+document.getElementById('importSettingsButton').addEventListener("click", fileToText);
+
+const reader = new FileReader();
+
+function fileToText () {
+    let input = document.getElementById('fileInput');
+    let file = input.files[0];
+
+    reader.onload = function (event) {
+        let fileText = event.target.result;
+        handleOpml(fileText);
+    }
+    reader.readAsText(file);
+}
+
+function handleOpml (fileText) {
+    let opmlDoc = parser.parseFromString(fileText, "text/xml");
+    if (opmlDoc.getElementsByTagName('opml')) {
+        let outlines = opmlDoc.getElementsByTagName('outline');
+        let categoryOutlines = [];
+        let feedOutlines = [];
+        for (i = 0; i < outlines.length; i++) {
+            if (outlines[i].parentNode.nodeName !== 'outline') {
+                categoryOutlines.push(outlines[i]);
+            }else {
+                let feedName = outlines[i].getAttribute('text');
+                let feedLink = outlines[i].getAttribute('xmlUrl');
+                let feedFolder = outlines[i].parentNode.getAttribute('text');
+                let feedObj = {
+                    name: feedName,
+                    link: feedLink,
+                    folder: feedFolder
+                }
+                feedOutlines.push(feedObj);
+            }
+        }
+        for (i = 0; i < categoryOutlines.length; i++) {
+            createFolder(categoryOutlines[i].getAttribute('text'));
+        }
+        for (i = 0; i < feedOutlines.length; i++) {
+            const newFeed = new Feed(feedOutlines[i].name, feedOutlines[i].link, feedOutlines[i].folder);
+            rssList.push(newFeed);
+            let feedString = JSON.stringify(rssList);
+            localStorage.setItem("storedFeeds", feedString);
+        }
+        console.log(rssList);
+
+    } else {
+        alert('Upload must be an OPML file');
+    }
+    closeForm('importForm');
+}
