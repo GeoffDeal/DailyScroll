@@ -1102,7 +1102,9 @@ function handleOpml (fileText) {
                     link: feedLink,
                     folder: feedFolder
                 }
-                feedOutlines.push(feedObj);
+                if (!doublesCheck(feedObj)) {
+                    feedOutlines.push(feedObj);
+                }
             }
         }
         for (let i = 0; i < categoryOutlines.length; i++) {
@@ -1120,6 +1122,15 @@ function handleOpml (fileText) {
         alert('Upload must be an OPML file');
     }
     closeForm('importForm');
+}
+function doublesCheck (feedObj) {
+    let check = false;
+    for (let i = 0; i < rssList.length; i++) {
+        if (feedObj.link === rssList[i].url) {
+            check = true;
+        }
+    }
+    return check;
 }
 
 //Export OPML
@@ -1168,3 +1179,5 @@ function downloadOpml () {
     link.click();
     document.body.removeChild(link);
 }
+
+console.log(rssList);
