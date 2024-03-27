@@ -586,7 +586,13 @@ function createArticleObj(xmlDoc, folder, name) {
             let node = itemList[i];
             let link = node.getElementsByTagName('link')[0].textContent;
             let title = node.getElementsByTagName('title')[0].textContent;
-            let desc = node.getElementsByTagName('description')[0].textContent;
+            let desc;
+            if (node.getElementsByTagName('description').length > 0) {
+                desc = node.getElementsByTagName('description')[0].textContent;
+            }
+            if (node.getElementsByTagName('content:encoded').length > 0) {
+                desc = node.getElementsByTagName('content:encoded')[0].textContent;
+            }
             let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
             let feedName = name;
             let x = pubDate.replace(/\w{3}, /,'');
