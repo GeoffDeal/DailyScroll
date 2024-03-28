@@ -424,20 +424,24 @@ function closeForm (x) {
     document.getElementById(x).style.display = "none";
 };
 
+// Create folder radios
+
 function folderListCreate (container, idNum, uniqueName) {
-    for (let i = 0; i < folderList.length; i++) {
+    let folders = folderList;
+    folders.push("None");
+    for (let i = 0; i < folders.length; i++) {
         let radioContainer = document.getElementById(container);
     
         let radio = document.createElement("input");
         radio.type = "radio";
-        radio.id = "radio" + folderList[i] + idNum;
+        radio.id = "radio" + folders[i] + idNum;
         radio.name = "folderChoice" + uniqueName;
-        radio.value = folderList[i];
+        radio.value = folders[i];
         radioContainer.appendChild(radio);
     
         let label = document.createElement("label");
         label.htmlFor = radio.id;
-        label.innerHTML = folderList[i];
+        label.innerHTML = folders[i];
         radioContainer.appendChild(label);
     
         let lineBreak = document.createElement("br");
@@ -1132,6 +1136,7 @@ function doublesCheck (feedObj) {
     }
     return check;
 }
+
 
 //Export OPML
 
