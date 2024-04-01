@@ -427,7 +427,7 @@ function closeForm (x) {
 // Create folder radios
 
 function folderListCreate (container, idNum, uniqueName) {
-    let folders = folderList;
+    let folders = [...folderList];
     folders.push("None");
     for (let i = 0; i < folders.length; i++) {
         let radioContainer = document.getElementById(container);
@@ -1186,3 +1186,4 @@ function downloadOpml () {
 }
 
 console.log(rssList);
+console.log(folderList);
