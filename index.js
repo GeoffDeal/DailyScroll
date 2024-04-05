@@ -598,9 +598,9 @@ function createArticleObj(xmlDoc, folder, name) {
                 desc = node.getElementsByTagName('content:encoded')[0].textContent;
             }
             let pubDate = node.getElementsByTagName('pubDate')[0].textContent;
-            let feedName = name;
             let x = pubDate.replace(/\w{3}, /,'');
             timestamp = Date.parse(x);
+            let feedName = name;
             let cardId = name + timestamp;
             ytId = undefined;
             const articleObj = new Article(link, title, desc, pubDate, folder, feedName, cardId, ytId);
@@ -687,9 +687,11 @@ function cardConstruct(obj) {
     }
     
     let itemDate = obj.pubDate;
+    let standardizedDate = new Date(itemDate);
+    let date = standardizedDate.toLocaleString();
     let newDate = document.createElement('p');
     newCard.appendChild(newDate);
-    newDate.innerHTML = itemDate;
+    newDate.innerHTML = date;
 }
 
 // Fetching all feeds
