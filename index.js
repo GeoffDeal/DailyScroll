@@ -482,11 +482,11 @@ function createCardForm(cardId) {
         appendBreak(menuForm);
     }
 
-    let newHideButton = document.createElement('button');
-    newHideButton.innerHTML = "Hide Article";
+    // let newHideButton = document.createElement('button');
+    // newHideButton.innerHTML = "Hide Article";
     // newHideButton.addEventListener('click', ); 
-    menuForm.appendChild(newHideButton);
-    appendBreak(menuForm);
+    // menuForm.appendChild(newHideButton);
+    // appendBreak(menuForm);
 
     let newCancelButton = document.createElement('button');
     newCancelButton.innerHTML = "Cancel";
@@ -1185,5 +1185,3 @@ function downloadOpml () {
     document.body.removeChild(link);
 }
 
-console.log(rssList);
-console.log(folderList);

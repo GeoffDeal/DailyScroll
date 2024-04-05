@@ -28,6 +28,9 @@ a:visited{
     animation-duration: 2s;
     animation-iteration-count: 1;
 }
+button {
+    cursor: pointer;
+}
 .header{
     position: fixed;
     top: 0;
@@ -413,6 +416,14 @@ h3 {
     margin-left: 4pxpx;
     padding: 8px;
     text-align: left;
+}
+#sidebar button:hover{
+   /* font-weight: bold; */
+   background-color: rgba(27, 27, 27, .6);
+   border-radius: 16px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: #00bc8a;
 }
 #sidebar i{
     margin-left: 8px;
