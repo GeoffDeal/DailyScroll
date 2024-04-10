@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+<head>
+<title>DailyScroll OPML Export File</title>
+</head>
+<body><outline text="Comics" title="Comics">
+<outline text="Garfield" title="Garfield" type="rss" xmlUrl="https://www.comicsrss.com/rss/garfield.rss"/>
+<outline text="SMBC" title="SMBC" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss"/>
+<outline text="XKCD" title="XKCD" type="rss" xmlUrl="https://xkcd.com/rss.xml"/>
+<outline text="Dinosaur Comics" title="Dinosaur Comics" type="rss" xmlUrl="https://www.comicsrss.com/rss/dinosaur-comics.rss"/>
+</outline>
+<outline text="News" title="News">
+<outline text="CBC Top News" title="CBC Top News" type="rss" xmlUrl="https://www.cbc.ca/webfeed/rss/rss-topstories"/>
+<outline text="VOCM News" title="VOCM News" type="rss" xmlUrl="https://vocm.com/feed/"/>
+</outline>
+<outline text="NL" title="NL">
+<outline text="NL Archeology" title="NL Archeology" type="rss" xmlUrl="https://nlarchaeology.wordpress.com/feed/"/>
+</outline>
+<outline text="Weather" title="Weather">
+<outline text="Spaceweather Stormwatch" title="Spaceweather Stormwatch" type="rss" xmlUrl="https://www.spaceweather.gc.ca/rss_feed/rss_feed_warning_eng.xml"/>
+<outline text="Gov Weather Alerts" title="Gov Weather Alerts" type="rss" xmlUrl="https://weather.gc.ca/rss/battleboard/nl28_e.xml"/>
+</outline>
+<outline text="Philosophy" title="Philosophy">
+<outline text="Philosophy Tube" title="Philosophy Tube" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2PA-AKmVpU6NKCGtZq_rKQ"/>
+</outline>
+<outline text="Game Design" title="Game Design">
+<outline text="GMTK" title="GMTK" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqJ-Xo29CKyLTjn6z2XwYAw"/>
+<outline text="Godot Blog" title="Godot Blog" type="rss" xmlUrl="https://godotengine.org/rss.xml"/>
+</outline>
+</body>
+</opml>
